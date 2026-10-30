@@ -69,8 +69,6 @@
         .page-shell { border:1px solid #e2e8f0; border-radius:1.5rem; background:#fff; padding:clamp(1.1rem,3vw,2.25rem); box-shadow:0 12px 32px rgba(15,23,42,.045); }
         .partner-card { position:relative; border:1px solid #dbe4e8; border-radius:1.25rem; background:linear-gradient(145deg,#fff 0%,#f8fffb 100%); box-shadow:0 6px 18px rgba(15,23,42,.045); transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease; }
         .partner-card:hover { transform:translateY(-2px); border-color:#86efac; box-shadow:0 12px 26px rgba(16,185,129,.10); }
-        .admin-chart-wrap { overflow-x:auto; overscroll-behavior-x:contain; }
-        .admin-chart-svg { display:block; width:100%; min-width:600px; height:auto; }
         .data-row { display:grid; grid-template-columns:minmax(7rem, .7fr) minmax(0,1.3fr); gap:1rem; border-bottom:1px solid #f1f5f9; padding:.85rem 0; }
         .data-row:last-child { border-bottom:0; }
         .mobile-menu-item { display:flex; width:100%; align-items:center; gap:.75rem; border-radius:.75rem; padding:.72rem .8rem; color:#334155; text-align:left; font-size:.875rem; font-weight:650; transition:background .15s ease,color .15s ease; }
@@ -78,7 +76,35 @@
         .mobile-menu-item > i { width:1.05rem; height:1.05rem; flex:0 0 1.05rem; }
         @media(max-width:640px){.data-row{grid-template-columns:1fr;gap:.25rem}}
         @media(min-width:641px){#mobile-menu-panel{display:none !important}}
-        @media(max-width:640px){header>div{gap:.5rem}header .text-2xl{font-size:1.15rem}header .text-\[10px\]{font-size:9px}#toast{top:.75rem;right:.75rem;width:calc(100vw - 1.5rem)}#notification-button,#menu-button{width:2.25rem;height:2.25rem}#user-profile-widget{max-width:100%}#user-name-display{max-width:34vw}}
+        @media(max-width:640px){
+            header>div{gap:.5rem} header .text-2xl{font-size:1.15rem} header .text-\[10px\]{font-size:9px}
+            #toast{top:.75rem;right:.75rem;width:calc(100vw - 1.5rem)}
+            #notification-button,#menu-button{width:2.25rem;height:2.25rem}
+            #user-profile-widget{max-width:3rem;flex:0 0 auto}
+            #user-name-display{display:none!important}
+            #user-profile-widget>button{padding:.35rem;border:0;background:transparent}
+            #notifications-panel{position:fixed;top:4.25rem;right:.75rem;left:.75rem;width:auto;max-height:calc(100dvh - 5.5rem);flex-direction:column}
+            #notifications-panel:not(.hidden){display:flex}
+            #notifications-panel.hidden{display:none!important}
+            #notifications-list{max-height:calc(100dvh - 12rem);overflow-y:auto;overscroll-behavior:contain;min-height:0}
+            #tab-notifications .page-shell{padding:1rem}
+            #tab-notifications #notifications-page-list{max-height:calc(100dvh - 16rem);overflow-y:auto;overscroll-behavior:contain;padding-right:.15rem;min-width:0}
+            #tab-notifications #notifications-page-list article{min-width:0;overflow-wrap:anywhere}
+            #fund-total-text{font-size:clamp(1.05rem,5vw,1.45rem);line-height:1.2;max-width:100%;min-width:0;overflow-wrap:anywhere;text-align:left}
+            #tab-donations .bg-slate-50.p-6.rounded-2xl{padding:1rem}
+            #tab-profile .bg-white.rounded-3xl{padding:1rem}
+            #tab-profile .profile-heading{flex-direction:column;align-items:center;text-align:center;gap:1rem}
+            #tab-profile .profile-heading>div:last-child{width:100%;min-width:0}
+            #profile-page-name,#profile-page-email{overflow-wrap:anywhere}
+        }
+        @media(min-width:641px){#mobile-menu-panel{display:none !important}}
+        #fund-total-text{font-variant-numeric:tabular-nums;white-space:normal;overflow-wrap:anywhere}
+        #tab-profile #profile-page-avatar{display:block;flex:none;width:clamp(5rem,18vw,6rem);height:clamp(5rem,18vw,6rem);object-fit:cover;object-position:center;border-radius:9999px}
+        #tab-notifications #notifications-page-list{min-width:0}
+        #notifications-panel{overflow:hidden}
+        #admin-details-modal .admin-detail-content{max-height:min(76dvh,48rem);overflow-y:auto;overscroll-behavior:contain}
+        .admin-detail-gallery{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:.65rem}
+        .admin-detail-gallery img{width:100%;height:120px;object-fit:cover;border-radius:.85rem;border:1px solid #e2e8f0;background:#f8fafc}
     </style>
 </head>
 <body class="h-full flex flex-col text-slate-800 antialiased selection:bg-brand-500 selection:text-white">
@@ -173,7 +199,7 @@
                         <img id="user-avatar-img" src="https://ui-avatars.com/api/?name=V&background=e2e8f0&color=334155" class="h-8 w-8 shrink-0 rounded-full border border-slate-300 object-cover" alt="Avatar">
                         <span class="flex min-w-0 items-center gap-1.5">
                             <span id="user-name-display" translate="no" class="notranslate block min-w-0 max-w-[10rem] truncate whitespace-nowrap text-sm font-semibold leading-4 text-slate-800" title="">Пайдаланушы</span>
-                            <span id="egov-badge" class="hidden shrink-0 text-gov-600" aria-label="Тұлға мәртебесі расталған" title="Verified"><i data-lucide="badge-check" class="h-4 w-4"></i></span>
+                            <span id="verified-badge" class="hidden shrink-0 text-gov-600" aria-label="Профиль әкімші тарапынан тексерілген" title="Тексерілген профиль"><i data-lucide="badge-check" class="h-4 w-4"></i></span>
                         </span>
                     </button>
                 </div>
@@ -185,6 +211,16 @@
         <div class="w-full max-w-lg rounded-3xl bg-white p-6 shadow-2xl">
             <div class="mb-4 flex items-center justify-between"><h2 id="info-modal-title" class="text-xl font-extrabold text-slate-900">Біз туралы</h2><button onclick="closeInfoPanel()" class="rounded-xl bg-slate-100 p-2" aria-label="Жабу">✕</button></div>
             <div id="info-modal-body" class="space-y-3 text-sm leading-6 text-slate-600"></div>
+        </div>
+    </div>
+
+    <div id="admin-details-modal" class="fixed inset-0 z-[95] hidden items-center justify-center bg-slate-950/70 p-3 backdrop-blur-sm sm:p-6" role="dialog" aria-modal="true" aria-labelledby="admin-details-title" onclick="if(event.target===this)closeAdminDetails()">
+        <div class="w-full max-w-3xl overflow-hidden rounded-3xl bg-white shadow-2xl">
+            <div class="flex items-center justify-between border-b border-slate-100 px-5 py-4 sm:px-6">
+                <h2 id="admin-details-title" class="min-w-0 pr-4 text-lg font-extrabold text-slate-900">Толық мәлімет</h2>
+                <button type="button" onclick="closeAdminDetails()" class="shrink-0 rounded-xl bg-slate-100 px-3 py-2 text-slate-600 hover:bg-slate-200" aria-label="Жабу">✕</button>
+            </div>
+            <div id="admin-details-body" class="admin-detail-content space-y-4 p-5 sm:p-6"></div>
         </div>
     </div>
 
@@ -224,49 +260,6 @@
                     </div>
                 </div>
             </section>
-
-            <!-- Real-time Verified Stats -->
-            <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-10 relative z-20 mb-16">
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                    <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-xl shadow-slate-200/50 flex items-center space-x-4">
-                        <div class="w-14 h-14 bg-brand-50 text-brand-600 rounded-2xl flex items-center justify-center shrink-0">
-                            <i data-lucide="map-pin" class="w-7 h-7"></i>
-                        </div>
-                        <div>
-                            <p class="text-3xl font-extrabold text-slate-900">0</p>
-                            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Қазақстан қалалары</p>
-                        </div>
-                    </div>
-                    <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-xl shadow-slate-200/50 flex items-center space-x-4">
-                        <div class="w-14 h-14 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center shrink-0">
-                            <i data-lucide="users" class="w-7 h-7"></i>
-                        </div>
-                        <div>
-                            <p id="stat-requests" class="text-3xl font-extrabold text-slate-900">0</p>
-                            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Тексерілген отбасылар</p>
-                        </div>
-                    </div>
-                    <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-xl shadow-slate-200/50 flex items-center space-x-4">
-                        <div class="w-14 h-14 bg-blue-50 text-blue-600 rounded-2xl flex items-center justify-center shrink-0">
-                            <i data-lucide="package-check" class="w-7 h-7"></i>
-                        </div>
-                        <div>
-                            <p id="stat-giveaways" class="text-3xl font-extrabold text-slate-900">0</p>
-                            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Таратылған заттар</p>
-                        </div>
-                    </div>
-                    <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-xl shadow-slate-200/50 flex items-center space-x-4">
-                        <div class="w-14 h-14 bg-amber-50 text-amber-600 rounded-2xl flex items-center justify-center shrink-0">
-                            <i data-lucide="coins" class="w-7 h-7"></i>
-                        </div>
-                        <div>
-                            <p id="stat-donations" class="text-3xl font-extrabold text-slate-900">0 ₸</p>
-                            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Жинақталған қор</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
             <!-- Mission & Purpose -->
             <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20">
                 <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -421,9 +414,9 @@
                         </div>
 
                         <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 mb-6">
-                            <div class="flex justify-between items-center mb-2">
+                            <div class="mb-2 flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:justify-between">
                                 <span class="text-xs font-bold text-slate-600 uppercase">Жалпы жиналған қаражат:</span>
-                                <span id="fund-total-text" class="text-2xl font-extrabold text-brand-600">0 ₸</span>
+                                <span id="fund-total-text" class="text-2xl font-extrabold text-brand-600 break-words">0 ₸</span>
                             </div>
                             <div class="w-full bg-slate-200 rounded-full h-3 mb-2">
                                 <div id="fund-progress" class="bg-brand-600 h-3 rounded-full transition-all duration-500" style="width: 0%"></div>
@@ -551,7 +544,7 @@
 
         <!-- ================= ABOUT PAGE ================= -->
         <div id="tab-about" class="tab-content hidden max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
-            <section class="page-shell"><div class="mb-5 flex items-center gap-3"><span class="menu-tile-icon"><i data-lucide="info" class="h-5 w-5"></i></span><div><p class="text-xs font-bold uppercase tracking-wider text-brand-700" data-i18n="VoluHub туралы">VoluHub туралы</p><h2 class="text-2xl font-extrabold text-slate-900" data-i18n="Біз туралы">Біз туралы</h2></div></div><div class="space-y-4 text-sm leading-7 text-slate-600"><p data-i18n="VoluHub — еріктілерді, көмек сұраушыларды және қайырымдылық бастамаларын байланыстыратын демо-платформа.">VoluHub — еріктілерді, көмек сұраушыларды және қайырымдылық бастамаларын байланыстыратын демо-платформа.</p><p data-i18n="Жарияланған көмек өтініштері модерациядан өтеді. Көмек фотоесеппен расталғаннан кейін ғана аяқталған деп белгіленеді.">Жарияланған көмек өтініштері модерациядан өтеді. Көмек фотоесеппен расталғаннан кейін ғана аяқталған деп белгіленеді.</p><p class="rounded-xl border border-amber-200 bg-amber-50 p-4 text-amber-900" data-i18n="Бұл демо-нұсқа; нақты төлем және ресми eGov интеграциясы бөлек іске қосылуы қажет.">Бұл демо-нұсқа; нақты төлем және ресми eGov интеграциясы бөлек іске қосылуы қажет.</p></div></section>
+            <section class="page-shell"><div class="mb-5 flex items-center gap-3"><span class="menu-tile-icon"><i data-lucide="info" class="h-5 w-5"></i></span><div><p class="text-xs font-bold uppercase tracking-wider text-brand-700" data-i18n="VoluHub туралы">VoluHub туралы</p><h2 class="text-2xl font-extrabold text-slate-900" data-i18n="Біз туралы">Біз туралы</h2></div></div><div class="space-y-4 text-sm leading-7 text-slate-600"><p data-i18n="VoluHub — еріктілерді, көмек сұраушыларды және қайырымдылық бастамаларын байланыстыратын демо-платформа.">VoluHub — еріктілерді, көмек сұраушыларды және қайырымдылық бастамаларын байланыстыратын демо-платформа.</p><p data-i18n="Жарияланған көмек өтініштері модерациядан өтеді. Көмек фотоесеппен расталғаннан кейін ғана аяқталған деп белгіленеді.">Жарияланған көмек өтініштері модерациядан өтеді. Көмек фотоесеппен расталғаннан кейін ғана аяқталған деп белгіленеді.</p><p class="rounded-xl border border-amber-200 bg-amber-50 p-4 text-amber-900" data-i18n="Бұл демо-нұсқа; нақты төлем провайдері бөлек қосылуы қажет.">Бұл демо-нұсқа; нақты төлем провайдері бөлек қосылуы қажет.</p></div></section>
         </div>
 
         <!-- ================= CONTACT PAGE ================= -->
@@ -586,20 +579,20 @@
         <!-- ================= 6. USER PROFILE TAB ================= -->
         <div id="tab-profile" class="tab-content hidden max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <div class="bg-white rounded-3xl border border-slate-200 p-8 shadow-sm">
-                <div class="flex items-center space-x-6 pb-6 border-b border-slate-100">
+                <div class="profile-heading flex items-center gap-6 pb-6 border-b border-slate-100">
                     <div class="relative">
-                        <img id="profile-page-avatar" src="https://ui-avatars.com/api/?name=V&background=e2e8f0&color=334155" class="w-20 h-20 rounded-full object-cover border-2 border-brand-500 shadow" alt="User">
+                        <img id="profile-page-avatar" src="https://ui-avatars.com/api/?name=V&background=e2e8f0&color=334155" class="h-24 w-24 flex-none rounded-full object-cover object-center border-2 border-brand-500 shadow" alt="User">
                         <button type="button" onclick="updateProfileAvatar()" class="absolute bottom-0 right-0 bg-brand-600 text-white p-1 rounded-full shadow hover:bg-brand-700" title="Суретті өзгерту" aria-label="Суретті өзгерту">
                             <i data-lucide="camera" class="w-3.5 h-3.5"></i>
                         </button>
                         <input id="profile-avatar-file" type="file" accept="image/jpeg,image/png,image/webp,image/gif" class="hidden" onchange="handleProfileAvatarUpload(event)">
                     </div>
-                    <div>
+                    <div class="min-w-0">
                         <h2 id="profile-page-name" translate="no" class="notranslate text-2xl font-bold text-slate-900">Пайдаланушы</h2>
                         <p id="profile-page-email" translate="no" class="notranslate text-sm text-slate-500">email@example.com</p>
                         <div class="flex items-center space-x-2 mt-2">
                             <span id="profile-role-tag" class="bg-brand-100 text-brand-800 text-xs font-bold px-3 py-0.5 rounded-full">Тіркелген Волонтер</span>
-                            <span id="profile-egov-status" class="bg-slate-100 text-slate-600 text-xs font-semibold px-2.5 py-0.5 rounded-full">Тексерілмеген</span>
+                            <span id="profile-verification-status" class="bg-slate-100 text-slate-600 text-xs font-semibold px-2.5 py-0.5 rounded-full">Тексерілмеген</span>
                         </div>
                     </div>
                 </div>
@@ -609,26 +602,12 @@
                         <h3 class="font-bold text-slate-900 mb-3 text-base">Мәртебе мен Қауіпсіздік</h3>
                         <div class="bg-gov-50 border border-gov-600/30 p-5 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                             <div>
-                                <h4 class="font-bold text-slate-900 text-sm">Тұлғаны растау (eGov)</h4>
-                                <p class="text-xs text-slate-600 mt-1">Мұқтаж жандардың нақты байланыс деректеріне қол жеткізу үшін тұлғаны ресми түрде растау қажет. eGov интеграциясы әзірге қосылмаған.</p>
+                                <h4 class="font-bold text-slate-900 text-sm">Профильді қолмен тексеру</h4>
+                                <p class="text-xs text-slate-600 mt-1">Профиль деректерін әкімші қарап шыға алады. Өтінім жіберілгеннен кейін мәртебе осы бөлімде көрсетіледі.</p>
                             </div>
-                            <button id="verify-egov-btn" onclick="openEGovModal()" class="bg-gov-600 hover:bg-gov-700 text-white font-semibold text-xs px-4 py-2.5 rounded-xl transition shrink-0">
-                                Растауды бастау
+                            <button id="verify-profile-btn" onclick="requestProfileVerification()" class="bg-gov-600 hover:bg-gov-700 text-white font-semibold text-xs px-4 py-2.5 rounded-xl transition shrink-0">
+                                Әкімшіге тексеруге жіберу
                             </button>
-                        </div>
-                    </div>
-
-                    <div>
-                        <h3 class="font-bold text-slate-900 mb-3 text-base">Менің белсенділігім</h3>
-                        <div class="grid grid-cols-2 gap-4">
-                            <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200">
-                                <p class="text-xs font-semibold text-slate-500 uppercase">Қосылған өтініштер</p>
-                                <p id="profile-my-reqs" class="text-2xl font-bold text-slate-900 mt-1">0</p>
-                            </div>
-                            <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200">
-                                <p class="text-xs font-semibold text-slate-500 uppercase">Берілген заттар</p>
-                                <p id="profile-my-gives" class="text-2xl font-bold text-slate-900 mt-1">0</p>
-                            </div>
                         </div>
                     </div>
 
@@ -695,7 +674,7 @@
                         <div class="border-b border-slate-100 px-5 py-4"><h4 class="font-extrabold text-slate-900">Серіктестік өтінімдері</h4><p class="mt-1 text-xs text-slate-500">Ұйымдар жіберген өтінімдер</p></div><div id="admin-partnership-requests" class="space-y-3 p-5"></div>
                     </section>
                     <section class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-                        <h4 class="mb-3 font-extrabold text-slate-900">Тұлғаны растау өтінімдері</h4><p class="mb-3 text-xs text-slate-500">Қолмен тексеру кезегі; бұл нақты eGov интеграциясы емес.</p><div id="admin-profile-verification-list" class="space-y-3"><p class="text-sm text-slate-500">Өтінім жүктелмеді.</p></div>
+                        <h4 class="mb-3 font-extrabold text-slate-900">Профильді тексеру өтінімдері</h4><p class="mb-3 text-xs text-slate-500">Әкімші профильде көрсетілген деректерді жеке қарап шығады.</p><div id="admin-profile-verification-list" class="space-y-3"><p class="text-sm text-slate-500">Өтінім жүктелмеді.</p></div>
                     </section>
                     <section class="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
                         <div class="border-b border-slate-100 px-5 py-4"><h4 class="font-extrabold text-slate-900">Қор және донат баптаулары</h4><p class="mt-1 text-xs text-slate-500">Мақсатты өзгерту, қабылдауды жабу/ашу, басты беттегі соманы нөлдеу</p></div>
@@ -712,12 +691,7 @@
                         <div id="admin-eco-campaigns-list" class="grid grid-cols-1 gap-3 p-5 lg:grid-cols-2"><p class="text-sm text-slate-500">Эко-бағдарламалар жүктелуде…</p></div>
                     </section>
                 </div>
-
-                <section id="admin-statistics-section" class="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-7">
-                    <div class="mb-5 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between"><div><p class="text-xs font-bold uppercase tracking-wider text-emerald-700">Тарихи көрсеткіштер</p><h3 class="text-xl font-extrabold text-slate-900">VoluHub статистикасы</h3><p class="mt-1 text-sm text-slate-500">Сайт деректеріндегі бұрынғы жазбалардан есептелетін графиктер.</p></div><button type="button" onclick="loadAdminStatistics()" class="rounded-xl border border-slate-200 px-4 py-2 text-sm font-bold text-slate-700 hover:bg-slate-50">Жаңарту</button></div>
-                    <div id="admin-stats-content"><p class="text-sm text-slate-500">Статистика жүктеледі…</p></div>
-                </section>
-            </div>
+</div>
         </div>
 
     </main>
@@ -797,7 +771,7 @@
                 <p class="text-xs text-slate-500 mt-1">Сайтқа толық қолжетімділік алу үшін төмендегі жеке мәліметтерді толтырыңыз.</p>
             </div>
 
-            <p class="mb-4 rounded-xl border border-amber-200 bg-amber-50 p-3 text-xs leading-5 text-amber-900" data-i18n="ЖСН бұл формада жиналмайды. Ол тек ресми eGov растау интеграциясы іске қосылғанда қауіпсіз тексерілуі керек.">ЖСН бұл формада жиналмайды. Ол тек ресми eGov растау интеграциясы іске қосылғанда қауіпсіз тексерілуі керек.</p>
+            <p class="mb-4 rounded-xl border border-amber-200 bg-amber-50 p-3 text-xs leading-5 text-amber-900" data-i18n="Құпия құжат нөмірлерін бұл формаға енгізбеңіз. Тек профильді толтыруға қажетті деректерді көрсетіңіз.">Құпия құжат нөмірлерін бұл формаға енгізбеңіз. Тек профильді толтыруға қажетті деректерді көрсетіңіз.</p>
             <form onsubmit="handleOnboardingSubmit(event)" class="space-y-4">
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
@@ -846,38 +820,6 @@
                 <label class="flex items-start gap-2 text-xs text-slate-600 leading-5"><input type="checkbox" id="onboard-privacy-consent" required class="mt-1"><span data-i18n="Жеке мәліметтерімді профильді жүргізу және сайт қызметтерін көрсету үшін өңдеуге келісемін.">Жеке мәліметтерімді профильді жүргізу және сайт қызметтерін көрсету үшін өңдеуге келісемін.</span></label>
                 <button type="submit" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3.5 rounded-xl shadow-md transition" data-i18n="Деректерді сақтау және сайтқа кіру">Деректерді сақтау және сайтқа кіру</button>
             </form>
-        </div>
-    </div>
-
-    <!-- eGov / Face Scan Verification Modal -->
-    <div id="egov-modal" class="fixed inset-0 z-50 bg-slate-900/70 backdrop-blur-sm hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl relative">
-            <button onclick="closeEGovModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-slate-200">
-                <i data-lucide="x" class="w-4 h-4"></i>
-            </button>
-
-            <div class="flex items-center space-x-3 mb-4">
-                <div class="w-10 h-10 bg-gov-50 text-gov-600 rounded-xl flex items-center justify-center font-bold">ID</div>
-                <div>
-                    <h3 class="text-lg font-bold text-slate-900">eGov арқылы тұлғаны растау</h3>
-                    <p class="text-xs text-slate-500">Жеке тұлғаны растау міндетті</p>
-                </div>
-            </div>
-
-            <div class="space-y-4">
-                <div class="bg-slate-100 p-4 rounded-2xl text-center">
-                    <p class="text-xs text-slate-600 mb-2 font-medium">Ресми eGov интеграциясы әлі қосылмаған. Төмендегі батырма тек әкімшіге өтінім жібереді.</p>
-                    <div class="w-20 h-20 bg-slate-200 border-2 border-dashed border-gov-600 rounded-full mx-auto flex items-center justify-center text-gov-600">
-                        <i data-lucide="scan-face" class="w-10 h-10"></i>
-                    </div>
-                </div>
-                <button id="egov-request-button" onclick="handleSimulateEGovVerify()" class="w-full bg-gov-600 hover:bg-gov-700 text-white font-bold py-3 rounded-xl shadow transition">
-                    Қолмен тексеруге өтінім жіберу
-                </button>
-                <p id="egov-gate-status" aria-live="polite" class="hidden rounded-xl border border-amber-200 bg-amber-50 p-3 text-xs leading-5 text-amber-900"></p>
-                <p class="text-xs leading-5 text-slate-500">Өтінімді жіберу өздігінен eGov арқылы растау емес. Нақты eGov интеграциясы қосылғанша растауды шынайы eGov деп көрсетпейміз.</p>
-                <button type="button" onclick="handleLogout()" data-i18n="Жүйеден шығу" class="w-full border border-slate-300 text-slate-700 font-semibold py-2.5 rounded-xl">Жүйеден шығу</button>
-            </div>
         </div>
     </div>
 
@@ -1193,7 +1135,7 @@
 
         // Global Application State
         let currentUser = null;
-        let isEGovVerified = false;
+        let isProfileVerified = false;
         let pendingUnlockRequestId = null;
         let unlockedRequests = new Set();
         // When a signed-out visitor selects a protected section, open it after successful login.
@@ -1204,7 +1146,6 @@
         let activeGiveawayClaimId = null;
         let editingEcoCampaignId = null;
         let editingEcoCampaignRecord = null;
-        let adminStatsCache = [];
         let toastTimer = null;
         let stateNotifications = [];
         let currentLanguage = 'kk';
@@ -1219,6 +1160,10 @@
 
         let stateEcoCampaigns = [];
         let statePendingAdminRequests = null;
+        const adminPendingRequestsCache = new Map();
+        const adminHelpReportsCache = new Map();
+        const adminVerificationCache = new Map();
+        let adminViewLoadPromise = null;
 
         // Kazakhstan phone input: always store/display the +7 country prefix.
         function normalizeKzPhone(value) {
@@ -1270,11 +1215,11 @@
             if (sessionError) console.error('Supabase session read error', sessionError);
             if (sessionData?.session?.user) {
                 const user = sessionData.session.user;
-                const { data: profile, error: profileError } = await supabaseClient.from('profiles').select('full_name,first_name,last_name,middle_name,date_of_birth,social_status,phone,city,is_verified,role,avatar_url').eq('id', user.id).maybeSingle();
+                const { data: profile, error: profileError } = await supabaseClient.from('profiles').select('full_name,first_name,last_name,middle_name,date_of_birth,social_status,phone,city,is_verified,role,avatar_url,verification_requested_at').eq('id', user.id).maybeSingle();
                 if (profileError) showToast('Профиль қатесі', 'profiles кестесін/SQL саясатын тексеріңіз: ' + profileError.message, true);
                 currentUser = buildCurrentUser(user, profile);
-                isEGovVerified = profile?.is_verified === true;
-                if (currentUser) currentUser.isVerified = isEGovVerified;
+                isProfileVerified = profile?.is_verified === true;
+                if (currentUser) { currentUser.isVerified = isProfileVerified; currentUser.verificationRequestedAt = profile?.verification_requested_at || null; }
                 finishLogin();
             } else {
                 setAuthOnlyControlsVisible(false);
@@ -1291,7 +1236,7 @@
             document.getElementById('toast-icon').innerHTML = isError
                 ? '<i data-lucide="alert-triangle" class="w-6 h-6 text-amber-600"></i>'
                 : '<i data-lucide="check-circle" class="w-6 h-6 text-brand-600"></i>';
-            lucide.createIcons();
+            refreshIcons(toast);
             toast.classList.remove('opacity-0','pointer-events-none','translate-x-[120%]');
             toast.classList.add('opacity-100','translate-x-0');
             if (toastTimer) clearTimeout(toastTimer);
@@ -1303,6 +1248,10 @@
 
         let tabNavigationHistory = [];
         let isNavigatingBack = false;
+        function refreshIcons(root = document) {
+            if (!window.lucide || !root) return;
+            try { lucide.createIcons({ root }); } catch (_) { lucide.createIcons(); }
+        }
         function switchTab(tabId) {
             const target = document.getElementById(`tab-${tabId}`);
             if (!target) return false;
@@ -1324,6 +1273,7 @@
             }
 
             const activeTab = document.querySelector('.tab-content:not(.hidden)');
+            if (activeTab === target) { closeMainMenu(); return true; }
             const activeTabId = activeTab?.id?.replace('tab-', '');
             if (!isNavigatingBack && activeTabId && activeTabId !== tabId) {
                 tabNavigationHistory.push(activeTabId);
@@ -1344,14 +1294,12 @@
             if (backControl) backControl.classList.toggle('hidden', tabId === 'home');
             closeMainMenu();
             const main = document.querySelector('main');
-            if (main) main.scrollTo({ top: 0, behavior: 'smooth' });
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-            applyLanguage();
+            if (main) main.scrollTo({ top: 0, behavior: 'auto' });
+            window.scrollTo({ top: 0, behavior: 'auto' });
             if (tabId === 'profile') renderProfileActivity();
             if (tabId === 'mydata') renderMyData();
             if (tabId === 'notifications') renderNotifications();
             if (tabId === 'admin') renderAdminView();
-            if (window.lucide) lucide.createIcons();
             return true;
         }
         function navigateBack() {
@@ -1370,7 +1318,7 @@
                 'mydata-city': currentUser?.city || '—',
                 'mydata-dob': currentUser?.dateOfBirth || '—',
                 'mydata-status': currentUser?.socialStatus ? translatedText(currentUser.socialStatus, currentLanguage || 'kk') : 'Мәлімет берілмеген',
-                'mydata-verification': isEGovVerified ? 'Расталған' : 'Расталмаған',
+                'mydata-verification': isProfileVerified ? 'Әкімші тексерген' : 'Тексерілмеген',
                 'mydata-role': currentUser?.isAdmin ? 'Әкімші' : 'Қолданушы'
             };
             Object.entries(values).forEach(([id,value]) => { const el = document.getElementById(id); if (el) el.textContent = value; });
@@ -1440,10 +1388,10 @@
                     if (result.error) throw result.error;
                 }
                 const user=result.data.user;
-                const {data:profile,error}=await supabaseClient.from('profiles').select('full_name,first_name,last_name,middle_name,date_of_birth,social_status,phone,city,is_verified,role,avatar_url').eq('id',user.id).maybeSingle();
+                const {data:profile,error}=await supabaseClient.from('profiles').select('full_name,first_name,last_name,middle_name,date_of_birth,social_status,phone,city,is_verified,role,avatar_url,verification_requested_at').eq('id',user.id).maybeSingle();
                 if(error) throw new Error('profiles кестесі/SQL саясаты: '+error.message);
-                currentUser=buildCurrentUser(user,profile); isEGovVerified=profile?.is_verified===true;
-                if (currentUser) currentUser.isVerified = isEGovVerified;
+                currentUser=buildCurrentUser(user,profile); isProfileVerified=profile?.is_verified===true;
+                if (currentUser) { currentUser.isVerified = isProfileVerified; currentUser.verificationRequestedAt = profile?.verification_requested_at || null; }
                 closeAuthModal(true); finishLogin();
             } catch(err) { help.textContent=err.message||'Әрекет орындалмады.'; showToast(authMode==='login'?'Кіру қатесі':'Тіркелу қатесі',err.message||'Қайта көріңіз.',true); }
             finally { button.disabled=false; }
@@ -1457,7 +1405,7 @@
                 firstName: profile?.first_name || '', lastName: profile?.last_name || '', middleName: profile?.middle_name || '',
                 dateOfBirth: profile?.date_of_birth || '', socialStatus: profile?.social_status || '',
                 phone: profile?.phone || '', city: profile?.city || '', avatar: profile?.avatar_url || user.user_metadata?.avatar_url || user.user_metadata?.picture || '',
-                isVerified: profile?.is_verified === true, role: profile?.role || 'user',
+                isVerified: profile?.is_verified === true, verificationRequestedAt: profile?.verification_requested_at || null, role: profile?.role || 'user',
                 isAdmin: profile?.role === 'admin', onboarded: !!completed
             };
         }
@@ -1494,16 +1442,7 @@
             }
             document.getElementById('onboarding-modal').classList.add('hidden');
             document.getElementById('auth-container').classList.add('hidden');
-            // Do not expose the authenticated app until identity review is complete.
-            if (!isEGovVerified) {
-                document.getElementById('user-profile-widget').classList.add('hidden');
-                setAuthOnlyControlsVisible(false);
-                closeAuthModal(true);
-                openEGovModal();
-                return;
-            }
-            document.getElementById('egov-modal').classList.add('hidden');
-            document.getElementById('user-profile-widget').classList.remove('hidden');
+document.getElementById('user-profile-widget').classList.remove('hidden');
             setAuthOnlyControlsVisible(true);
             document.getElementById('user-name-display').innerText = currentUser.name;
             document.getElementById('user-name-display').title = currentUser.name || '';
@@ -1515,13 +1454,11 @@
             document.getElementById('admin-nav-btn').classList.toggle('hidden', !currentUser.isAdmin);
             document.getElementById('menu-admin-link')?.classList.toggle('hidden', !currentUser.isAdmin);
             document.getElementById('mobile-menu-admin-link')?.classList.toggle('hidden', !currentUser.isAdmin);
-            document.getElementById('egov-badge').classList.toggle('hidden', !isEGovVerified);
-            document.getElementById('profile-egov-status').innerText = isEGovVerified ? 'Расталған' : 'Расталмаған';
-            document.getElementById('verification-section-box')?.classList.toggle('hidden', isEGovVerified);
-            const verifyButton = document.getElementById('verify-egov-btn');
-            if (verifyButton) verifyButton.classList.toggle('hidden', isEGovVerified);
-            const egovRequestButton = document.getElementById('egov-request-button');
-            if (egovRequestButton) egovRequestButton.classList.toggle('hidden', isEGovVerified);
+            document.getElementById('verified-badge').classList.toggle('hidden', !isProfileVerified);
+            document.getElementById('profile-verification-status').innerText = isProfileVerified ? 'Әкімші тексерген' : (currentUser.verificationRequestedAt ? 'Әкімші тексеруін күтуде' : 'Тексерілмеген');
+            document.getElementById('verification-section-box')?.classList.remove('hidden');
+            const verifyButton = document.getElementById('verify-profile-btn');
+            if (verifyButton) { verifyButton.classList.toggle('hidden', isProfileVerified); verifyButton.disabled = !!currentUser.verificationRequestedAt; if (currentUser.verificationRequestedAt) verifyButton.textContent = 'Өтінім жіберілді'; }
             renderRequests(); renderDonations(); renderEcoCampaigns(); renderProfileActivity(); renderMyData();
             loadPersistentData().catch(err => { console.error(err); showToast('Деректер жүктелмеді', err.message || 'Supabase деректерін оқуда қате.', true); });
             const destination = pendingTabAfterLogin || 'home';
@@ -1580,18 +1517,18 @@
             setupKzPhoneInputs();
             document.getElementById('onboarding-modal').classList.add('hidden');
             finishLogin();
-            showToast('Профиль сақталды', 'Келесі қадам — тұлғаны растау. Растаудан кейін сайт ашылады.');
+            showToast('Профиль сақталды', 'Тіркеу аяқталды. Енді сайт бөлімдерін пайдалана аласыз.');
         }
 
         async function handleLogout() {
             if (supabaseClient) await supabaseClient.auth.signOut();
             currentUser = null;
-            isEGovVerified = false;
+            isProfileVerified = false;
             tabNavigationHistory = [];
             setAuthOnlyControlsVisible(false);
             setAuthMode('login');
             document.getElementById('onboarding-modal').classList.add('hidden');
-            document.getElementById('egov-modal').classList.add('hidden');
+            
             pendingTabAfterLogin = null;
             pendingActionAfterLogin = null;
             document.getElementById('auth-container').classList.remove('hidden');
@@ -1599,7 +1536,7 @@
             document.getElementById('admin-nav-btn').classList.add('hidden');
             closeMainMenu();
             document.getElementById('menu-admin-link')?.classList.add('hidden');
-            document.getElementById('egov-badge').classList.add('hidden');
+            document.getElementById('verified-badge').classList.add('hidden');
             document.getElementById('verification-section-box')?.classList.remove('hidden');
             showToast('Шығу', 'Жүйеден сәтті шықтыңыз.');
             closeAuthModal();
@@ -1654,51 +1591,38 @@
             finally { event.target.value = ''; }
         }
 
-        // FACE SCAN / VERIFICATION FLOW WITH DESKTOP CHECK
-        function openEGovModal() {
-            if (isEGovVerified || currentUser?.isVerified) {
-                document.getElementById('verification-section-box')?.classList.add('hidden');
-                document.getElementById('verify-egov-btn')?.classList.add('hidden');
-                document.getElementById('egov-request-button')?.classList.add('hidden');
-                showToast('Профиль расталған', 'Қосымша растау қажет емес.');
+        // Verification status is controlled by the platform administrator.
+        async function requestProfileVerification() {
+            if (!currentUser || !supabaseClient) {
+                showToast('Жүйеге кіру қажет', 'Профильді тексеруге жіберу үшін жүйеге кіріңіз.', true);
                 return;
             }
-            // This is an honest verification gate, not a simulated eGov/Face ID scan.
-            const modal = document.getElementById('egov-modal');
-            const closeButton = modal.querySelector('button[onclick="closeEGovModal()"]');
-            if (closeButton) closeButton.classList.toggle('hidden', !!currentUser && !isEGovVerified);
-            modal.classList.remove('hidden');
-        }
-        function closeEGovModal() {
-            if (currentUser && !isEGovVerified) {
-                showToast('Растау қажет', 'Сайтқа кіру үшін тұлғаны растау аяқталуы керек.', true);
+            if (isProfileVerified || currentUser.isVerified) {
+                showToast('Профиль тексерілген', 'Қосымша өтінім қажет емес.');
                 return;
             }
-            document.getElementById('egov-modal').classList.add('hidden');
-        }
-
-        async function handleSimulateEGovVerify() {
-            if (isEGovVerified || currentUser?.isVerified) { showToast('Профиль расталған', 'Қосымша растау қажет емес.'); return; }
-            if (!currentUser || !supabaseClient) { showToast('Кіру қажет', 'Растау сұрауын сақтау үшін жүйеге кіріңіз.', true); return; }
-            const button = document.getElementById('egov-request-button');
+            const button = document.getElementById('verify-profile-btn');
+            if (button?.disabled) return;
+            if (button) { button.disabled = true; button.textContent = 'Жіберілуде…'; }
             try {
                 const { error } = await supabaseClient.rpc('request_profile_verification');
                 if (error) throw error;
-                if (button) { button.disabled = true; button.textContent = translatedText('Өтінім жіберілді', currentLanguage || 'kk'); button.classList.add('opacity-60','cursor-not-allowed'); }
-                const status = document.getElementById('egov-gate-status');
-                if (status) {
-                    status.classList.remove('hidden');
-                    status.textContent = translatedText('Өтінім жіберілді. Әкімші тексеруін күтіңіз. Бұл нақты eGov растауы емес; ресми интеграция бөлек қосылуы керек.', currentLanguage || 'kk');
-                }
-                await saveUserEvent('Тұлғаны растау сұралды', 'Әкімші растауын күтіп тұр.', 'verification');
-                showToast('Сұрау жіберілді', 'Сайтқа кіру әкімші тексеруі аяқталғанша жабық қалады. Бұл нақты eGov растауы емес.');
-            } catch (err) { showToast('Растау сұрауы сақталмады', err.message || 'Supabase қатесі.', true); }
+                currentUser.verificationRequestedAt = new Date().toISOString();
+                if (button) { button.textContent = 'Өтінім жіберілді'; button.classList.add('opacity-60','cursor-not-allowed'); }
+                const status = document.getElementById('profile-verification-status');
+                if (status) status.textContent = 'Әкімші тексеруін күтуде';
+                await saveUserEvent('Профильді тексеру сұралды', 'Әкімші профиль деректерін қарап шығады.', 'verification');
+                showToast('Өтінім жіберілді', 'Әкімші профиль деректерін қарап шығады.');
+            } catch (err) {
+                if (button) { button.disabled = false; button.textContent = 'Әкімшіге тексеруге жіберу'; }
+                showToast('Өтінім жіберілмеді', err.message || 'Supabase қатесі.', true);
+            }
         }
 
         // UNLOCK SENSITIVE DATA FLOW
         function initiateUnlockContact(reqId) {
-            if(!isEGovVerified) {
-                showToast("Растау қажет", "Мекенжайды көру үшін алдымен профильден тұлғаңызды растаңыз!", true);
+            if(!isProfileVerified) {
+                showToast("Профильді тексеру қажет", "Мекенжайды ашу үшін профильді әкімші тексеруі қажет.", true);
                 return;
             }
             pendingUnlockRequestId = reqId;
@@ -1868,7 +1792,7 @@
             const id = activeGiveawayClaimId;
             const signature = document.getElementById('giveaway-claim-signature')?.value.trim() || '';
             const consent = !!document.getElementById('giveaway-claim-consent')?.checked;
-            if (!id || signature.length < 3 || !consent) { showToast('Растау қажет', 'Келісімді белгілеп, толық аты-жөніңізді қолтаңба ретінде енгізіңіз.', true); return; }
+            if (!id || signature.length < 3 || !consent) { showToast('Профиль деректері қажет', 'Келісімді белгілеп, толық аты-жөніңізді қолтаңба ретінде енгізіңіз.', true); return; }
             try {
                 const { data, error } = await supabaseClient.rpc('claim_giveaway', { p_giveaway_id: id, p_signature: signature });
                 if (error) throw error;
@@ -1909,18 +1833,19 @@
             const rawGoal = Number(fundraisingGoal.target_amount ?? DONATION_TARGET_FALLBACK);
             const goalAmount = Number.isFinite(rawGoal) ? Math.max(0, rawGoal) : DONATION_TARGET_FALLBACK;
             const target = Math.max(1, goalAmount);
-            const amountText = total.toLocaleString('en-US') + ' ₸';
+            const fullAmountText = total.toLocaleString('en-US') + ' ₸';
+            const compactAmount = total >= 1000000 ? new Intl.NumberFormat('kk-KZ', { notation:'compact', maximumFractionDigits:2 }).format(total) : total.toLocaleString('en-US');
+            const amountText = compactAmount + ' ₸';
             const totalEl = document.getElementById('fund-total-text');
-            if (totalEl) totalEl.textContent = amountText;
+            if (totalEl) { totalEl.textContent = amountText; totalEl.title = fullAmountText; totalEl.setAttribute('aria-label', 'Жалпы жиналған қаражат: ' + fullAmountText); }
             const bar = document.getElementById('fund-progress');
             if (bar) bar.style.width = Math.min(100, total / target * 100) + '%';
             const goalText = document.getElementById('fund-goal-note');
             const isOpen = fundraisingGoal.donations_enabled !== false;
-            if (goalText) goalText.textContent = isOpen ? ('Мақсатты сома: ' + goalAmount.toLocaleString('en-US') + ' ₸ (мақсатқа жету деңгейі автоматты жаңартылады). Демо төлем — нақты ақша аудармайды.') : 'Қаражат жинау уақытша жабық. Кейін қайта ашылады.';
+            const compactGoal = goalAmount >= 1000000 ? new Intl.NumberFormat('kk-KZ', { notation:'compact', maximumFractionDigits:2 }).format(goalAmount) : goalAmount.toLocaleString('en-US');
+            if (goalText) goalText.textContent = isOpen ? ('Мақсатты сома: ' + compactGoal + ' ₸ (толық сома: ' + goalAmount.toLocaleString('en-US') + ' ₸). Демо төлем — нақты ақша аудармайды.') : 'Қаражат жинау уақытша жабық. Кейін қайта ашылады.';
             const donateForm = document.querySelector('#tab-donations form[onsubmit="handleDonateSubmit(event)"]');
             if (donateForm) donateForm.querySelectorAll('button,input').forEach(el => { el.disabled = !isOpen; el.classList.toggle('opacity-50', !isOpen); el.classList.toggle('cursor-not-allowed', !isOpen); });
-            const stat = document.getElementById('stat-donations');
-            if (stat) stat.textContent = total >= 1000000 ? (total / 1000000).toFixed(2) + 'M ₸' : amountText;
         }
         function renderDonations() {
             const container = document.getElementById('donations-log-list');
@@ -2354,73 +2279,145 @@
 
         // ADMIN FUNCTIONS: server-side role/RLS is authoritative; client role is only for presentation.
         async function renderAdminView() {
-            const container = document.getElementById('admin-pending-list');
-            const allDonationsContainer = document.getElementById('admin-all-donations-list');
-            if (!container) return;
-            if (!currentUser?.isAdmin) {
-                container.innerHTML = '<div class="rounded-2xl border border-slate-200 bg-white p-5 text-sm text-slate-500">Әкімші құқықтары қажет.</div>';
-                if (allDonationsContainer) allDonationsContainer.innerHTML = '';
-                return;
-            }
-            renderPartnersAdmin();
-            renderAdminEcoCampaigns();
-            loadAdminStatistics();
-            const goalInput = document.getElementById('admin-fundraising-target');
-            if (goalInput) goalInput.value = String(Number(fundraisingGoal.target_amount ?? DONATION_TARGET_FALLBACK));
-            const goalOpen = document.getElementById('admin-fundraising-enabled');
-            if (goalOpen) goalOpen.checked = fundraisingGoal.donations_enabled !== false;
-            let pending = statePendingAdminRequests ?? stateRequests.filter(r => r.status === 'pending');
-            if (supabaseClient) {
-                try {
-                    const { data: pendingRows, error: pendingError } = await supabaseClient.from('help_requests')
-                        .select('id,requester_id,name,city,category,description,urgency,status,created_at')
-                        .eq('status', 'pending').order('created_at', { ascending: true });
-                    if (pendingError) throw pendingError;
-                    statePendingAdminRequests = pendingRows || [];
-                    pending = statePendingAdminRequests;
-                } catch (err) {
-                    console.error('Admin moderation queue failed:', err);
-                    container.innerHTML = `<div class="rounded-2xl border border-red-200 bg-red-50 p-5 text-sm text-red-800">Модерация кезегі жүктелмеді: ${escapeHTML(err.message || 'Supabase қатесі')}</div>`;
+            if (adminViewLoadPromise) return adminViewLoadPromise;
+            adminViewLoadPromise = (async () => {
+                const container = document.getElementById('admin-pending-list');
+                const allDonationsContainer = document.getElementById('admin-all-donations-list');
+                if (!container) return;
+                if (!currentUser?.isAdmin) {
+                    container.innerHTML = '<div class="rounded-2xl border border-slate-200 bg-white p-5 text-sm text-slate-500">Әкімші құқықтары қажет.</div>';
+                    if (allDonationsContainer) allDonationsContainer.innerHTML = '';
                     return;
                 }
+                renderPartnersAdmin();
+                renderAdminEcoCampaigns();
+                const goalInput = document.getElementById('admin-fundraising-target');
+                if (goalInput) goalInput.value = String(Number(fundraisingGoal.target_amount ?? DONATION_TARGET_FALLBACK));
+                const goalOpen = document.getElementById('admin-fundraising-enabled');
+                if (goalOpen) goalOpen.checked = fundraisingGoal.donations_enabled !== false;
+                let pending = statePendingAdminRequests ?? stateRequests.filter(r => r.status === 'pending');
+                if (supabaseClient) {
+                    try {
+                        const { data: pendingRows, error: pendingError } = await supabaseClient.from('help_requests')
+                            .select('id,requester_id,name,city,category,address,phone,images,description,urgency,vulnerability,status,created_at,updated_at')
+                            .eq('status', 'pending').order('created_at', { ascending: true });
+                        if (pendingError) throw pendingError;
+                        statePendingAdminRequests = pendingRows || [];
+                        pending = statePendingAdminRequests;
+                    } catch (err) {
+                        console.error('Admin moderation queue failed:', err);
+                        container.innerHTML = `<div class="rounded-2xl border border-red-200 bg-red-50 p-5 text-sm text-red-800">Модерация кезегі жүктелмеді: ${escapeHTML(err.message || 'Supabase қатесі')}</div>`;
+                        return;
+                    }
+                }
+                adminPendingRequestsCache.clear();
+                pending.forEach(p => adminPendingRequestsCache.set(String(p.id), p));
+                container.innerHTML = !pending.length ? '<div class="p-6 bg-white rounded-2xl border border-slate-200 text-sm text-slate-500">Тексеруді күтіп тұрған жаңа өтініштер жоқ.</div>' : pending.map(p => `
+                    <article class="bg-white p-5 rounded-2xl border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                        <div class="min-w-0"><span class="bg-amber-100 text-amber-800 text-[10px] font-bold px-2 py-1 rounded">Модерация</span><h4 class="font-bold text-slate-900 text-sm mt-2">${escapeHTML(p.name)} (${escapeHTML(p.city)})</h4><p class="text-xs text-slate-600 mt-1">${escapeHTML(p.description || '')}</p><p class="mt-1 text-xs text-slate-500">${escapeHTML(p.category || '')} · ${escapeHTML(p.urgency || '')}</p></div>
+                        <div class="grid w-full grid-cols-2 gap-2 sm:w-auto"><button type="button" onclick="openAdminRequestDetails('${escapeHTML(p.id)}')" class="col-span-2 rounded-xl border border-slate-200 px-4 py-2.5 text-xs font-bold text-slate-700 hover:bg-slate-50">Толық мәлімет пен суреттер</button><button type="button" onclick="approveAdminReq('${escapeHTML(p.id)}')" class="rounded-xl bg-brand-600 text-white text-xs font-bold px-4 py-2.5">Мақұлдау</button><button type="button" onclick="rejectAdminReq('${escapeHTML(p.id)}')" class="rounded-xl bg-red-100 text-red-700 text-xs font-bold px-4 py-2.5">Қабылдамау</button></div>
+                    </article>`).join('');
+
+                const reportContainer = document.getElementById('admin-help-reports-list');
+                if (reportContainer && supabaseClient) {
+                    try {
+                        const { data: reports, error } = await supabaseClient.from('help_reports')
+                            .select('id,request_id,helper_id,description,images,status,review_note,created_at,help_requests(id,requester_id,name,city,category,address,phone,images,description,urgency,vulnerability,status,created_at)')
+                            .eq('status','pending').order('created_at',{ascending:false});
+                        if (error) throw error;
+                        adminHelpReportsCache.clear();
+                        (reports || []).forEach(report => adminHelpReportsCache.set(String(report.id), report));
+                        reportContainer.innerHTML = !reports?.length ? '<p class="text-sm text-slate-500">Тексеруді күткен фотоесеп жоқ.</p>' : reports.map(report => {
+                            const reqInfo = Array.isArray(report.help_requests) ? report.help_requests[0] : report.help_requests;
+                            return `<article class="rounded-2xl border border-slate-200 p-4"><h4 class="font-bold text-sm text-slate-900">${escapeHTML(reqInfo?.name || 'Көмек сұрауы')} · ${escapeHTML(reqInfo?.city || '')}</h4><p class="my-2 whitespace-pre-line text-sm text-slate-600">${escapeHTML(report.description || '')}</p><p class="mb-3 text-xs text-slate-500">Фотоесеп жіберілді: ${report.created_at ? new Date(report.created_at).toLocaleString() : '—'}</p><div class="grid grid-cols-2 gap-2"><button type="button" onclick="openAdminReportDetails('${escapeHTML(report.id)}')" class="col-span-2 rounded-xl border border-slate-200 px-3 py-2 text-xs font-bold text-slate-700">Толық есеп пен суреттерді ашу</button><button type="button" onclick="reviewHelpReport('${escapeHTML(report.id)}',true)" class="rounded-xl bg-brand-600 px-3 py-2 text-xs font-bold text-white">Дәлелді растау</button><button type="button" onclick="reviewHelpReport('${escapeHTML(report.id)}',false)" class="rounded-xl bg-amber-100 px-3 py-2 text-xs font-bold text-amber-900">Қайта тапсыру</button></div></article>`;
+                        }).join('');
+                    } catch (err) { reportContainer.innerHTML = `<p class="text-sm text-red-700">Фотоесептер жүктелмеді: ${escapeHTML(err.message)}</p>`; }
+                }
+                if (allDonationsContainer) {
+                    allDonationsContainer.innerHTML = stateDonations.length ? stateDonations.map(d => {
+                        const donorName = d.name || d.donor_name;
+                        const donorLabel = donorName ? `<span translate="no" class="notranslate font-bold text-slate-900">${escapeHTML(donorName)}</span>` : '<span class="font-bold text-slate-900">Донор</span>';
+                        return `<div class="py-3 flex items-center justify-between gap-3 text-xs"><div class="min-w-0">${donorLabel}<span translate="no" class="notranslate text-slate-500 break-all"> (${escapeHTML(d.email || d.donor_email || '')})</span><span class="block text-[10px] text-slate-500">${escapeHTML(d.date || d.created_at || '')} · DEMO</span></div><span class="shrink-0 font-extrabold text-brand-600">${Number(d.amount || 0).toLocaleString('en-US')} ₸</span></div>`;
+                    }).join('') : '<p class="py-4 text-sm text-slate-500">Демо-донаттар әлі тіркелмеген.</p>';
+                }
+                const verificationContainer = document.getElementById('admin-profile-verification-list');
+                if (verificationContainer && supabaseClient) {
+                    try {
+                        const { data: profiles, error: profileError } = await supabaseClient.from('profiles')
+                            .select('id,full_name,first_name,last_name,middle_name,date_of_birth,social_status,phone,city,avatar_url,profile_consent_at,created_at,verification_requested_at,is_verified')
+                            .not('verification_requested_at','is',null).eq('is_verified',false).order('verification_requested_at',{ascending:true});
+                        if (profileError) throw profileError;
+                        adminVerificationCache.clear();
+                        (profiles || []).forEach(profile => adminVerificationCache.set(String(profile.id), profile));
+                        verificationContainer.innerHTML = !profiles?.length ? '<p class="text-sm text-slate-500">Күтудегі профиль өтінімі жоқ.</p>' : profiles.map(p => {
+                            const fullName = p.full_name || [p.first_name,p.middle_name,p.last_name].filter(Boolean).join(' ') || 'Аты көрсетілмеген';
+                            return `<article class="rounded-xl border border-slate-200 p-3"><p class="text-sm font-bold text-slate-900">${escapeHTML(fullName)}</p><p class="mt-1 text-xs text-slate-600">${escapeHTML(p.city || 'Қала көрсетілмеген')} · ${escapeHTML(p.phone || 'Телефон көрсетілмеген')}</p><div class="mt-3 grid grid-cols-2 gap-2"><button type="button" onclick="openAdminVerificationDetails('${escapeHTML(p.id)}')" class="rounded-lg border border-slate-200 px-3 py-2 text-xs font-bold text-slate-700">Толық деректер</button><button type="button" onclick="approveProfileVerification('${escapeHTML(p.id)}')" class="rounded-lg bg-gov-600 px-3 py-2 text-xs font-bold text-white">Тексерілді деп белгілеу</button></div></article>`;
+                        }).join('');
+                    } catch(err) { verificationContainer.innerHTML = `<p class="text-sm text-red-700">Өтінімдер ашылмады: ${escapeHTML(err.message)}</p>`; }
+                }
+                refreshIcons(document.getElementById('tab-admin'));
+            })();
+            try { await adminViewLoadPromise; }
+            finally { adminViewLoadPromise = null; }
+        }
+
+        function closeAdminDetails() {
+            const modal = document.getElementById('admin-details-modal');
+            modal?.classList.add('hidden'); modal?.classList.remove('flex');
+        }
+        function showAdminDetails(title, content) {
+            const modal = document.getElementById('admin-details-modal');
+            const titleEl = document.getElementById('admin-details-title');
+            const body = document.getElementById('admin-details-body');
+            if (!modal || !body || !titleEl) return;
+            titleEl.textContent = title;
+            body.innerHTML = content;
+            modal.classList.remove('hidden'); modal.classList.add('flex');
+            refreshIcons(modal);
+        }
+        function adminDetailRows(rows) {
+            return `<dl class="grid grid-cols-1 gap-3 sm:grid-cols-2">${rows.map(([label,value]) => `<div class="min-w-0 rounded-xl bg-slate-50 p-3"><dt class="text-[11px] font-bold uppercase tracking-wide text-slate-500">${escapeHTML(label)}</dt><dd class="mt-1 break-words whitespace-pre-line text-sm font-semibold text-slate-900">${escapeHTML(value || '—')}</dd></div>`).join('')}</dl>`;
+        }
+        function adminPublicGallery(urls, title) {
+            const images = (Array.isArray(urls) ? urls : []).filter(Boolean);
+            if (!images.length) return '<p class="text-xs text-slate-500">Сурет тіркелмеген.</p>';
+            return `<div class="admin-detail-gallery">${images.map((url,index) => `<a href="${escapeHTML(url)}" target="_blank" rel="noopener noreferrer"><img src="${escapeHTML(url)}" alt="${escapeHTML(title)} — ${index+1}" loading="lazy"></a>`).join('')}</div>`;
+        }
+        async function openAdminRequestDetails(id) {
+            let item = adminPendingRequestsCache.get(String(id));
+            if (!item && supabaseClient) {
+                const { data, error } = await supabaseClient.from('help_requests').select('id,requester_id,name,city,category,address,phone,images,description,urgency,vulnerability,status,created_at,updated_at').eq('id',id).single();
+                if (error) { showToast('Өтініш ашылмады', error.message, true); return; }
+                item = data;
             }
-            container.innerHTML = !pending.length ? '<div class="p-6 bg-white rounded-2xl border border-slate-200 text-sm text-slate-500">Тексеруді күтіп тұрған жаңа өтініштер жоқ.</div>' : pending.map(p => `
-                <article class="bg-white p-5 rounded-2xl border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                    <div><span class="bg-amber-100 text-amber-800 text-[10px] font-bold px-2 py-1 rounded">Модерация</span><h4 class="font-bold text-slate-900 text-sm mt-2">${escapeHTML(p.name)} (${escapeHTML(p.city)})</h4><p class="text-xs text-slate-600 mt-1">${escapeHTML(p.desc || p.description || '')}</p><p class="mt-1 text-xs text-slate-500">${escapeHTML(p.category || '')} · ${escapeHTML(p.urgency || '')}</p></div>
-                    <div class="flex gap-2 w-full sm:w-auto"><button onclick="approveAdminReq('${escapeHTML(p.id)}')" class="flex-1 bg-brand-600 text-white text-xs font-bold px-4 py-2.5 rounded-xl">Мақұлдау</button><button onclick="rejectAdminReq('${escapeHTML(p.id)}')" class="flex-1 bg-red-100 text-red-700 text-xs font-bold px-4 py-2.5 rounded-xl">Қабылдамау</button></div>
-                </article>`).join('');
-            const reportContainer = document.getElementById('admin-help-reports-list');
-            if (reportContainer && supabaseClient) {
-                try {
-                    const { data: reports, error } = await supabaseClient.from('help_reports').select('id,request_id,helper_id,description,images,status,created_at,help_requests(name,city)').eq('status','pending').order('created_at',{ascending:false});
-                    if (error) throw error;
-                    reportContainer.innerHTML = !reports?.length ? '<p class="text-sm text-slate-500">Тексеруді күткен фотоесеп жоқ.</p>' : await Promise.all(reports.map(async report => {
-                        const images = Array.isArray(report.images) ? report.images : [];
-                        const previews = await Promise.all(images.map(async path => {
-                            const { data } = await supabaseClient.storage.from('case-photos').createSignedUrl(path, 900);
-                            return data?.signedUrl ? `<a href="${escapeHTML(data.signedUrl)}" target="_blank" rel="noopener"><img src="${escapeHTML(data.signedUrl)}" alt="Фотоесеп дәлелі" class="h-20 w-20 rounded-xl object-cover border border-slate-200"></a>` : '';
-                        }));
-                        const reqInfo = Array.isArray(report.help_requests) ? report.help_requests[0] : report.help_requests;
-                        return `<article class="rounded-2xl border border-slate-200 p-4"><h4 class="font-bold text-sm text-slate-900">${escapeHTML(reqInfo?.name || 'Көмек сұрауы')} · ${escapeHTML(reqInfo?.city || '')}</h4><p class="my-2 whitespace-pre-line text-sm text-slate-600">${escapeHTML(report.description)}</p><div class="mb-3 flex flex-wrap gap-2">${previews.filter(Boolean).join('') || '<span class="text-xs text-amber-700">Фото сілтемесін ашу мүмкін болмады</span>'}</div><p class="mb-3 text-xs text-slate-500">Фотоесеп жіберілді: ${new Date(report.created_at).toLocaleString()}</p><div class="flex gap-2"><button onclick="reviewHelpReport('${escapeHTML(report.id)}',true)" class="flex-1 rounded-xl bg-brand-600 px-3 py-2 text-xs font-bold text-white">Дәлелді растау және жабу</button><button onclick="reviewHelpReport('${escapeHTML(report.id)}',false)" class="flex-1 rounded-xl bg-amber-100 px-3 py-2 text-xs font-bold text-amber-900">Қайта тапсыру</button></div></article>`;
-                    })).then(parts => parts.join(''));
-                } catch (err) { reportContainer.innerHTML = `<p class="text-sm text-red-700">Фотоесептер жүктелмеді: ${escapeHTML(err.message)}</p>`; }
-            }
-            if (allDonationsContainer) {
-                allDonationsContainer.innerHTML = stateDonations.length ? stateDonations.map(d => {
-                    const donorName = d.name || d.donor_name;
-                    const donorLabel = donorName ? `<span translate="no" class="notranslate font-bold text-slate-900">${escapeHTML(donorName)}</span>` : '<span class="font-bold text-slate-900">Донор</span>';
-                    return `<div class="py-3 flex items-center justify-between gap-3 text-xs"><div>${donorLabel}<span translate="no" class="notranslate text-slate-500"> (${escapeHTML(d.email || d.donor_email || '')})</span><span class="block text-[10px] text-slate-500">${escapeHTML(d.date || d.created_at || '')} · DEMO</span></div><span class="font-extrabold text-brand-600">${Number(d.amount || 0).toLocaleString('en-US')} ₸</span></div>`;
-                }).join('') : '<p class="py-4 text-sm text-slate-500">Демо-донаттар әлі тіркелмеген.</p>';
-            }
-            const verificationContainer = document.getElementById('admin-profile-verification-list');
-            if (verificationContainer && supabaseClient) {
-                try {
-                    const { data: profiles, error: profileError } = await supabaseClient.from('profiles').select('id,full_name,phone,city,verification_requested_at').not('verification_requested_at','is',null).eq('is_verified',false).order('verification_requested_at',{ascending:true});
-                    if (profileError) throw profileError;
-                    verificationContainer.innerHTML = !profiles?.length ? '<p class="text-sm text-slate-500">Күтудегі растау өтінімі жоқ.</p>' : profiles.map(p=>`<article class="rounded-xl border border-slate-200 p-3"><p class="text-sm font-bold text-slate-900">${escapeHTML(p.full_name || 'Аты көрсетілмеген')}</p><p class="mt-1 text-xs text-slate-600">${escapeHTML(p.city || '')} · ${escapeHTML(p.phone || '')}</p><button onclick="approveProfileVerification('${escapeHTML(p.id)}')" class="mt-3 w-full rounded-lg bg-gov-600 px-3 py-2 text-xs font-bold text-white">Әкімші растады деп белгілеу</button></article>`).join('');
-                } catch(err) { verificationContainer.innerHTML = `<p class="text-sm text-red-700">Өтінімдер ашылмады: ${escapeHTML(err.message)}</p>`; }
-            }
-            lucide.createIcons(); applyLanguage();
+            if (!item) return;
+            const rows = [['Алушы/отбасы аты',item.name],['Қала',item.city],['Санат',item.category],['Мекенжай',item.address],['Телефон',item.phone],['Шұғылдық',item.urgency],['Әлеуметтік санаттар',(item.vulnerability || []).join(', ')],['Мәртебе',item.status],['Жіберілген уақыт',item.created_at ? new Date(item.created_at).toLocaleString() : '—'],['Толық сипаттама',item.description]];
+            showAdminDetails('Көмек өтінішінің толық мәліметі', `<div class="space-y-4">${adminDetailRows(rows)}<section><h3 class="mb-2 font-bold text-slate-900">Өтінішке тіркелген суреттер</h3>${adminPublicGallery(item.images,'Өтініш суреті')}</section></div>`);
+        }
+        async function openAdminReportDetails(id) {
+            const report = adminHelpReportsCache.get(String(id));
+            if (!report || !supabaseClient) return;
+            const request = Array.isArray(report.help_requests) ? report.help_requests[0] : report.help_requests;
+            const [signedImages, helperRes] = await Promise.all([
+                Promise.all((Array.isArray(report.images) ? report.images : []).map(async path => {
+                    const { data, error } = await supabaseClient.storage.from('case-photos').createSignedUrl(path, 900);
+                    return !error && data?.signedUrl ? data.signedUrl : null;
+                })),
+                supabaseClient.from('profiles').select('full_name,first_name,last_name,middle_name,phone,city').eq('id',report.helper_id).maybeSingle()
+            ]);
+            const helper = helperRes.data || {};
+            const helperName = helper.full_name || [helper.first_name,helper.middle_name,helper.last_name].filter(Boolean).join(' ') || '—';
+            const rows = [['Көмек алушы/отбасы',request?.name],['Қала',request?.city],['Санат',request?.category],['Мекенжай',request?.address],['Байланыс телефоны',request?.phone],['Көмек сипаттамасы',request?.description],['Әлеуметтік санаттар',(request?.vulnerability || []).join(', ')],['Шұғылдық',request?.urgency],['Көмек көрсеткен адам',helperName],['Көмек көрсетушінің телефоны',helper.phone],['Көмек көрсетушінің қаласы',helper.city],['Есеп сипаттамасы',report.description],['Жіберілген уақыт',report.created_at ? new Date(report.created_at).toLocaleString() : '—'],['Есеп мәртебесі',report.status]];
+            const gallery = signedImages.filter(Boolean).length ? `<div class="admin-detail-gallery">${signedImages.filter(Boolean).map((url,index) => `<a href="${escapeHTML(url)}" target="_blank" rel="noopener noreferrer"><img src="${escapeHTML(url)}" alt="Фотоесеп ${index+1}" loading="lazy"></a>`).join('')}</div>` : '<p class="text-xs text-amber-700">Фотоесеп суреттерінің сілтемесін ашу мүмкін болмады.</p>';
+            showAdminDetails('Фотоесептің толық мәліметі', `<div class="space-y-4">${adminDetailRows(rows)}<section><h3 class="mb-2 font-bold text-slate-900">Фотоесеп суреттері</h3>${gallery}</section><section><h3 class="mb-2 font-bold text-slate-900">Бастапқы өтініш суреттері</h3>${adminPublicGallery(request?.images,'Бастапқы өтініш суреті')}</section></div>`);
+        }
+        function openAdminVerificationDetails(id) {
+            const profile = adminVerificationCache.get(String(id));
+            if (!profile) return;
+            const fullName = profile.full_name || [profile.first_name,profile.middle_name,profile.last_name].filter(Boolean).join(' ') || '—';
+            const avatar = profile.avatar_url ? `<img src="${escapeHTML(profile.avatar_url)}" alt="Профиль суреті" class="mb-4 h-28 w-28 rounded-full border border-slate-200 object-cover">` : '<p class="mb-4 text-xs text-slate-500">Профиль суреті жүктелмеген.</p>';
+            const rows = [['Толық аты-жөні',fullName],['Аты',profile.first_name],['Тегі',profile.last_name],['Әкесінің аты',profile.middle_name],['Туған күні',profile.date_of_birth],['Әлеуметтік мәртебесі',profile.social_status],['Телефон',profile.phone],['Қала',profile.city],['Профиль келісімі',profile.profile_consent_at ? new Date(profile.profile_consent_at).toLocaleString() : '—'],['Аккаунт ашылған уақыт',profile.created_at ? new Date(profile.created_at).toLocaleString() : '—'],['Тексеруге өтінім уақыты',profile.verification_requested_at ? new Date(profile.verification_requested_at).toLocaleString() : '—']];
+            showAdminDetails('Профильді толық тексеру', `<div class="space-y-4">${avatar}${adminDetailRows(rows)}</div>`);
         }
 
         async function approveProfileVerification(userId) {
@@ -2582,7 +2579,6 @@
                 if (row) fundraisingGoal = { target_amount:Number(row.target_amount), raised_amount:Number(row.raised_amount), donations_enabled:row.donations_enabled !== false };
                 await loadFundraisingGoal(); updateFundraisingUI();
                 showToast(targetChanged ? 'Мақсат жаңартылды' : 'Қор баптауы сақталды', targetChanged ? 'Басты беттегі ағымдағы сома 0 ₸ болды; тарихи донаттар сақталды.' : (enabled ? 'Қаражат жинау ашық.' : 'Қаражат жинау уақытша жабық.'));
-                await loadAdminStatistics();
             } catch (err) { showToast('Қорды жаңарту қатесі', err.message || 'Әкімші SQL функциясын тексеріңіз.', true); }
         }
         async function resetAdminFundraisingTotal() {
@@ -2596,49 +2592,6 @@
                 await loadFundraisingGoal(); updateFundraisingUI();
                 showToast('Жиналған сома нөлденді', 'Донат тарихы сақталып, басты беттегі көрсеткіш 0 ₸ болды.');
             } catch (err) { showToast('Соманы нөлдеу қатесі', err.message || 'Рұқсатты тексеріңіз.', true); }
-        }
-        async function loadAdminStatistics() {
-            const box = document.getElementById('admin-stats-content');
-            if (!box || !currentUser?.isAdmin || !supabaseClient) return;
-            try {
-                const { data, error } = await supabaseClient.rpc('get_admin_stats_history');
-                if (error) throw error;
-                adminStatsCache = data || [];
-                renderAdminStatistics();
-            } catch (err) { box.innerHTML = `<p class="text-sm text-red-700">Статистика жүктелмеді: ${escapeHTML(err.message)}. v8 SQL миграциясын орындаңыз.</p>`; }
-        }
-        function renderAdminStatistics() {
-            const box = document.getElementById('admin-stats-content'); if (!box) return;
-            const rows = adminStatsCache || [];
-            if (!rows.length) { box.innerHTML = '<p class="text-sm text-slate-500">Әзірге статистика жоқ.</p>'; return; }
-            const total = rows.reduce((a,r) => ({ users:a.users+Number(r.users_created||0), requests:a.requests+Number(r.help_requests_created||0), giveaways:a.giveaways+Number(r.giveaways_created||0), donations:a.donations+Number(r.donations_count||0), donationAmount:a.donationAmount+Number(r.donations_amount||0), partners:a.partners+Number(r.partners_created||0), eco:a.eco+Number(r.eco_programs_created||0) }), {users:0,requests:0,giveaways:0,donations:0,donationAmount:0,partners:0,eco:0});
-            const monthMap = new Map();
-            for (const r of rows) {
-                const month = String(r.stat_date || '').slice(0,7); if (!/^\d{4}-\d{2}$/.test(month)) continue;
-                if (!monthMap.has(month)) monthMap.set(month, { month, users:0, requests:0, giveaways:0, donations:0, donationAmount:0, partners:0, eco:0 });
-                const m = monthMap.get(month);
-                m.users += Number(r.users_created||0); m.requests += Number(r.help_requests_created||0); m.giveaways += Number(r.giveaways_created||0);
-                m.donations += Number(r.donations_count||0); m.donationAmount += Number(r.donations_amount||0); m.partners += Number(r.partners_created||0); m.eco += Number(r.eco_programs_created||0);
-            }
-            const months = Array.from(monthMap.values()).sort((a,b)=>a.month.localeCompare(b.month));
-            const series = [
-                { key:'users', label:'Қолданушы', color:'#2563eb' }, { key:'requests', label:'Көмек сұрауы', color:'#0d9488' },
-                { key:'giveaways', label:'Тегін зат', color:'#d97706' }, { key:'donations', label:'Донат саны', color:'#7c3aed' },
-                { key:'partners', label:'Серіктес', color:'#db2777' }, { key:'eco', label:'Эко-бағдарлама', color:'#16a34a' }
-            ];
-            const chartWidth = Math.max(920, months.length * 44), height=290, padL=42, padR=18, padT=20, padB=44, plotW=chartWidth-padL-padR, plotH=height-padT-padB;
-            const maxCount = Math.max(1, ...months.map(m => Math.max(...series.map(s => m[s.key]))));
-            const groupW = plotW / Math.max(1,months.length), barW = Math.max(1,(groupW-8)/series.length);
-            const countBars = months.map((m,mi) => series.map((ser,si) => {
-                const val=m[ser.key], bh=val/maxCount*plotH, x=padL+mi*groupW+4+si*barW, y=padT+plotH-bh;
-                return `<rect x="${x.toFixed(2)}" y="${y.toFixed(2)}" width="${Math.max(1,barW-1).toFixed(2)}" height="${Math.max(0,bh).toFixed(2)}" rx="1.5" fill="${ser.color}"><title>${escapeHTML(m.month)} · ${escapeHTML(ser.label)}: ${val.toLocaleString('en-US')}</title></rect>`;
-            }).join('')).join('');
-            const labelStep = Math.max(1, Math.ceil(months.length/14));
-            const monthLabels = months.filter((m,i)=>i%labelStep===0 || i===months.length-1).map(m=>{const i=months.indexOf(m);return `<text x="${(padL+i*groupW+groupW/2).toFixed(2)}" y="${height-14}" text-anchor="middle" font-size="10" fill="#64748b">${escapeHTML(m.month)}</text>`;}).join('');
-            const countLegend = series.map(ser=>`<span class="inline-flex items-center gap-1.5 text-xs text-slate-600"><span class="h-2.5 w-2.5 rounded-sm" style="background:${ser.color}"></span>${ser.label}</span>`).join('');
-            const maxDonation = Math.max(1,...months.map(m=>m.donationAmount));
-            const donationBars = months.map((m,i)=>{const bh=m.donationAmount/maxDonation*plotH,x=padL+i*groupW+4,y=padT+plotH-bh;return `<rect x="${x.toFixed(2)}" y="${y.toFixed(2)}" width="${Math.max(1,groupW-8).toFixed(2)}" height="${Math.max(0,bh).toFixed(2)}" rx="2" fill="#10b981"><title>${escapeHTML(m.month)}: ${m.donationAmount.toLocaleString('en-US')} ₸</title></rect>`;}).join('');
-            box.innerHTML = `<div class="mb-5 grid grid-cols-2 gap-3 sm:grid-cols-4 xl:grid-cols-7"><div class="rounded-xl bg-slate-50 p-3"><p class="text-xs text-slate-500">Қолданушылар</p><p class="mt-1 text-xl font-extrabold">${total.users.toLocaleString('en-US')}</p></div><div class="rounded-xl bg-slate-50 p-3"><p class="text-xs text-slate-500">Көмек сұраулары</p><p class="mt-1 text-xl font-extrabold">${total.requests.toLocaleString('en-US')}</p></div><div class="rounded-xl bg-slate-50 p-3"><p class="text-xs text-slate-500">Тегін заттар</p><p class="mt-1 text-xl font-extrabold">${total.giveaways.toLocaleString('en-US')}</p></div><div class="rounded-xl bg-slate-50 p-3"><p class="text-xs text-slate-500">Донат саны</p><p class="mt-1 text-xl font-extrabold">${total.donations.toLocaleString('en-US')}</p></div><div class="rounded-xl bg-slate-50 p-3"><p class="text-xs text-slate-500">Тарихи донат сомасы</p><p class="mt-1 text-xl font-extrabold">${total.donationAmount.toLocaleString('en-US')} ₸</p></div><div class="rounded-xl bg-slate-50 p-3"><p class="text-xs text-slate-500">Серіктестер</p><p class="mt-1 text-xl font-extrabold">${total.partners.toLocaleString('en-US')}</p></div><div class="rounded-xl bg-slate-50 p-3"><p class="text-xs text-slate-500">Эко-бағдарлама</p><p class="mt-1 text-xl font-extrabold">${total.eco.toLocaleString('en-US')}</p></div></div><div class="mb-2"><h4 class="font-bold text-slate-900">Барлық тарих: айлар бойынша платформа белсенділігі</h4><p class="mt-1 text-xs text-slate-500">Жазба жойылғаннан кейін де тарихи есеп журналда қалады.</p></div><div class="admin-chart-wrap rounded-2xl border border-slate-200 bg-white p-3"><div class="mb-3 flex flex-wrap gap-x-4 gap-y-2">${countLegend}</div><svg viewBox="0 0 ${chartWidth} ${height}" style="width:${chartWidth}px;max-width:none" class="admin-chart-svg" role="img" aria-label="Айлар бойынша барлық платформа көрсеткіштері"><line x1="${padL}" y1="${padT+plotH}" x2="${chartWidth-padR}" y2="${padT+plotH}" stroke="#cbd5e1"/>${countBars}${monthLabels}</svg></div><div class="mb-2 mt-6"><h4 class="font-bold text-slate-900">Донат сомасының тарихы</h4><p class="mt-1 text-xs text-slate-500">Әр айдағы тіркелген демо-донаттар сомасы.</p></div><div class="admin-chart-wrap rounded-2xl border border-slate-200 bg-white p-3"><svg viewBox="0 0 ${chartWidth} ${height}" style="width:${chartWidth}px;max-width:none" class="admin-chart-svg" role="img" aria-label="Айлар бойынша донат сомасы"><line x1="${padL}" y1="${padT+plotH}" x2="${chartWidth-padR}" y2="${padT+plotH}" stroke="#cbd5e1"/>${donationBars}${monthLabels}</svg></div><p class="mt-3 text-xs text-slate-500">Тарих миграция кезінде бар болған жазбалардан бір рет толтырылады және жаңа жазбалар келген сайын толықтырылады. Донат мақсатын нөлдеу тек басты беттегі жинақталған ағымдағы соманы өзгертеді; тарихи есеп сақталады.</p>`;
         }
 
         // ===== Supabase data, storage, notification, language and menu helpers =====
@@ -2723,8 +2676,6 @@
                     }
                 }
                 stateEcoCampaigns = (ecoRes.data || []).map(mapEcoRow);
-                const statRequests = document.getElementById('stat-requests'); if (statRequests) statRequests.textContent = String(stateRequests.filter(r => ['approved','in_progress','awaiting_verification'].includes(r.status)).length);
-                const statGiveaways = document.getElementById('stat-giveaways'); if (statGiveaways) statGiveaways.textContent = String(stateGiveaways.length);
                 await loadFundraisingGoal();
                 renderRequests(); renderGiveaways(); renderEcoCampaigns();
 
@@ -2761,8 +2712,6 @@
                 stateDonations = rows.map(d=>({ ...d, email:d.donor_email || currentUser.email, name:d.donor_name || currentUser.name, date:d.created_at ? new Date(d.created_at).toLocaleString() : '', payment_mode:d.payment_mode || 'demo' }));
             } else console.warn('Could not load donations:', donationsRes.error.message);
             renderNotifications(); renderProfileActivity(); renderDonations(); renderEcoCampaigns(); renderAdminView();
-            document.getElementById('profile-my-reqs').textContent = stateRequests.filter(r=>r.requesterId===currentUser.id).length;
-            document.getElementById('profile-my-gives').textContent = stateGiveaways.filter(g=>g.ownerId===currentUser.id).length;
         }
         async function createNotification(userId, title, message, type='info') {
             if (!userId || !supabaseClient) return;
@@ -2790,7 +2739,7 @@
             container.innerHTML = markup;
             const pageContainer = document.getElementById('notifications-page-list');
             if (pageContainer) pageContainer.innerHTML = markup;
-            if (window.lucide) lucide.createIcons();
+            refreshIcons(container);
             applyLanguage();
         }
         function renderProfileActivity() {
@@ -2815,14 +2764,13 @@
         }
         function toggleMainMenu() { toggleAuthenticatedMenu(); }
         function toggleAuthenticatedMenu() {
-            if (!currentUser || !currentUser.onboarded || !isEGovVerified) { openAuthModal(); return; }
+            if (!currentUser || !currentUser.onboarded) { openAuthModal(); return; }
             const panel = document.getElementById('mobile-menu-panel');
             const button = document.getElementById('menu-button');
             if (window.matchMedia && window.matchMedia('(max-width: 640px)').matches && panel) {
                 const willOpen = panel.classList.contains('hidden');
                 panel.classList.toggle('hidden', !willOpen);
                 if (button) button.setAttribute('aria-expanded', String(willOpen));
-                if (willOpen && window.lucide) lucide.createIcons();
             } else {
                 closeMainMenu();
                 openMainMenuPage();
@@ -2856,17 +2804,12 @@
           'Тегі':{ru:'Фамилия',en:'Last name'},
           'Әкесінің аты (болмаса бос қалдыруға болады)':{ru:'Отчество (если нет — оставьте пустым)',en:'Middle name (optional)'},
           'Әлеуметтік мәртебе':{ru:'Социальный статус',en:'Social status'},
-          'Ресми eGov интеграциясы әлі қосылмаған. Төмендегі батырма тек әкімшіге өтінім жібереді.':{ru:'Официальная интеграция eGov ещё не подключена. Кнопка ниже только отправляет заявку администратору.',en:'The official eGov integration is not connected yet. The button below only sends a request to the administrator.'},
-          'Өтінімді жіберу өздігінен eGov арқылы растау емес. Нақты eGov интеграциясы қосылғанша растауды шынайы eGov деп көрсетпейміз.':{ru:'Отправка заявки сама по себе не подтверждает личность через eGov. Пока официальная интеграция не подключена, мы не выдаём это за настоящую проверку eGov.',en:'Submitting a request does not verify identity through eGov. Until the official eGov integration is connected, this is not presented as real eGov verification.'},
-          'ЖСН бұл формада жиналмайды. Ол тек ресми eGov растау интеграциясы іске қосылғанда қауіпсіз тексерілуі керек.':{ru:'ИИН не собирается в этой форме. Его следует проверять безопасно только после подключения официальной интеграции eGov.',en:'The national ID number is not collected in this form. It should only be checked securely after an official eGov integration is connected.'},
           'Өтінім жіберілді':{ru:'Заявка отправлена',en:'Request submitted'},
-          'Өтінім жіберілді. Әкімші тексеруін күтіңіз. Бұл нақты eGov растауы емес; ресми интеграция бөлек қосылуы керек.':{ru:'Заявка отправлена. Дождитесь проверки администратора. Это не подтверждение через eGov; официальную интеграцию нужно подключить отдельно.',en:'Request submitted. Wait for administrator review. This is not eGov verification; the official integration must be connected separately.'},
           'Қолмен тексеруге өтінім жіберу':{ru:'Отправить заявку на ручную проверку',en:'Request manual review'},
-          'Жеке тұлғаны растау міндетті':{ru:'Подтверждение личности обязательно',en:'Identity verification required'},
-          'Сайтқа кіру әкімші тексеруі аяқталғанша жабық қалады. Бұл нақты eGov растауы емес.':{ru:'Доступ к сайту останется закрытым до завершения проверки администратором. Это не подтверждение через eGov.',en:'Access to the site remains blocked until administrator review is complete. This is not eGov verification.'},
-          'Келесі қадам — тұлғаны растау. Растаудан кейін сайт ашылады.':{ru:'Следующий шаг — подтверждение личности. После проверки сайт станет доступен.',en:'Next, verify your identity. The site will become available after verification.'},
-          'Растау қажет':{ru:'Требуется подтверждение',en:'Verification required'},
-          'Сайтқа кіру үшін тұлғаны растау аяқталуы керек.':{ru:'Для доступа к сайту необходимо завершить проверку личности.',en:'Identity verification must be completed to access the site.'},
+          'Профильді толтыру міндетті':{ru:'Подтверждение личности обязательно',en:'Identity verification required'},
+          'Профиль деректері сақталды.':{ru:'Следующий шаг — подтверждение личности. После проверки сайт станет доступен.',en:'Next, verify your identity. The site will become available after verification.'},
+          'Профиль деректері қажет':{ru:'Требуется подтверждение',en:'Verification required'},
+          'Сайтқа кіру үшін профиль деректерін толтырыңыз.':{ru:'Для доступа к сайту необходимо завершить проверку личности.',en:'Identity verification must be completed to access the site.'},
           'Біздің серіктестер':{ru:'Наши партнёры',en:'Our partners'},
           'Қазір серіктес ұйымдар жоқ':{ru:'Партнёрских организаций пока нет',en:'No partner organizations yet'},
           'Донат':{ru:'Пожертвование',en:'Donation'},
@@ -2882,7 +2825,6 @@
           'Кодты қайта жіберу':{ru:'Отправить код повторно',en:'Resend code'},
           'Басқа email енгізу':{ru:'Указать другой email',en:'Use another email'},
           'Google және Apple кіруі Supabase-та тиісті провайдерлер қосылғаннан кейін жұмыс істейді.':{ru:'Вход через Google и Apple заработает после настройки провайдеров в Supabase.',en:'Google and Apple sign-in work after the providers are configured in Supabase.'},
-          'ЖСН бұл формада жиналмайды. Ол тек ресми eGov растау интеграциясы іске қосылғанда қауіпсіз тексерілуі керек.':{ru:'ИИН не собирается в этой форме. Его следует безопасно проверять только после подключения официальной интеграции eGov.',en:'The IIN is not collected in this form. It should be verified securely only after an official eGov integration is connected.'},
           'Аты':{ru:'Имя',en:'First name'}, 'Тегі':{ru:'Фамилия',en:'Last name'},
           'Әкесінің аты (болмаса бос қалдыруға болады)':{ru:'Отчество (необязательно)',en:'Middle name (optional)'},
           'Туған күні':{ru:'Дата рождения',en:'Date of birth'}, 'Қоғамдық мәртебеңіз':{ru:'Социальный статус',en:'Social status'},
@@ -2895,8 +2837,6 @@
           'Профиль деректерін толтыру міндетті':{ru:'Заполнение профиля обязательно',en:'Complete your profile'},
           'Сайтқа толық қолжетімділік алу үшін төмендегі жеке мәліметтерді толтырыңыз.':{ru:'Заполните данные ниже, чтобы получить доступ к сайту.',en:'Complete the details below to access the site.'},
           'Деректерді сақтау және сайтқа кіру':{ru:'Сохранить данные и войти на сайт',en:'Save details and enter the site'},
-          'Тұлғаны растау (eGov)':{ru:'Подтверждение личности (eGov)',en:'Identity verification (eGov)'},
-          'Ресми eGov интеграциясы әлі қосылмаған':{ru:'Официальная интеграция eGov ещё не подключена',en:'Official eGov integration is not connected yet'},
           'Растау өтінімін жіберу':{ru:'Отправить запрос на проверку',en:'Submit verification request'},
           'Басты':{ru:'Главная',en:'Home'}, 'Көмек':{ru:'Помощь',en:'Help'}, 'Заттар':{ru:'Вещи',en:'Items'},
           'Әкімшіге арналған бөлім':{ru:'Раздел для администратора',en:'Admin-only area'},
@@ -2905,7 +2845,6 @@
           'Жаңа хабарлама жоқ.':{ru:'Новых уведомлений нет.',en:'No new notifications.'},
           'Әзірге әрекет жоқ. Жасалған әрекеттер осы жерде көрінеді.':{ru:'Пока нет действий. Здесь будут отображаться ваши действия.',en:'No activity yet. Your activity will appear here.'},
           'Профиль сақталды':{ru:'Профиль сохранён',en:'Profile saved'},
-          'Енді сайттың тіркелген қолданушыларға арналған бөлімдері ашық. eGov мәртебесі ресми интеграция қосылғанша бөлек қалады.':{ru:'Теперь доступны разделы для зарегистрированных пользователей. Статус eGov останется отдельным до подключения официальной интеграции.',en:'Registered-user sections are now available. eGov status remains separate until the official integration is connected.'},
           'Supabase әлі бапталмаған':{ru:'Supabase ещё не настроен',en:'Supabase is not configured yet'},
           'Алдымен жаңа Supabase жобасын бірге баптаймыз. Қазір код әдейі нақты жобаға жалғанбаған.':{ru:'Сначала настроим новый проект Supabase вместе. Сейчас код намеренно не подключён к конкретному проекту.',en:'We will configure a new Supabase project together first. This code is intentionally not connected to a specific project yet.'},
           'Project URL мен publishable/anon key әлі енгізілмеген.':{ru:'Project URL и publishable/anon key ещё не указаны.',en:'Project URL and publishable/anon key have not been entered yet.'},
@@ -2944,18 +2883,18 @@
           '🌱 Taza Qazaqstan Бағдарламасы':{ru:'🌱 Программа Taza Qazaqstan',en:'🌱 Taza Qazaqstan programme'},
           'Экологиялық бастамалар тек жүйе әкімшілері мен серіктес ұйымдар тарапынан ұйымдастырылады. Ағаш отырғызу, сенбіліктер мен тазалық жұмыстарына белсене қатысыңыз!':{ru:'Экологические инициативы организуют администраторы платформы и партнёрские организации. Присоединяйтесь к посадке деревьев и уборкам!',en:'Environmental initiatives are organized by platform administrators and partner organizations. Join tree planting and cleanup events!'},
           'Тіркелген Волонтер':{ru:'Зарегистрированный пользователь',en:'Registered user'}, 'Тексерілмеген':{ru:'Не подтверждено',en:'Not verified'},
-          'Мұқтаж жандардың нақты байланыс деректеріне қол жеткізу үшін тұлғаны ресми түрде растау қажет. eGov интеграциясы әзірге қосылмаған.':{ru:'Для доступа к контактным данным нуждающихся требуется официальное подтверждение личности. Интеграция с eGov пока не подключена.',en:'Official identity verification is required to access contact details of people in need. eGov integration is not connected yet.'},
-          'Растауды бастау':{ru:'Начать подтверждение',en:'Start verification'}, 'Әрекеттеріңіз осы жерде сақталады.':{ru:'Здесь будут сохраняться ваши действия.',en:'Your activity will be saved here.'},
+          'Мұқтаж жандардың нақты байланыс деректеріне қол жеткізу үшін әкімші тексерген профиль қажет.':{ru:'Для доступа к контактным данным нужна проверка профиля администратором.',en:'An administrator-reviewed profile is needed to access contact details.'},
+          'Әкімшіге жіберу':{ru:'Начать подтверждение',en:'Start verification'}, 'Әрекеттеріңіз осы жерде сақталады.':{ru:'Здесь будут сохраняться ваши действия.',en:'Your activity will be saved here.'},
           'VoluHub Басқару және Модерация Орталығы':{ru:'Центр управления и модерации VoluHub',en:'VoluHub management and moderation center'},
           'Көмек сұрауларын тексеру, Эко-акцияларды жариялау және барлық донаттарды бақылау':{ru:'Проверка запросов помощи, публикация эко-акций и контроль пожертвований',en:'Review help requests, publish eco-events, and monitor donations'},
           'Модерацияны күтіп тұрған көмек өтініштері':{ru:'Запросы помощи, ожидающие модерации',en:'Help requests awaiting moderation'},
           'Көмек сұрауы есеп суреті әкімші мақұлдағанша ашық тұрады.':{ru:'Запрос остаётся открытым, пока администратор не одобрит фотоотчёт.',en:'The request stays open until an administrator approves the photo report.'},
           'Тексеруді күткен есеп жоқ.':{ru:'Нет отчётов, ожидающих проверки.',en:'No reports are waiting for review.'},
           'Барлық түскен ортақ донаттар (Админ бақылауы)':{ru:'Все пожертвования (администраторский обзор)',en:'All donations (admin overview)'},
-          'Бұл кезек — әкімшінің қолмен тексеруі. Нақты eGov интеграциясы қосылмаған.':{ru:'Этот список предназначен для ручной проверки администратором. Интеграция с eGov не подключена.',en:'This queue is for manual admin review. An actual eGov integration is not connected.'},
+          'Бұл кезек — әкімшінің профильді қолмен тексеруі.':{ru:'Очередь ручной проверки профиля администратором.',en:'This queue is for manual administrator profile review.'},
           'Өтінім жүктелмеді.':{ru:'Не удалось загрузить заявки.',en:'Could not load requests.'},
           'Акция суреті (міндетті емес)':{ru:'Изображение акции (необязательно)',en:'Event image (optional)'}, 'Эко-акцияны жариялау':{ru:'Опубликовать эко-акцию',en:'Publish eco-event'},
-          'eGov арқылы тұлғаны растау':{ru:'Подтверждение личности через eGov',en:'Verify identity through eGov'}, 'Қауіпсіздік стандарттары':{ru:'Стандарты безопасности',en:'Security standards'},
+          'Профильді қолмен тексеру':{ru:'Ручная проверка профиля',en:'Manual profile review'}, 'Қауіпсіздік стандарттары':{ru:'Стандарты безопасности',en:'Security standards'},
           'Растау Келісімі':{ru:'Согласие на подтверждение',en:'Verification consent'}, 'Мекенжай мен байланысты ашу алдында растау':{ru:'Подтверждение перед раскрытием адреса и контактов',en:'Verification before revealing address and contacts'},
           'Ереже:':{ru:'Правило:',en:'Rule:'},
           'Алынған ақпарат тек волонтерлік көмек көрсету мақсатында қолданылады және сыртқа жарияланбайды.':{ru:'Полученная информация используется только для волонтёрской помощи и не публикуется.',en:'The information is used only for volunteer assistance and is not made public.'},
@@ -3015,7 +2954,7 @@
           'Барлығын оқылды деп белгілеу':{ru:'Отметить все как прочитанные',en:'Mark all as read'}, 'Артқа':{ru:'Назад',en:'Back'},
           'VoluHub туралы':{ru:'О VoluHub',en:'About VoluHub'}, 'VoluHub — еріктілерді, көмек сұраушыларды және қайырымдылық бастамаларын байланыстыратын демо-платформа.':{ru:'VoluHub — демонстрационная платформа, объединяющая волонтёров, людей, которым нужна помощь, и благотворительные инициативы.',en:'VoluHub is a demo platform connecting volunteers, people seeking help, and charitable initiatives.'},
           'Жарияланған көмек өтініштері модерациядан өтеді. Көмек фотоесеппен расталғаннан кейін ғана аяқталған деп белгіленеді.':{ru:'Опубликованные заявки на помощь проходят модерацию. Заявка закрывается только после подтверждения помощи фотоотчётом.',en:'Published help requests are moderated. A request is marked complete only after a photo report confirms the help.'},
-          'Бұл демо-нұсқа; нақты төлем және ресми eGov интеграциясы бөлек іске қосылуы қажет.':{ru:'Это демо-версия; реальные платежи и официальную интеграцию eGov нужно подключать отдельно.',en:'This is a demo version; real payments and official eGov integration must be configured separately.'},
+          'Бұл демо-нұсқа; нақты төлем провайдері бөлек қосылуы қажет.':{ru:'Это демо-версия; реальный платёжный провайдер подключается отдельно.',en:'This is a demo; a real payment provider must be connected separately.'},
           'Кері байланыс':{ru:'Обратная связь',en:'Contact'},
           'Қолдау қызметінің ресми электронды поштасы осы жоба конфигурациясында әлі көрсетілмеген.':{ru:'Официальный адрес электронной почты поддержки пока не настроен в этом проекте.',en:'The official support email is not configured in this project yet.'},
           'Әзірге техникалық қолдау арнасы конфигурацияланбаған. Жалған телефон нөмірі немесе email көрсетілмейді.':{ru:'Канал технической поддержки пока не настроен. Непроверенный телефон или email не указываются.',en:'The technical support channel is not configured yet. No unverified phone number or email is displayed.'},
@@ -3026,7 +2965,7 @@
           'Менің деректерім':{ru:'Мои данные',en:'My data'},
           'Төменде осы аккаунт профилінде сақталған мәліметтер көрсетілген.':{ru:'Ниже показаны данные, сохранённые в профиле аккаунта.',en:'The details saved in this account profile are shown below.'},
           'Толық аты-жөні':{ru:'Полное имя',en:'Full name'}, 'Электронды пошта':{ru:'Электронная почта',en:'Email'},
-          'Әлеуметтік мәртебе':{ru:'Социальный статус',en:'Social status'}, 'Растау мәртебесі':{ru:'Статус проверки',en:'Verification status'}, 'Аккаунт түрі':{ru:'Тип аккаунта',en:'Account type'},
+          'Әлеуметтік мәртебе':{ru:'Социальный статус',en:'Social status'}, 'Профильді тексеру мәртебесі':{ru:'Статус проверки',en:'Verification status'}, 'Аккаунт түрі':{ru:'Тип аккаунта',en:'Account type'},
           'Мәлімет берілмеген':{ru:'Не указано',en:'Not provided'}, 'Әкімші':{ru:'Администратор',en:'Administrator'}, 'Қолданушы':{ru:'Пользователь',en:'User'},
           'Әкімші кеңістігі':{ru:'Пространство администратора',en:'Admin workspace'}
         });
@@ -3078,7 +3017,8 @@
                 'help-start-modal': () => closeHelpStartModal(),
                 'giveaway-claim-modal': () => closeGiveawayClaimModal(),
                 'admin-eco-editor': () => closeAdminEcoEditor(),
-                'eco-details-modal': () => closeEcoDetails()
+                'eco-details-modal': () => closeEcoDetails(),
+                'admin-details-modal': () => closeAdminDetails()
             };
             Object.entries(safeDismiss).forEach(([id, callback]) => {
                 const overlay = document.getElementById(id);
@@ -3090,6 +3030,7 @@
             if (event.key === 'Escape') {
                 document.getElementById('notifications-panel')?.classList.add('hidden');
                 closeMainMenu();
+                closeAdminDetails();
             }
         });
     </script>
