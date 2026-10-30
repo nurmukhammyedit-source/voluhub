@@ -1,7 +1,7 @@
 -- VoluHub full Supabase migration v8 — v7 baseline plus final requested changes
 -- For Supabase SQL Editor. Back up the database and compare existing table/policy names before production use.
 -- This migration is designed to be rerunnable and explicitly repairs missing columns in an existing help_requests table. It does not configure OAuth providers,
--- bucket secrets, Supabase URL/anon key, or external payment/eGov integrations.
+-- bucket secrets, Supabase URL/anon key, or external payment-provider integrations.
 
 create extension if not exists pgcrypto;
 
@@ -1409,6 +1409,17 @@ as $$
 $$;
 revoke all on function public.get_admin_stats_history() from public, anon;
 grant execute on function public.get_admin_stats_history() to authenticated;
+
+
+-- -----------------------------------------------------------------------------
+-- VoluHub review access note (v8)
+-- No additional schema change is required for the expanded administrator detail
+-- dialogs in the companion HTML: the policies above already grant administrators
+-- access to full help_requests, profiles, help_reports, and private case-photos.
+-- These remain administrator-only; public feeds continue to omit private address
+-- and phone fields. Profile review remains a manual platform decision; this migration does not add
+-- automated facial matching or identity checks.
+-- -----------------------------------------------------------------------------
 
 commit;
 notify pgrst, 'reload schema';
