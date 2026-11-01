@@ -63,8 +63,10 @@
         .blur-privacy { filter: blur(6px); user-select: none; pointer-events: none; }
         #tab-admin .bg-white.p-6.rounded-3xl.border { border-radius: 1.25rem; box-shadow: 0 10px 28px rgba(15,23,42,.055); transition: box-shadow .18s ease, transform .18s ease; }
         #tab-admin .bg-white.p-6.rounded-3xl.border:hover { box-shadow: 0 14px 34px rgba(15,23,42,.085); }
-        .menu-tile { display:flex; min-height:112px; align-items:flex-start; gap:.9rem; border:1px solid #e2e8f0; border-radius:1.25rem; background:#fff; padding:1.15rem; text-align:left; transition:all .18s ease; }
-        .menu-tile:hover { border-color:#86efac; background:#f8fff9; box-shadow:0 10px 24px rgba(22,163,74,.08); transform:translateY(-1px); }
+        .menu-tile { display:flex; width:100%; min-width:0; min-height:112px; align-items:center; gap:.9rem; overflow:hidden; border:1px solid #e2e8f0; border-radius:1.25rem; background:#fff; padding:1.15rem; text-align:left; transition:all .18s ease; }
+        .menu-tile:hover { border-color:#86efac; background:#f8fff9; box-shadow:0 10px 24px rgba(22,163,94,.08); transform:translateY(-1px); }
+        .menu-tile > span:last-child { display:block; min-width:0; flex:1 1 auto; overflow-wrap:anywhere; }
+        .menu-tile strong, .menu-tile > span:last-child > span { overflow-wrap:anywhere; }
         .menu-tile-icon { display:flex; width:2.8rem; height:2.8rem; flex:0 0 2.8rem; align-items:center; justify-content:center; border-radius:1rem; background:#f0fdf4; color:#15803d; }
         .page-shell { border:1px solid #e2e8f0; border-radius:1.5rem; background:#fff; padding:clamp(1.1rem,3vw,2.25rem); box-shadow:0 12px 32px rgba(15,23,42,.045); }
         .partner-card { position:relative; border:1px solid #dbe4e8; border-radius:1.25rem; background:linear-gradient(145deg,#fff 0%,#f8fffb 100%); box-shadow:0 6px 18px rgba(15,23,42,.045); transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease; }
@@ -87,16 +89,57 @@
         #tab-profile > div:first-child { padding:clamp(1rem, 4vw, 2rem); }
         #tab-profile .profile-heading-row { display:flex; align-items:center; gap:clamp(.85rem, 3vw, 1.5rem); min-width:0; }
         #tab-profile .profile-heading-copy { min-width:0; overflow-wrap:anywhere; }
-        #profile-activity-list { max-height:28rem; overflow-y:auto; overscroll-behavior:contain; padding-right:.35rem; scrollbar-gutter:stable; }
+        #profile-activity-list { max-height:23rem; overflow-y:auto; overscroll-behavior:contain; padding-right:.45rem; scrollbar-gutter:stable; }
+        #donations-log-list { max-height:17.5rem; overflow-y:auto; overscroll-behavior:contain; padding-right:.45rem; scrollbar-gutter:stable; }
+        #profile-activity-list > div { min-height:4rem; }
+        #donations-log-list > div { min-height:3.5rem; }
         #notifications-page-list { max-height:calc(100dvh - 13rem); overflow-y:auto; overscroll-behavior:contain; padding-right:.35rem; scrollbar-gutter:stable; }
         #notifications-list { max-height:min(64dvh, 30rem); overflow-y:auto; overscroll-behavior:contain; padding-right:.25rem; }
-        #fund-total-text { display:block; max-width:62%; min-width:0; text-align:right; font-size:clamp(1.05rem, 4.3vw, 1.875rem); line-height:1.15; overflow-wrap:anywhere; word-break:break-word; font-variant-numeric:tabular-nums; }
-        #tab-donations .fund-summary-row { display:flex; align-items:flex-start; justify-content:space-between; gap:.75rem; min-width:0; }
+        #fund-total-text { display:block; flex:0 1 auto; box-sizing:border-box; max-width:62%; min-width:0; text-align:right; font-size:clamp(.95rem, 3.8vw, 1.65rem); line-height:1.15; overflow-wrap:anywhere; word-break:normal; font-variant-numeric:tabular-nums; }
+        #tab-donations .fund-summary-row { display:flex; align-items:flex-start; justify-content:space-between; gap:.75rem; min-width:0; flex-wrap:wrap; }
+        #tab-donations .fund-summary-row > span:first-child { flex:1 1 10rem; min-width:0; }
+        #fund-progress { display:block; max-width:100%; box-sizing:border-box; }
         #page-back-control { z-index:55; pointer-events:none; }
         #page-back-control button { pointer-events:auto; position:relative; z-index:56; color:#0f172a !important; background:#fff !important; border-color:#cbd5e1 !important; opacity:1 !important; isolation:isolate; }
         #page-back-control button span, #page-back-control button i { color:#0f172a !important; opacity:1 !important; }
         .admin-queue-scroll { max-height:34rem; overflow-y:auto; overscroll-behavior:contain; padding-right:.35rem; scrollbar-gutter:stable; }
-        .admin-review-dialog { width:min(100%, 62rem); max-height:min(94dvh, 58rem); display:flex; flex-direction:column; overflow:hidden; border-radius:1.5rem; background:#fff; box-shadow:0 24px 80px rgba(2,6,23,.32); }
+        /* Admin dashboard: compact aligned cards and a shared emerald title treatment. */
+        #tab-admin .admin-section-card { min-width:0; align-self:start; overflow:hidden; border:1px solid #dbe7e1; border-radius:1.25rem; background:#fff; box-shadow:0 5px 18px rgba(15,23,42,.045); }
+        #tab-admin .admin-card-heading { display:flex; min-height:5.1rem; align-items:center; justify-content:space-between; gap:.75rem; padding:.9rem 1.1rem; color:#fff; background:linear-gradient(112deg,#047857 0%,#059669 52%,#22c55e 100%); }
+        #tab-admin .admin-card-heading h3, #tab-admin .admin-card-heading h4 { margin:0; color:#fff; font-size:.96rem; font-weight:850; line-height:1.35; }
+        #tab-admin .admin-card-heading p { margin-top:.22rem; color:rgba(236,253,245,.92); font-size:.71rem; line-height:1.45; }
+        #tab-admin .admin-heading-tag { flex:0 0 auto; border:1px solid rgba(255,255,255,.32); border-radius:999px; background:rgba(255,255,255,.14); padding:.35rem .65rem; color:#fff; font-size:.65rem; font-weight:800; }
+        #tab-admin .admin-card-heading-row { flex-wrap:wrap; }
+        #tab-admin .admin-card-body { min-width:0; padding:1rem; }
+        #tab-admin .admin-card-divider { margin-top:.9rem; border-top:1px solid #e2e8f0; padding-top:.9rem; }
+        #tab-admin .admin-compact-form { display:grid; gap:.6rem; }
+        #tab-admin .admin-compact-form label { margin-top:.1rem; }
+        #tab-admin .admin-compact-form input[type="file"] { min-width:0; max-width:100%; }
+        #tab-admin .admin-moderation-grid { align-items:start; }
+        #tab-admin .admin-tools-grid { align-items:start; }
+        #tab-admin .admin-card-body .admin-queue-scroll { max-width:100%; }
+        #tab-admin .admin-card-body > #admin-eco-campaigns-list { min-height:0; }
+        @media(max-width:767px) {
+            #tab-admin { padding-top:1rem; padding-bottom:1.5rem; }
+            #tab-admin > div:first-child { margin-bottom:1rem; }
+            #tab-admin .admin-card-heading { min-height:4.6rem; padding:.8rem .95rem; }
+            #tab-admin .admin-card-body { padding:.85rem; }
+        }
+        #admin-pending-list, #admin-giveaway-moderation-list { max-height:19rem; }
+        #admin-pending-list > article, #admin-giveaway-moderation-list > article { min-height:8.75rem; }
+        #admin-help-reports-list { max-height:17.25rem; }
+        #admin-help-reports-list > article { min-height:8rem; }
+        #admin-all-donations-list { max-height:15.5rem; overflow-y:auto; overscroll-behavior:contain; padding-right:.35rem; scrollbar-gutter:stable; }
+        #admin-all-donations-list > div { min-height:3.1rem; }
+        #admin-partnership-requests { max-height:30.75rem; }
+        #admin-partnership-requests > article { min-height:7rem; }
+        #admin-profile-verification-list { max-height:30.75rem; }
+        #admin-profile-verification-list > article { min-height:7rem; }
+        #admin-partners-list { max-height:24.25rem; overflow-y:auto; overscroll-behavior:contain; padding-right:.35rem; scrollbar-gutter:stable; }
+        #admin-partners-list > .admin-published-partner-card { height:7.75rem; min-height:7.75rem; overflow:hidden; }
+        #admin-partners-list .admin-partner-admin-gallery { max-height:2.2rem; overflow:hidden; }
+        #admin-review-modal { padding-inline:1rem; }
+        .admin-review-dialog { width:min(100%, 62rem); max-height:min(94dvh, 58rem); margin-inline:auto; display:flex; flex-direction:column; overflow:hidden; border-radius:1.5rem; background:#fff; box-shadow:0 24px 80px rgba(2,6,23,.32); }
         .admin-review-content { min-height:0; overflow-y:auto; overscroll-behavior:contain; padding:1.25rem; }
         .admin-detail-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.65rem; }
         .admin-detail-field { min-width:0; border:1px solid #e2e8f0; border-radius:.9rem; background:#f8fafc; padding:.75rem; }
@@ -111,12 +154,14 @@
         .partner-cover { grid-column:1 / -1; width:100%; height:5.25rem; object-fit:cover; border:1px solid #e2e8f0; border-radius:.75rem; background:#f1f5f9; }
         .partner-card-gallery { display:flex; gap:.4rem; overflow-x:auto; padding:.35rem 0 .1rem; }
         .partner-card-gallery img { width:3.25rem; height:3.25rem; flex:0 0 3.25rem; object-fit:cover; border:1px solid #e2e8f0; border-radius:.65rem; }
-        .social-category-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.55rem; }
-        .social-category-chip { display:flex; min-height:3.25rem; align-items:center; gap:.6rem; border:1px solid #dbe3ea; border-radius:1rem; background:#fff; padding:.65rem .75rem; color:#334155; text-align:left; font-size:.78rem; font-weight:700; line-height:1.35; transition:background .16s ease,border-color .16s ease,box-shadow .16s ease; }
+        .social-category-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.65rem; min-width:0; }
+        .social-category-chip { display:flex; width:100%; min-width:0; min-height:3.7rem; align-items:center; gap:.65rem; border:1px solid #dbe3ea; border-radius:1rem; background:#fff; padding:.75rem .85rem; color:#334155; text-align:left; font-size:.82rem; font-weight:700; line-height:1.4; overflow-wrap:anywhere; transition:background .16s ease,border-color .16s ease,box-shadow .16s ease; }
+        .social-category-chip > span:last-child { min-width:0; flex:1 1 auto; }
         .social-category-chip:hover { border-color:#86efac; background:#f7fff8; }
         .social-category-chip[aria-pressed="true"] { border-color:#16a34a; background:#ecfdf3; color:#166534; box-shadow:inset 0 0 0 1px #16a34a; }
         .social-category-chip .social-chip-icon { display:flex; width:2rem; height:2rem; flex:0 0 2rem; align-items:center; justify-content:center; border-radius:.7rem; background:#f1f5f9; color:#475569; }
         .social-category-chip[aria-pressed="true"] .social-chip-icon { background:#dcfce7; color:#15803d; }
+        @media(min-width:1024px) { .social-category-grid { grid-template-columns:repeat(3,minmax(0,1fr)); } }
         .file-picker { display:flex; flex-wrap:wrap; align-items:center; gap:.65rem; min-width:0; border:1px solid #dbe3ea; border-radius:1rem; background:linear-gradient(145deg,#fff,#f8fafc); padding:.65rem; }
         .file-picker-native { position:absolute !important; width:1px !important; height:1px !important; padding:0 !important; margin:-1px !important; overflow:hidden !important; clip:rect(0,0,0,0) !important; white-space:nowrap !important; border:0 !important; }
         .file-picker-button { display:inline-flex; min-height:2.5rem; align-items:center; justify-content:center; gap:.5rem; border:1px solid #bbf7d0; border-radius:.75rem; background:#f0fdf4; padding:.65rem .9rem; color:#166534; cursor:pointer; font-size:.78rem; font-weight:800; transition:background .15s ease,border-color .15s ease; }
@@ -127,10 +172,17 @@
         select, input:not([type="checkbox"]):not([type="radio"]), textarea { transition:border-color .15s ease,box-shadow .15s ease; }
         input[type="checkbox"], input[type="radio"] { accent-color:#16a34a; }
         #mobile-menu-panel { max-height:min(80dvh, 42rem); overflow-y:auto; overscroll-behavior:contain; }
+        #tab-menu section, #tab-menu .grid { min-width:0; }
+        #tab-menu .menu-tile { min-height:7rem; }
         @media(max-width:900px) { .partner-strip { grid-auto-columns:minmax(15rem, 42%); } }
         @media(max-width:640px) {
             /* Keep the compact account strip out of the phone header; profile stays in the menu. */
             #user-profile-widget { display:none !important; }
+            #notification-control, #menu-control { flex:0 0 auto; margin-inline:.2rem; }
+            #notification-control { transform:translateX(-.12rem); }
+            #menu-control { transform:translateX(.12rem); }
+            #notification-button, #menu-button { transform:translateY(0); }
+            #mobile-menu-panel { position:fixed !important; top:4.45rem !important; left:50% !important; right:auto !important; transform:translateX(-50%) !important; width:min(23rem,calc(100vw - 1.5rem)) !important; max-width:calc(100vw - 1.5rem) !important; max-height:calc(100dvh - 5.5rem) !important; }
             #notifications-panel { position:fixed !important; top:4.45rem !important; left:.75rem !important; right:.75rem !important; width:auto !important; max-width:none !important; max-height:calc(100dvh - 5.5rem) !important; overflow:hidden !important; }
             #notifications-list { max-height:calc(100dvh - 12rem) !important; }
             #profile-page-avatar { width:5.75rem; height:5.75rem; }
@@ -178,7 +230,7 @@
             <nav class="hidden xl:flex items-center space-x-1 shrink-0">
                 <button onclick="switchTab('home')" class="nav-btn px-4 py-2 rounded-xl text-sm font-medium text-slate-700 hover:bg-slate-100 transition active-nav" data-target="home">Басты бет</button>
                 <button onclick="switchTab('requests')" class="nav-btn px-4 py-2 rounded-xl text-sm font-medium text-slate-700 hover:bg-slate-100 transition" data-target="requests">Көмек сұраулары</button>
-                <button onclick="switchTab('giveaways')" class="nav-btn px-4 py-2 rounded-xl text-sm font-medium text-slate-700 hover:bg-slate-100 transition" data-target="giveaways">Тегін заттар</button>
+                <button onclick="switchTab('giveaways')" class="nav-btn px-4 py-2 rounded-xl text-sm font-medium text-slate-700 hover:bg-slate-100 transition" data-target="giveaways">Зат алмасу</button>
                 <button onclick="switchTab('donations')" class="nav-btn px-4 py-2 rounded-xl text-sm font-medium text-slate-700 hover:bg-slate-100 transition" data-target="donations">Донат & Серіктестік</button>
                 <button onclick="switchTab('ecology')" class="nav-btn px-4 py-2 rounded-xl text-sm font-medium text-slate-700 hover:bg-slate-100 transition" data-target="ecology">Экология</button>
                 <button id="admin-nav-btn" onclick="switchTab('admin')" class="nav-btn hidden px-4 py-2 rounded-xl text-sm font-semibold text-amber-800 bg-amber-50 border border-amber-200 hover:bg-amber-100 transition flex items-center space-x-1.5" data-target="admin">
@@ -211,7 +263,7 @@
                         <nav class="space-y-1" aria-label="Телефон мәзірі">
                             <button type="button" onclick="switchTab('home')" class="mobile-menu-item"><i data-lucide="house"></i><span>Басты бет</span></button>
                             <button type="button" onclick="switchTab('requests')" class="mobile-menu-item"><i data-lucide="heart-handshake"></i><span>Көмек сұраулары</span></button>
-                            <button type="button" onclick="switchTab('giveaways')" class="mobile-menu-item"><i data-lucide="package"></i><span>Тегін заттар</span></button>
+                            <button type="button" onclick="switchTab('giveaways')" class="mobile-menu-item"><i data-lucide="package"></i><span>Зат алмасу</span></button>
                             <button type="button" onclick="switchTab('donations')" class="mobile-menu-item"><i data-lucide="hand-coins"></i><span>Донат және серіктестік</span></button>
                             <button type="button" onclick="switchTab('ecology')" class="mobile-menu-item"><i data-lucide="leaf"></i><span>Экология</span></button>
                             <div class="my-2 border-t border-slate-100"></div>
@@ -233,7 +285,7 @@
                 <div id="auth-container">
                     <button onclick="openAuthModal()" class="bg-brand-600 hover:bg-brand-700 text-white font-semibold text-sm px-5 py-2.5 rounded-xl shadow-md shadow-brand-600/20 transition flex items-center space-x-2">
                         <i data-lucide="user" class="w-4 h-4"></i>
-                        <span class="hidden sm:inline">Кіру / Тіркелу</span>
+                        <span class="hidden sm:inline">Кіру/Тіркелу</span>
                     </button>
                 </div>
                 <div id="user-profile-widget" class="hidden flex items-center gap-2 min-w-0 max-w-full">
@@ -301,8 +353,8 @@
                             <i data-lucide="map-pin" class="w-7 h-7"></i>
                         </div>
                         <div>
-                            <p class="text-3xl font-extrabold text-slate-900">0</p>
-                            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Қазақстан қалалары</p>
+                            <p class="text-3xl font-extrabold text-slate-900">17</p>
+                            <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider">Қазақстан облыстары</p>
                         </div>
                     </div>
                     <div class="bg-white p-6 rounded-3xl border border-slate-200 shadow-xl shadow-slate-200/50 flex items-center space-x-4">
@@ -344,7 +396,7 @@
                             Нүктелі көмек: Кімге, қай жерде және не қажет екенін нақты көру
                         </h2>
                         <p class="text-slate-600 leading-relaxed mb-6">
-                            Қазақстан қалаларында нақты қай отбасыға шұғыл көмек керегін білу маңызды. VoluHub осы мәселені шезеді: әрбір азамат өзінің жағдайы төмен көршісін немесе танысын жүйеге енгізе алады.
+                            Қазақстан қалаларында нақты қай отбасыға шұғыл көмек керегін білу маңызды. VoluHub осы мәселені шезеді: әрбір азамат өзінің жағдайы төмен танысын жүйеге енгізе алады.
                         </p>
                         <div class="space-y-4">
                             <div class="flex items-start space-x-3">
@@ -405,7 +457,7 @@
                     </div>
                     <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
                         <h3 class="font-bold text-slate-900 text-base mb-2 flex items-center justify-between">
-                            <span>Көршіме немесе танысыма көмек сұрауын қалай енгіземін?</span>
+                            <span>Танысыма көмек сұрауын қалай енгіземін?</span>
                             <i data-lucide="plus-circle" class="w-5 h-5 text-brand-600"></i>
                         </h3>
                         <p class="text-sm text-slate-600 leading-relaxed">
@@ -458,12 +510,12 @@
         <div id="tab-giveaways" class="tab-content hidden max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
                 <div>
-                    <h2 class="text-2xl font-bold text-slate-900">Тегін заттар </h2>
-                    <p class="text-sm text-slate-500">Артық киім-кешек, жиһаз, электрониканы мұқтаждарға тегін беру</p>
+                    <h2 class="text-2xl font-bold text-slate-900">Зат алмасулар</h2>
+                    <p class="text-sm text-slate-500">Артық киім-кешек, жиһаз, электрониканы керек адамға тегін беру</p>
                 </div>
                 <button onclick="handleProtectedNavigation('add-giveaway')" class="bg-brand-600 hover:bg-brand-700 text-white font-semibold px-4 py-2.5 rounded-xl shadow transition flex items-center space-x-2 text-sm">
                     <i data-lucide="gift" class="w-4 h-4"></i>
-                    <span>Зат беру (Жариялау)</span>
+                    <span>Зат ұсыну</span>
                 </button>
             </div>
 
@@ -483,7 +535,7 @@
                                 <i data-lucide="coins" class="w-6 h-6"></i>
                             </div>
                             <div>
-                                <h3 class="text-xl font-bold text-slate-900">Ұлттық қайырымдылық қоры</h3>
+                                <h3 class="text-xl font-bold text-slate-900">Қайырымдылық қоры</h3>
                                 <p class="text-xs text-slate-500">Ашық есеп беру және автоматты бөлу</p>
                             </div>
                         </div>
@@ -496,11 +548,11 @@
                             <div class="w-full bg-slate-200 rounded-full h-3 mb-2">
                                 <div id="fund-progress" class="bg-brand-600 h-3 rounded-full transition-all duration-500" style="width: 0%"></div>
                             </div>
-                            <p id="fund-goal-note" class="text-xs text-slate-500">Мақсатты сома дерекқордан алынады. Демо-донат нақты ақша аудармайды.</p>
+                            <p id="fund-goal-note" class="text-xs text-slate-500">Мақсатты сома дерекқордан алынады.</p>
                         </div>
 
                         <form onsubmit="handleDonateSubmit(event)" class="space-y-4">
-                            <h4 class="font-bold text-slate-900 text-sm">Қаражат бөлу (Донат жасау)</h4>
+                            <h4 class="font-bold text-slate-900 text-sm">Донат жасау</h4>
                             <div class="grid grid-cols-4 gap-2">
                                 <button type="button" onclick="setDonateAmount(2000)" class="bg-slate-100 hover:bg-slate-200 py-2.5 rounded-xl font-bold text-sm text-slate-700">2,000 ₸</button>
                                 <button type="button" onclick="setDonateAmount(5000)" class="bg-slate-100 hover:bg-slate-200 py-2.5 rounded-xl font-bold text-sm text-slate-700">5,000 ₸</button>
@@ -510,7 +562,7 @@
                             <input type="number" id="donate-custom-amount" min="500" required placeholder="Енгізілетін сома (₸)" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-brand-500">
                             <button type="submit" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3.5 rounded-xl shadow-md transition flex items-center justify-center space-x-2">
                                 <i data-lucide="credit-card" class="w-5 h-5"></i>
-                                <span>Демо-донат қосу</span>
+                                <span>Қаражат бөлу</span>
                             </button>
                         </form>
                     </div>
@@ -538,7 +590,7 @@
                     <form onsubmit="handlePartnershipSubmit(event)" class="space-y-4">
                         <div>
                             <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Компания атауы</label>
-                            <input type="text" id="partner-company" required placeholder="ЖШС 'Компания Name'" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm focus:ring-2 focus:ring-brand-500">
+                            <input type="text" id="partner-company" required placeholder="ЖШС 'Компания аты'" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm focus:ring-2 focus:ring-brand-500">
                         </div>
                         <div>
                             <label class="block text-xs font-bold text-slate-700 uppercase mb-1">БИН / БСН</label>
@@ -547,8 +599,7 @@
                         <div>
                             <label for="partner-contact" class="block text-xs font-bold text-slate-700 uppercase mb-1">Байланыс телефоны</label>
                             <input type="tel" id="partner-contact" inputmode="tel" autocomplete="tel" maxlength="18" required placeholder="+7 701 000 00 00" aria-describedby="partner-phone-hint" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm focus:ring-2 focus:ring-brand-500">
-                            <p id="partner-phone-hint" class="mt-1 text-xs text-slate-500">Ел коды автоматты түрде +7 болып қойылады; 10 таңбалы нөмір енгізіңіз.</p>
-                            <label for="partner-email" class="block text-xs font-bold text-slate-700 uppercase mb-1">Электронды пошта (міндетті емес)</label>
+                            <label for="partner-email" class="block text-xs font-bold text-slate-700 uppercase mb-1">Электронды пошта</label>
                             <input type="email" id="partner-email" autocomplete="email" maxlength="254" placeholder="company@example.kz" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm focus:ring-2 focus:ring-brand-500">
                         </div>
                         <div>
@@ -569,7 +620,7 @@
                 <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=1200" class="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-overlay" alt="Ecology">
                 <div class="relative z-10 max-w-2xl">
                     <span class="bg-emerald-500/30 text-emerald-200 border border-emerald-400/30 text-xs font-bold px-3.5 py-1 rounded-full uppercase tracking-wider mb-4 inline-block">
-                        🌱 Taza Qazaqstan Бағдарламасы
+                        🌱 Қоғамдық Бағдарламалар
                     </span>
                     <h2 class="text-3xl sm:text-5xl font-extrabold mb-4 leading-tight">Экология және табиғатты қорғау акциялары</h2>
                     <p class="text-emerald-100 text-sm sm:text-base leading-relaxed">
@@ -619,7 +670,7 @@
 
         <!-- ================= ABOUT PAGE ================= -->
         <div id="tab-about" class="tab-content hidden max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
-            <section class="page-shell"><div class="mb-5 flex items-center gap-3"><span class="menu-tile-icon"><i data-lucide="info" class="h-5 w-5"></i></span><div><p class="text-xs font-bold uppercase tracking-wider text-brand-700" data-i18n="VoluHub туралы">VoluHub туралы</p><h2 class="text-2xl font-extrabold text-slate-900" data-i18n="Біз туралы">Біз туралы</h2></div></div><div class="space-y-4 text-sm leading-7 text-slate-600"><p data-i18n="VoluHub — еріктілерді, көмек сұраушыларды және қайырымдылық бастамаларын байланыстыратын демо-платформа.">VoluHub — еріктілерді, көмек сұраушыларды және қайырымдылық бастамаларын байланыстыратын демо-платформа.</p><p data-i18n="Жарияланған көмек өтініштері модерациядан өтеді. Көмек фотоесеппен расталғаннан кейін ғана аяқталған деп белгіленеді.">Жарияланған көмек өтініштері модерациядан өтеді. Көмек фотоесеппен расталғаннан кейін ғана аяқталған деп белгіленеді.</p><p class="rounded-xl border border-amber-200 bg-amber-50 p-4 text-amber-900" data-i18n="Бұл демо-нұсқа; нақты төлем және ресми eGov интеграциясы бөлек іске қосылуы қажет.">Бұл демо-нұсқа; нақты төлем және ресми eGov интеграциясы бөлек іске қосылуы қажет.</p></div></section>
+            <section class="page-shell"><div class="mb-5 flex items-center gap-3"><span class="menu-tile-icon"><i data-lucide="info" class="h-5 w-5"></i></span><div><p class="text-xs font-bold uppercase tracking-wider text-brand-700" data-i18n="VoluHub туралы">VoluHub туралы</p><h2 class="text-2xl font-extrabold text-slate-900" data-i18n="Біз туралы">Біз туралы</h2></div></div><div class="space-y-4 text-sm leading-7 text-slate-600"><p data-i18n="VoluHub — еріктілерді, көмек сұраушыларды және қайырымдылық бастамаларын байланыстыратын платформа.">VoluHub — еріктілерді, көмек сұраушыларды және қайырымдылық бастамаларын байланыстыратын платформа.</p><p data-i18n="Жарияланған көмек өтініштері модерациядан өтеді. Көмек фотоесеппен расталғаннан кейін ғана аяқталған деп белгіленеді.">Жарияланған көмек өтініштері модерациядан өтеді. Көмек фотоесеппен расталғаннан кейін ғана аяқталған деп белгіленеді.</p></div></section>
         </div>
 
         <!-- ================= CONTACT PAGE ================= -->
@@ -629,7 +680,7 @@
 
         <!-- ================= BANK DETAILS PAGE ================= -->
         <div id="tab-bank" class="tab-content hidden max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
-            <section class="page-shell"><div class="mb-5 flex items-center gap-3"><span class="menu-tile-icon"><i data-lucide="landmark" class="h-5 w-5"></i></span><div><p class="text-xs font-bold uppercase tracking-wider text-brand-700" data-i18n="Төлем қауіпсіздігі">Төлем қауіпсіздігі</p><h2 class="text-2xl font-extrabold text-slate-900" data-i18n="Банк деректері">Банк деректері</h2></div></div><div class="space-y-4 text-sm leading-7 text-slate-600"><p data-i18n="Бұл нұсқада банк картасы арқылы нақты төлем қосылмаған. Донат батырмасы тек демо-жазба жасайды.">Бұл нұсқада банк картасы арқылы нақты төлем қосылмаған. Донат батырмасы тек демо-жазба жасайды.</p><p class="rounded-xl border border-amber-200 bg-amber-50 p-4 text-amber-900" data-i18n="Карта нөмірін, CVV кодын немесе интернет-банкинг құпиясөзін бұл сайтқа енгізбеңіз.">Карта нөмірін, CVV кодын немесе интернет-банкинг құпиясөзін бұл сайтқа енгізбеңіз.</p><p data-i18n="Нақты төлем үшін сертификатталған төлем провайдері, серверлік растау және webhook интеграциясы қажет.">Нақты төлем үшін сертификатталған төлем провайдері, серверлік растау және webhook интеграциясы қажет.</p></div></section>
+            <section class="page-shell"><div class="mb-5 flex items-center gap-3"><span class="menu-tile-icon"><i data-lucide="landmark" class="h-5 w-5"></i></span><div><p class="text-xs font-bold uppercase tracking-wider text-brand-700" data-i18n="Төлем қауіпсіздігі">Төлем қауіпсіздігі</p><h2 class="text-2xl font-extrabold text-slate-900" data-i18n="Банк деректері">Банк деректері</h2></div></div><div class="space-y-4 text-sm leading-7 text-slate-600"><p data-i18n="Бұл нұсқада банк картасы арқылы нақты төлем қосылмаған. Донат батырмасы тек демо-жазба жасайды.">Бұл нұсқада банк картасы арқылы нақты төлем қосылмаған. Донат батырмасы тек демо-жазба жасайды.</p><p class="rounded-xl border border-amber-200 bg-amber-50 p-4 text-amber-900" data-i18n="Әзірленуде...">Әзірленуде...</p></div></section>
         </div>
 
         <!-- ================= MY DATA PAGE ================= -->
@@ -677,8 +728,8 @@
                         <h3 class="font-bold text-slate-900 mb-3 text-base">Мәртебе мен Қауіпсіздік</h3>
                         <div class="bg-gov-50 border border-gov-600/30 p-5 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                             <div>
-                                <h4 class="font-bold text-slate-900 text-sm">Тұлғаны растау (eGov)</h4>
-                                <p class="text-xs text-slate-600 mt-1">Мұқтаж жандардың нақты байланыс деректеріне қол жеткізу үшін тұлғаны ресми түрде растау қажет. eGov интеграциясы әзірге қосылмаған.</p>
+                                <h4 class="font-bold text-slate-900 text-sm">Тұлғаны растау</h4>
+                                <p class="text-xs text-slate-600 mt-1">Мұқтаж жандардың нақты байланыс деректеріне қол жеткізу үшін тұлғаны ресми түрде растау қажет.</p>
                             </div>
                             <button id="verify-egov-btn" onclick="openEGovModal()" class="bg-gov-600 hover:bg-gov-700 text-white font-semibold text-xs px-4 py-2.5 rounded-xl transition shrink-0">
                                 Растауды бастау
@@ -728,63 +779,62 @@
                 </div>
             </div>
 
-            <div class="space-y-8">
-                <!-- Moderation / reporting tools use full-width responsive cards -->
-                <div class="grid grid-cols-1 gap-5 lg:grid-cols-2">
-                    <section class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm lg:col-span-2">
-                        <div class="mb-4 flex flex-wrap items-center justify-between gap-3"><div><h3 class="font-extrabold text-lg text-slate-900">Модерацияны күтіп тұрған көмек өтініштері</h3><p class="mt-1 text-xs text-slate-500">Өтінішті тексеріп, жариялаңыз немесе түзетуге қайтарыңыз.</p></div><span class="rounded-full bg-amber-50 px-3 py-1 text-xs font-bold text-amber-800">Модерация</span></div>
-                        <div id="admin-pending-list" class="space-y-4 admin-queue-scroll"><!-- Populated --></div>
+            <div class="space-y-5">
+                <!-- Admin workspaces use compact cards with consistent emerald section headers. -->
+                <div class="grid grid-cols-1 gap-4 xl:grid-cols-2 admin-moderation-grid">
+                    <section class="admin-section-card xl:col-span-2">
+                        <div class="admin-card-heading"><div><h3>Модерацияны күтіп тұрған көмек өтініштері</h3><p>Өтінішті тексеріп, жариялаңыз немесе түзетуге қайтарыңыз.</p></div><span class="admin-heading-tag">Модерация</span></div>
+                        <div class="admin-card-body"><div id="admin-pending-list" class="space-y-3 admin-queue-scroll"><!-- Populated --></div></div>
                     </section>
-                    <section class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-                        <h3 class="mb-3 font-extrabold text-lg text-slate-900">Фотоесепті тексеру</h3><p class="mb-4 text-xs text-slate-500">Көмек аяқталғанын фотоесеп негізінде растаңыз.</p>
-                        <div id="admin-help-reports-list" class="space-y-4 admin-queue-scroll"><p class="text-sm text-slate-500">Тексеруді күткен есеп жоқ.</p></div>
+                    <section class="admin-section-card">
+                        <div class="admin-card-heading"><div><h3>Фотоесепті тексеру</h3><p>Көмектің аяқталғанын фотоесеппен растаңыз.</p></div></div>
+                        <div class="admin-card-body"><div id="admin-help-reports-list" class="space-y-3 admin-queue-scroll"><p class="text-sm text-slate-500">Тексеруді күткен есеп жоқ.</p></div></div>
                     </section>
-                    <section class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-                        <h3 class="mb-4 font-extrabold text-lg text-slate-900">Барлық түскен демо-донаттар</h3>
-                        <div id="admin-all-donations-list" class="divide-y divide-slate-100"><!-- Populated --></div>
+                    <section class="admin-section-card">
+                        <div class="admin-card-heading"><div><h3>Тегін зат өтінімдерін тексеру</h3><p>Заттар мақұлданғаннан кейін жарияланады; алмасу тікелей жүзеге асады.</p></div></div>
+                        <div class="admin-card-body"><div id="admin-giveaway-moderation-list" class="space-y-3 admin-queue-scroll"><p class="text-sm text-slate-500">Күтудегі зат өтінімдері жоқ.</p></div></div>
+                    </section>
+                    <section class="admin-section-card xl:col-span-2">
+                        <div class="admin-card-heading"><div><h3>Барлық түскен демо-донаттар</h3><p>Тіркелген демо-жарналардың толық тізімі.</p></div></div>
+                        <div class="admin-card-body"><div id="admin-all-donations-list" class="divide-y divide-slate-100 admin-queue-scroll"></div></div>
                     </section>
                 </div>
 
-                <!-- Admin tools are arranged across the page, not packed into one right rail -->
-                <div class="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
-                    <section class="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
-                        <div class="border-b border-slate-100 bg-gradient-to-r from-emerald-50 to-white px-5 py-4"><h4 class="font-extrabold text-slate-900">Серіктестерді басқару</h4><p class="mt-1 text-xs text-slate-500">Ұйым қосу немесе бұрынғы серіктесті жою</p></div>
-                        <div class="p-5"><form onsubmit="handleAdminAddPartner(event)" class="mb-4 space-y-3">
+                <div class="grid grid-cols-1 items-start gap-4 md:grid-cols-2 xl:grid-cols-3 admin-tools-grid">
+                    <section class="admin-section-card">
+                        <div class="admin-card-heading"><div><h4>Серіктестерді басқару</h4><p>Ұйым қосу немесе бұрынғы серіктесті жою.</p></div></div>
+                        <div class="admin-card-body"><form onsubmit="handleAdminAddPartner(event)" class="admin-compact-form">
                             <input id="admin-partner-name" required maxlength="140" placeholder="Ұйым атауы" class="w-full rounded-xl border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-sm">
-                            <input id="admin-partner-url" type="url" placeholder="Сайт сілтемесі (міндетті емес)" class="w-full rounded-xl border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-sm">
+                            <input id="admin-partner-url" type="url" placeholder="Сайт сілтемесі" class="w-full rounded-xl border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-sm">
                             <textarea id="admin-partner-description" required rows="2" placeholder="Қысқаша сипаттама" class="w-full rounded-xl border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-sm"></textarea>
-                            <label for="admin-partner-logo" class="block text-xs font-bold text-slate-700">Компания логотипі</label><input id="admin-partner-logo" type="file" accept="image/jpeg,image/png,image/webp,image/gif" class="w-full rounded-xl border border-slate-300 bg-slate-50 px-3 py-2 text-sm">
-                            <label for="admin-partner-images" class="block text-xs font-bold text-slate-700">Қосымша суреттер</label><input id="admin-partner-images" type="file" accept="image/jpeg,image/png,image/webp,image/gif" multiple class="w-full rounded-xl border border-slate-300 bg-slate-50 px-3 py-2 text-sm">
-                            <p class="text-xs text-slate-500">Әр файл 8 МБ-қа дейін.</p><button type="submit" class="w-full rounded-xl bg-emerald-700 py-3 text-sm font-extrabold text-white hover:bg-emerald-800">Серіктесті қосу</button>
-                        </form><div class="border-t border-slate-100 pt-4"><div id="admin-partners-list" class="space-y-2"></div></div></div>
+                            <label for="admin-partner-logo" class="block text-xs font-bold text-slate-700">Компания логотипі</label><input id="admin-partner-logo" type="file" accept="image/jpeg,image/png,image/webp,image/gif" class="w-full rounded-xl border border-slate-300 bg-slate-50 px-3 py-2 text-xs">
+                            <label for="admin-partner-images" class="block text-xs font-bold text-slate-700">Қосымша суреттер</label><input id="admin-partner-images" type="file" accept="image/jpeg,image/png,image/webp,image/gif" multiple class="w-full rounded-xl border border-slate-300 bg-slate-50 px-3 py-2 text-xs">
+                            <p class="text-xs text-slate-500">Әр файл 8 МБ-қа дейін.</p><button type="submit" class="w-full rounded-xl bg-emerald-700 py-2.5 text-sm font-extrabold text-white hover:bg-emerald-800">Серіктесті қосу</button>
+                        </form><div class="admin-card-divider"><div id="admin-partners-list" class="space-y-2"></div></div></div>
                     </section>
 
-                    <section class="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
-                        <div class="border-b border-slate-100 px-5 py-4"><h4 class="font-extrabold text-slate-900">Серіктестік өтінімдері</h4><p class="mt-1 text-xs text-slate-500">Ұйымдар жіберген өтінімдер</p></div><div id="admin-partnership-requests" class="space-y-3 p-5 admin-queue-scroll"></div>
+                    <section class="admin-section-card">
+                        <div class="admin-card-heading"><div><h4>Серіктестік өтінімдері</h4><p>Ұйымдар жіберген өтінімдер.</p></div></div>
+                        <div class="admin-card-body"><div id="admin-partnership-requests" class="space-y-3 admin-queue-scroll"></div></div>
                     </section>
-                    <section class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-                        <h4 class="mb-3 font-extrabold text-slate-900">Тұлғаны растау өтінімдері</h4><p class="mb-3 text-xs text-slate-500">Қолмен тексеру кезегі; бұл нақты eGov интеграциясы емес.</p><div id="admin-profile-verification-list" class="space-y-3 admin-queue-scroll"><p class="text-sm text-slate-500">Өтінім жүктелмеді.</p></div>
+                    <section class="admin-section-card">
+                        <div class="admin-card-heading"><div><h4>Тұлғаны растау өтінімдері</h4><p>Қолмен тексеру кезегі</p></div></div>
+                        <div class="admin-card-body"><div id="admin-profile-verification-list" class="space-y-3 admin-queue-scroll"><p class="text-sm text-slate-500">Өтінім жүктелмеді.</p></div></div>
                     </section>
-                    <section class="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
-                        <div class="border-b border-slate-100 px-5 py-4"><h4 class="font-extrabold text-slate-900">Қор және донат баптаулары</h4><p class="mt-1 text-xs text-slate-500">Мақсатты өзгерту, қабылдауды жабу/ашу, басты беттегі соманы нөлдеу</p></div>
-                        <div class="space-y-4 p-5">
+                    <section class="admin-section-card">
+                        <div class="admin-card-heading"><div><h4>Қор және донат баптаулары</h4><p>Мақсат пен донат қабылдау параметрлері.</p></div></div>
+                        <div class="admin-card-body space-y-3">
                             <label for="admin-fundraising-target" class="block text-xs font-bold uppercase text-slate-700">Мақсатты сома (₸)<input id="admin-fundraising-target" type="number" min="0" max="100000000000" step="1" class="mt-1 w-full rounded-xl border border-slate-300 bg-slate-50 px-3.5 py-2.5 text-sm"></label>
                             <label class="flex items-center gap-2 text-sm font-semibold text-slate-700"><input id="admin-fundraising-enabled" type="checkbox" class="rounded border-slate-300"> Донат қабылдау ашық</label>
-                            <button type="button" onclick="saveAdminFundraisingGoal()" class="w-full rounded-xl bg-brand-700 px-4 py-3 text-sm font-bold text-white hover:bg-brand-800">Мақсатты сақтау</button>
-                            <button type="button" onclick="resetAdminFundraisingTotal()" class="w-full rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 text-sm font-bold text-amber-900 hover:bg-amber-100">Жиналған соманы 0 ₸ ету</button>
+                            <button type="button" onclick="saveAdminFundraisingGoal()" class="w-full rounded-xl bg-brand-700 px-4 py-2.5 text-sm font-bold text-white hover:bg-brand-800">Мақсатты сақтау</button>
+                            <button type="button" onclick="resetAdminFundraisingTotal()" class="w-full rounded-xl border border-amber-300 bg-amber-50 px-4 py-2.5 text-sm font-bold text-amber-900 hover:bg-amber-100">Жиналған соманы 0 ₸ ету</button>
                         </div>
                     </section>
-
-                    <section class="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm md:col-span-2 xl:col-span-2">
-                        <div class="flex flex-col gap-3 border-b border-slate-100 bg-gradient-to-r from-emerald-50 to-white p-5 sm:flex-row sm:items-center sm:justify-between"><div><h4 class="font-extrabold text-slate-900">Эко-бағдарламаларды басқару</h4><p class="mt-1 text-xs text-slate-500">Қосу, өңдеу, жасыру, қайта жариялау немесе аяқталған бағдарламаны жою</p></div><button type="button" onclick="openAdminEcoEditor()" class="inline-flex items-center justify-center gap-2 rounded-xl bg-emerald-700 px-4 py-3 text-sm font-extrabold text-white hover:bg-emerald-800"><i data-lucide="plus" class="h-4 w-4"></i>Бағдарлама қосу</button></div>
-                        <div id="admin-eco-campaigns-list" class="grid grid-cols-1 gap-3 p-5 lg:grid-cols-2"><p class="text-sm text-slate-500">Эко-бағдарламалар жүктелуде…</p></div>
+                    <section class="admin-section-card md:col-span-2 xl:col-span-2">
+                        <div class="admin-card-heading admin-card-heading-row"><div><h4>Эко-бағдарламаларды басқару</h4><p>Қосу, өңдеу, жасыру, қайта жариялау немесе аяқталған бағдарламаны жою.</p></div><button type="button" onclick="openAdminEcoEditor()" class="inline-flex items-center justify-center gap-2 rounded-xl border border-white/30 bg-white/15 px-4 py-2.5 text-sm font-extrabold text-white hover:bg-white/25"><i data-lucide="plus" class="h-4 w-4"></i>Бағдарлама қосу</button></div>
+                        <div id="admin-eco-campaigns-list" class="grid grid-cols-1 gap-3 p-4 sm:p-5 lg:grid-cols-2"><p class="text-sm text-slate-500">Эко-бағдарламалар жүктелуде…</p></div>
                     </section>
                 </div>
-
-                <section id="admin-statistics-section" class="hidden rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-7">
-                    <div class="mb-5 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between"><div><p class="text-xs font-bold uppercase tracking-wider text-emerald-700">Тарихи көрсеткіштер</p><h3 class="text-xl font-extrabold text-slate-900">VoluHub статистикасы</h3><p class="mt-1 text-sm text-slate-500">Сайт деректеріндегі бұрынғы жазбалардан есептелетін графиктер.</p></div><button type="button" onclick="loadAdminStatistics()" class="rounded-xl border border-slate-200 px-4 py-2 text-sm font-bold text-slate-700 hover:bg-slate-50">Жаңарту</button></div>
-                    <div id="admin-stats-content"><p class="text-sm text-slate-500">Статистика жүктеледі…</p></div>
-                </section>
             </div>
         </div>
 
@@ -826,14 +876,14 @@
                 <div class="w-12 h-12 bg-brand-100 text-brand-600 rounded-2xl flex items-center justify-center mx-auto mb-2">
                     <i data-lucide="user-plus" class="w-6 h-6"></i>
                 </div>
-                <h3 id="auth-title" class="text-xl font-bold text-slate-900">Email арқылы кіру / тіркелу</h3>
+                <h3 id="auth-title" class="text-xl font-bold text-slate-900">Жүйеге кіру</h3>
                 <p class="text-xs text-slate-500">VoluHub қауіпсіз платформасы</p>
             </div>
 
-            <div class="grid grid-cols-2 gap-2 mb-4 rounded-xl bg-slate-100 p-1">
-<button type="button" id="auth-mode-login" onclick="setAuthMode('login')" class="rounded-lg bg-white px-3 py-2.5 text-sm font-bold text-slate-900 shadow-sm">Кіру</button>
-<button type="button" id="auth-mode-register" onclick="setAuthMode('register')" class="rounded-lg px-3 py-2.5 text-sm font-bold text-slate-500">Тіркелу</button>
-</div>
+            <div class="mb-4 grid grid-cols-2 gap-2 rounded-xl bg-slate-100 p-1">
+                <button type="button" id="auth-mode-login" onclick="setAuthMode('login')" class="rounded-lg bg-white px-3 py-2.5 text-sm font-bold text-slate-900 shadow-sm">Кіру</button>
+                <button type="button" id="auth-mode-register" onclick="setAuthMode('register')" class="rounded-lg px-3 py-2.5 text-sm font-bold text-slate-500">Тіркелу</button>
+            </div>
 <form onsubmit="handleAuthSubmit(event)" class="space-y-4">
                 <div>
                     <label class="block text-xs font-bold text-slate-700 uppercase mb-1" data-i18n="Электронды пошта (Email)">Электронды пошта (Email)</label>
@@ -843,15 +893,29 @@
                 <button type="submit" id="auth-btn-text" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3 rounded-xl shadow transition">Кіру</button>
             </form>
 
+            <div class="mt-3 text-right"><button type="button" id="auth-forgot-password" onclick="handleForgotPassword()" class="text-sm font-bold text-brand-700 underline underline-offset-2 hover:text-brand-800">Құпия сөзді ұмыттым</button></div>
             <div class="mt-4 flex flex-col gap-3 text-center">
                 <div id="auth-oauth-options" class="flex flex-col gap-3">
-                <button type="button" onclick="startOAuthSignIn('google')" class="w-full border border-slate-300 bg-white hover:bg-slate-50 text-slate-800 font-semibold py-2.5 rounded-xl">Google арқылы жалғастыру</button>
-                <button type="button" onclick="startOAuthSignIn('apple')" class="w-full border border-slate-300 bg-slate-950 hover:bg-black text-white font-semibold py-2.5 rounded-xl">Apple ID арқылы жалғастыру</button>
+                    <button type="button" onclick="startOAuthSignIn('google')" class="w-full border border-slate-300 bg-white hover:bg-slate-50 text-slate-800 font-semibold py-2.5 rounded-xl">Google арқылы жалғастыру</button>
                 </div>
                 <p id="auth-help-text" class="text-xs text-slate-600" role="status" aria-live="polite"></p>
-                <p class="text-[11px] leading-5 text-slate-500">Google/Apple кіруі Supabase-та тиісті провайдерлер қосылғанда ғана жұмыс істейді.</p>
+                <p class="text-[11px] leading-5 text-slate-500">Google арқылы кіру уақытша қолжетімсіз!</p>
             </div>
         </div>
+    </div>
+
+    <!-- Password recovery completion modal: shown after the Supabase email link returns. -->
+    <div id="password-recovery-modal" class="fixed inset-0 z-[95] hidden items-center justify-center bg-slate-950/70 p-4" role="dialog" aria-modal="true" aria-labelledby="password-recovery-title">
+        <section class="w-full max-w-md rounded-3xl border border-slate-200 bg-white p-6 shadow-2xl">
+            <h2 id="password-recovery-title" class="text-xl font-extrabold text-slate-900">Жаңа құпия сөз орнату</h2>
+            <p class="mt-2 text-sm leading-6 text-slate-500">Email арқылы келген сілтемеден кейін жаңа құпия сөзіңізді енгізіңіз.</p>
+            <form class="mt-5 space-y-4" onsubmit="handlePasswordUpdate(event)">
+                <label class="block text-xs font-bold text-slate-700">Жаңа құпия сөз<input id="recovery-password" type="password" minlength="8" autocomplete="new-password" required class="mt-1 w-full rounded-xl border border-slate-300 bg-slate-50 px-4 py-3 text-sm"></label>
+                <label class="block text-xs font-bold text-slate-700">Құпия сөзді қайталаңыз<input id="recovery-password-confirm" type="password" minlength="8" autocomplete="new-password" required class="mt-1 w-full rounded-xl border border-slate-300 bg-slate-50 px-4 py-3 text-sm"></label>
+                <p id="password-recovery-help" class="text-xs text-slate-600" role="status" aria-live="polite"></p>
+                <button type="submit" class="w-full rounded-xl bg-brand-700 px-4 py-3 text-sm font-extrabold text-white hover:bg-brand-800">Құпия сөзді сақтау</button>
+            </form>
+        </section>
     </div>
 
     <!-- Mandatory Onboarding / Profile Details Completion Modal (Strict Gating) -->
@@ -865,7 +929,6 @@
                 <p class="text-xs text-slate-500 mt-1">Сайтқа толық қолжетімділік алу үшін төмендегі жеке мәліметтерді толтырыңыз.</p>
             </div>
 
-            <p class="mb-4 rounded-xl border border-amber-200 bg-amber-50 p-3 text-xs leading-5 text-amber-900" data-i18n="ЖСН бұл формада жиналмайды. Ол тек ресми eGov растау интеграциясы іске қосылғанда қауіпсіз тексерілуі керек.">ЖСН бұл формада жиналмайды. Ол тек ресми eGov растау интеграциясы іске қосылғанда қауіпсіз тексерілуі керек.</p>
             <form onsubmit="handleOnboardingSubmit(event)" class="space-y-4">
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div>
@@ -878,7 +941,7 @@
                     </div>
                 </div>
                 <div>
-                    <label for="onboard-middle-name" class="block text-xs font-bold text-slate-700 uppercase mb-1" data-i18n="Әкесінің аты (болмаса бос қалдыруға болады)">Әкесінің аты (болмаса бос қалдыруға болады)</label>
+                    <label for="onboard-middle-name" class="block text-xs font-bold text-slate-700 uppercase mb-1" data-i18n="Әкесінің аты (бар болса)">Әкесінің аты (бар болса)</label>
                     <input type="text" id="onboard-middle-name" autocomplete="additional-name" maxlength="80" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-brand-500">
                 </div>
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -889,7 +952,7 @@
                     <div>
                         <label for="onboard-dob" class="block text-xs font-bold text-slate-700 uppercase mb-1" data-i18n="Туған күні">Туған күні</label>
                         <input type="date" id="onboard-dob" required autocomplete="bday" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3 py-2.5 text-sm focus:ring-2 focus:ring-brand-500">
-                        <p id="onboard-age-preview" class="mt-1 text-xs text-slate-500" aria-live="polite">Туған күніңізді таңдаңыз — жасыңыз есептеледі.</p>
+                        <p id="onboard-age-preview" class="mt-1 text-xs text-slate-500" aria-live="polite">Туған күніңізді таңдаңыз</p>
                     </div>
                 </div>
                 <div>
@@ -927,23 +990,22 @@
             <div class="flex items-center space-x-3 mb-4">
                 <div class="w-10 h-10 bg-gov-50 text-gov-600 rounded-xl flex items-center justify-center font-bold">ID</div>
                 <div>
-                    <h3 class="text-lg font-bold text-slate-900">eGov арқылы тұлғаны растау</h3>
+                    <h3 class="text-lg font-bold text-slate-900">Тұлғаны растау</h3>
                     <p class="text-xs text-slate-500">Жеке тұлғаны растау міндетті</p>
                 </div>
             </div>
 
             <div class="space-y-4">
                 <div class="bg-slate-100 p-4 rounded-2xl text-center">
-                    <p class="text-xs text-slate-600 mb-2 font-medium">Ресми eGov интеграциясы әлі қосылмаған. Төмендегі батырма тек әкімшіге өтінім жібереді.</p>
+                    <p class="text-xs text-slate-600 mb-2 font-medium">Әкімші арқылы растау жіберуді өтінеміз</p>
                     <div class="w-20 h-20 bg-slate-200 border-2 border-dashed border-gov-600 rounded-full mx-auto flex items-center justify-center text-gov-600">
                         <i data-lucide="scan-face" class="w-10 h-10"></i>
                     </div>
                 </div>
                 <button id="egov-request-button" onclick="handleSimulateEGovVerify()" class="w-full bg-gov-600 hover:bg-gov-700 text-white font-bold py-3 rounded-xl shadow transition">
-                    Қолмен тексеруге өтінім жіберу
+                    Әкімшінің тексеруіне жіберу
                 </button>
                 <p id="egov-gate-status" aria-live="polite" class="hidden rounded-xl border border-amber-200 bg-amber-50 p-3 text-xs leading-5 text-amber-900"></p>
-                <p class="text-xs leading-5 text-slate-500">Өтінімді жіберу өздігінен eGov арқылы растау емес. Нақты eGov интеграциясы қосылғанша растауды шынайы eGov деп көрсетпейміз.</p>
                 <button type="button" onclick="handleLogout()" data-i18n="Жүйеден шығу" class="w-full border border-slate-300 text-slate-700 font-semibold py-2.5 rounded-xl">Жүйеден шығу</button>
             </div>
         </div>
@@ -986,7 +1048,7 @@
                 <i data-lucide="x" class="w-4 h-4"></i>
             </button>
             <h3 class="text-xl font-bold text-slate-900 mb-1">Көмек сұрауын жариялау</h3>
-            <p class="text-xs text-slate-500 mb-6">Мұқтаж отбасы немесе көршіңіз туралы мәлімет енгізіңіз</p>
+            <p class="text-xs text-slate-500 mb-6">Көмекке мұқтаж адам туралы мәлімет енгізіңіз</p>
 
             <form onsubmit="handleCreateRequestSubmit(event)" class="space-y-4">
                 <div>
@@ -1026,7 +1088,7 @@
                             <option value="low">Төмен — шұғыл емес</option>
                         </select>
                     </div>
-                    <div>
+                    <div class="sm:col-span-2">
                         <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Әлеуметтік санат</label>
                         <select id="req-vulnerability" multiple aria-label="Әлеуметтік санаттар" class="social-category-native sr-only">
                             <option value="disability">Мүгедектігі бар адам</option>
@@ -1058,7 +1120,14 @@
                 <div>
                     <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Дәлел-суреттер (бірнешеуін таңдауға болады)</label>
                     <input type="file" id="req-images" accept="image/jpeg,image/png,image/webp,image/gif" multiple class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-2.5 text-sm">
-                    <p class="field-hint">Өтінішке қатысты суреттерді ғана жүктеңіз. Жеке құжаттар мен балалардың бет-бейнесін жарияламаңыз.</p>
+                    <div class="mt-3 flex items-start gap-3 rounded-xl border border-red-300 bg-red-50 p-4" role="alert">
+                  <i data-lucide="alert-triangle" class="mt-0.5 h-5 w-5 shrink-0 text-red-600"></i>
+                  <div>
+                     <p class="mt-1 text-sm font-medium leading-relaxed text-red-800">
+                     Өтінішке қатысты суреттерді ғана жүктеңіз. Жеке құжаттар мен балалардың бет-бейнесін жарияламаңыз.
+                   </p>
+                 </div>
+                </div>
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Жағдайы мен проблемасы</label>
@@ -1078,8 +1147,8 @@
             <button onclick="closeGiveawayModal()" class="absolute top-4 right-4 w-8 h-8 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-slate-200">
                 <i data-lucide="x" class="w-4 h-4"></i>
             </button>
-            <h3 class="text-xl font-bold text-slate-900 mb-1">Тегін зат жариялау</h3>
-            <p class="text-xs text-slate-500 mb-6">Артық заттарыңызды тегін беру</p>
+            <h3 class="text-xl font-bold text-slate-900 mb-1">Тегін зат ұсыну</h3>
+            <p class="text-xs text-slate-500 mb-6">Өтінім әкімші тексергеннен кейін жарияланады. Затты алу және алмасу әкімшісіз өңделеді.</p>
 
             <form onsubmit="handleCreateGiveawaySubmit(event)" class="space-y-4">
                 <div>
@@ -1115,14 +1184,13 @@
                 <div>
                     <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Суреттерді құрылғыдан жүктеу</label>
                     <input type="file" id="give-images" accept="image/jpeg,image/png,image/webp,image/gif" multiple class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-brand-500">
-                    <p class="field-hint">JPG, PNG немесе WEBP. Әр сурет 8 МБ-тан аспауы керек. Сурет URL енгізудің қажеті жоқ.</p>
                 </div>
                 <div>
                     <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Сипаттамасы</label>
                     <textarea id="give-desc" rows="3" required placeholder="Толық сипаттамасы..." class="w-full bg-slate-50 border border-slate-300 rounded-xl px-4 py-2.5 text-sm focus:ring-2 focus:ring-brand-500"></textarea>
                 </div>
                 <button type="submit" class="w-full bg-brand-600 hover:bg-brand-700 text-white font-bold py-3 rounded-xl shadow transition">
-                    Жариялау
+                    Модерацияға жіберу
                 </button>
             </form>
         </div>
@@ -1276,8 +1344,24 @@
         const supabaseConfigReady = /^https:\/\/[a-z0-9-]+\.supabase\.co$/i.test(SUPABASE_URL) &&
             /^[A-Za-z0-9._=-]{30,}$/.test(SUPABASE_PUBLISHABLE_KEY);
         const supabaseClient = (window.supabase && supabaseConfigReady)
-            ? window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY)
+            ? window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY, {
+                auth: { autoRefreshToken: true, persistSession: true, detectSessionInUrl: true, flowType: 'implicit' }
+            })
             : null;
+
+        // Subscribe immediately: waiting for DOMContentLoaded can miss the recovery event
+        // because Supabase may process the email callback while the page is initializing.
+        let passwordRecoveryActive = false;
+        let passwordRecoverySubscription = null;
+        if (supabaseClient) {
+            const recoveryListener = supabaseClient.auth.onAuthStateChange((event) => {
+                if (event === 'PASSWORD_RECOVERY') {
+                    passwordRecoveryActive = true;
+                    showPasswordRecoveryModal();
+                }
+            });
+            passwordRecoverySubscription = recoveryListener?.data?.subscription || null;
+        }
 
         // Global Application State
         let currentUser = null;
@@ -1354,7 +1438,7 @@
             if (ecoDateInput) ecoDateInput.min = todayLocal;
             renderRequests(); renderGiveaways(); renderDonations(); renderEcoCampaigns(); renderAdminView();
             if (!supabaseClient) { setAuthOnlyControlsVisible(false); console.info('Supabase credentials have not been configured yet.'); return; }
-            supabaseClient.auth.onAuthStateChange(() => { /* Session is hydrated once below after OAuth/OTP redirects. */ });
+            // Recovery listener is installed immediately after Supabase client creation.
             const { data: sessionData, error: sessionError } = await supabaseClient.auth.getSession();
             if (sessionError) console.error('Supabase session read error', sessionError);
             if (sessionData?.session?.user) {
@@ -1430,7 +1514,9 @@
                 if (btn.dataset.target === tabId) { btn.classList.remove('text-slate-500'); btn.classList.add('text-brand-600'); }
             });
             const backControl = document.getElementById('page-back-control');
-            if (backControl) backControl.classList.toggle('hidden', tabId === 'home');
+            const backEligibleTabs = new Set(['menu','about','contact','bank','profile','mydata','notifications','admin']);
+            const hasPreviousPage = tabNavigationHistory.length > 0;
+            if (backControl) backControl.classList.toggle('hidden', !backEligibleTabs.has(tabId) || !hasPreviousPage || isNavigatingBack && tabNavigationHistory.length === 0);
             closeMainMenu();
             const main = document.querySelector('main');
             if (main) main.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1494,7 +1580,10 @@
         }
 
         function openAuthModal() {
-            document.getElementById('auth-modal').classList.remove('hidden');
+            const modal = document.getElementById('auth-modal');
+            if (!modal) return;
+            setAuthMode('login');
+            modal.classList.remove('hidden');
             document.getElementById('auth-email')?.focus();
         }
         function closeAuthModal(preservePending = false) {
@@ -1504,13 +1593,25 @@
         let authMode = 'login';
         function setAuthMode(mode) {
             authMode = mode === 'register' ? 'register' : 'login';
-            const login = document.getElementById('auth-mode-login'), register = document.getElementById('auth-mode-register');
-            login.className = authMode === 'login' ? 'rounded-lg bg-white px-3 py-2.5 text-sm font-bold text-slate-900 shadow-sm' : 'rounded-lg px-3 py-2.5 text-sm font-bold text-slate-500';
-            register.className = authMode === 'register' ? 'rounded-lg bg-white px-3 py-2.5 text-sm font-bold text-slate-900 shadow-sm' : 'rounded-lg px-3 py-2.5 text-sm font-bold text-slate-500';
-            document.getElementById('auth-title').textContent = authMode === 'login' ? 'Жүйеге кіру' : 'Жаңа аккаунт тіркеу';
-            document.getElementById('auth-btn-text').textContent = authMode === 'login' ? 'Кіру' : 'Тіркелу';
-            document.getElementById('auth-password').autocomplete = authMode === 'login' ? 'current-password' : 'new-password';
-            document.getElementById('auth-help-text').textContent = '';
+            const login = document.getElementById('auth-mode-login');
+            const register = document.getElementById('auth-mode-register');
+            const activeClass = 'rounded-lg bg-white px-3 py-2.5 text-sm font-bold text-slate-900 shadow-sm';
+            const inactiveClass = 'rounded-lg px-3 py-2.5 text-sm font-bold text-slate-500';
+            if (login) login.className = authMode === 'login' ? activeClass : inactiveClass;
+            if (register) register.className = authMode === 'register' ? activeClass : inactiveClass;
+            const title = document.getElementById('auth-title');
+            if (title) title.textContent = authMode === 'login' ? 'Жүйеге кіру' : 'Жаңа аккаунт тіркеу';
+            const submit = document.getElementById('auth-btn-text');
+            if (submit) submit.textContent = authMode === 'login' ? 'Кіру' : 'Тіркелу';
+            const password = document.getElementById('auth-password');
+            if (password) {
+                password.autocomplete = authMode === 'login' ? 'current-password' : 'new-password';
+                password.placeholder = authMode === 'login' ? 'Құпия сөз' : 'Кемінде 8 таңба';
+            }
+            const forgot = document.getElementById('auth-forgot-password');
+            if (forgot) forgot.classList.toggle('hidden', authMode !== 'login');
+            const help = document.getElementById('auth-help-text');
+            if (help) help.textContent = '';
         }
         async function handleAuthSubmit(e) {
             e.preventDefault();
@@ -1566,9 +1667,108 @@
             modal.classList.remove('hidden');
         }
 
-        async function handleForgotPassword() {
-            showToast('Құпия сөз қолданылмайды', 'VoluHub email-ге жіберілген бір реттік код арқылы кіреді.');
+        function showPasswordRecoveryModal() {
+            const modal = document.getElementById('password-recovery-modal');
+            if (!modal) return;
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            const help = document.getElementById('password-recovery-help');
+            if (help) help.textContent = 'Жаңа құпия сөзді екі рет енгізіп, сақтаңыз.';
+            window.requestAnimationFrame(() => document.getElementById('recovery-password')?.focus());
         }
+
+        function getPasswordRecoveryRedirectUrl() {
+            // Return to the exact currently hosted HTML page (without old query/hash tokens).
+            const redirect = new URL(window.location.pathname, window.location.origin);
+            return redirect.toString();
+        }
+
+        async function handleForgotPassword() {
+            const emailInput = document.getElementById('auth-email');
+            const email = (emailInput?.value || '').trim().toLowerCase();
+            const help = document.getElementById('auth-help-text');
+            const button = document.getElementById('auth-forgot-password');
+            if (help) help.textContent = '';
+            if (!email) {
+                if (help) help.textContent = 'Алдымен аккаунтқа тіркелген email мекенжайын енгізіңіз.';
+                emailInput?.focus();
+                return;
+            }
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                if (help) help.textContent = 'Email мекенжайының форматын тексеріңіз.';
+                emailInput?.focus();
+                return;
+            }
+            if (!supabaseClient || !supabaseConfigReady) {
+                if (help) help.textContent = 'Құпия сөзді қалпына келтіру үшін Supabase баптауы қажет.';
+                showToast('Supabase бапталмаған', 'Email арқылы қалпына келтіру қызметі қолжетімсіз.', true);
+                return;
+            }
+            if (!['https:', 'http:'].includes(window.location.protocol)) {
+                if (help) help.textContent = 'Сайтты hosting арқылы ашыңыз. Жергілікті file:// сілтемесі қалпына келтіруге жарамайды.';
+                return;
+            }
+            const originalText = button?.textContent || 'Құпия сөзді ұмыттым';
+            if (button) { button.disabled = true; button.textContent = 'Жіберілуде…'; }
+            try {
+                const redirectTo = getPasswordRecoveryRedirectUrl();
+                const { error } = await supabaseClient.auth.resetPasswordForEmail(email, { redirectTo });
+                if (error) throw error;
+                if (help) help.textContent = 'Сұрау қабылданды. Email поштаңызды, соның ішінде Spam/Junk бумасын тексеріңіз. Сілтемені ашқанда осы сайтта жаңа құпия сөз орнату терезесі ашылады.';
+                showToast('Қалпына келтіру сұрауы жіберілді', 'Поштаңызды тексеріңіз. Email аккаунты бар-жоғын қауіпсіздік мақсатында бөлек көрсетпейміз.');
+            } catch (err) {
+                const message = err?.message || 'Қалпына келтіру сілтемесін жіберу мүмкін болмады.';
+                if (help) help.textContent = message + ' Supabase Auth → URL Configuration бөлімінде осы сайттың URL мекенжайы Redirect URLs тізімінде болуы керек.';
+                showToast('Қалпына келтіру қатесі', message, true);
+            } finally {
+                if (button) { button.disabled = false; button.textContent = originalText; }
+            }
+        }
+
+        async function handlePasswordUpdate(event) {
+            event.preventDefault();
+            const passwordInput = document.getElementById('recovery-password');
+            const confirmInput = document.getElementById('recovery-password-confirm');
+            const password = passwordInput?.value || '';
+            const confirmPassword = confirmInput?.value || '';
+            const help = document.getElementById('password-recovery-help');
+            const submit = event.currentTarget?.querySelector('button[type="submit"]');
+            if (!supabaseClient) { if (help) help.textContent = 'Supabase қосылымы табылмады. Сілтемені қайта ашыңыз.'; return; }
+            if (password.length < 8) { if (help) help.textContent = 'Құпия сөз кемінде 8 таңбадан тұруы керек.'; passwordInput?.focus(); return; }
+            if (password !== confirmPassword) { if (help) help.textContent = 'Екі құпия сөз бірдей емес.'; confirmInput?.focus(); return; }
+            const originalText = submit?.textContent || 'Құпия сөзді сақтау';
+            if (submit) { submit.disabled = true; submit.textContent = 'Сақталуда…'; }
+            try {
+                // updateUser is accepted only after Supabase has established the recovery session.
+                const { data: sessionData, error: sessionError } = await supabaseClient.auth.getSession();
+                if (sessionError) throw sessionError;
+                if (!sessionData?.session || !passwordRecoveryActive) {
+                    throw new Error('Қалпына келтіру сілтемесінің сессиясы табылмады немесе мерзімі өткен. Email-дегі ең соңғы сілтемені қайта ашыңыз.');
+                }
+                const { error } = await supabaseClient.auth.updateUser({ password });
+                if (error) throw error;
+                passwordRecoveryActive = false;
+                const modal = document.getElementById('password-recovery-modal');
+                modal?.classList.add('hidden'); modal?.classList.remove('flex');
+                document.getElementById('recovery-password')?.form?.reset();
+                // Remove one-time callback tokens from the visible address bar.
+                try { window.history.replaceState({}, document.title, window.location.pathname); } catch (_) {}
+                await supabaseClient.auth.signOut();
+                currentUser = null; isEGovVerified = false;
+                setAuthOnlyControlsVisible(false);
+                document.getElementById('auth-container')?.classList.remove('hidden');
+                setAuthMode('login');
+                openAuthModal();
+                showToast('Құпия сөз жаңартылды', 'Енді жаңа құпия сөзбен жүйеге кіре аласыз.');
+            } catch (err) {
+                const message = err?.message || 'Құпия сөзді сақтау мүмкін болмады.';
+                if (help) help.textContent = message;
+                showToast('Құпия сөз қатесі', message, true);
+            } finally {
+                if (submit) { submit.disabled = false; submit.textContent = originalText; }
+            }
+        }
+
 
         function finishLogin() {
             if (!currentUser) return;
@@ -1637,7 +1837,7 @@
             const output = document.getElementById('onboard-age-preview');
             if (!input || !output) return;
             const age = calculateAge(input.value);
-            output.textContent = age === null ? 'Туған күніңізді таңдаңыз — жасыңыз есептеледі.' : `Сіздің жасыңыз: ${age}`;
+            output.textContent = age === null ? 'Туған күніңізді таңдаңыз' : `Сіздің жасыңыз: ${age}`;
         }
 
         async function handleOnboardingSubmit(e) {
@@ -1779,10 +1979,10 @@
                 const status = document.getElementById('egov-gate-status');
                 if (status) {
                     status.classList.remove('hidden');
-                    status.textContent = translatedText('Өтінім жіберілді. Әкімші тексеруін күтіңіз. Бұл нақты eGov растауы емес; ресми интеграция бөлек қосылуы керек.', currentLanguage || 'kk');
+                    status.textContent = translatedText('Өтінім жіберілді. Әкімші тексеруін күтіңіз', currentLanguage || 'kk');
                 }
                 await saveUserEvent('Тұлғаны растау сұралды', 'Әкімші растауын күтіп тұр.', 'verification');
-                showToast('Сұрау жіберілді', 'Сайтқа кіру әкімші тексеруі аяқталғанша жабық қалады. Бұл нақты eGov растауы емес.');
+                showToast('Сұрау жіберілді', 'Сайтқа кіру әкімші тексеруі аяқталғанша жабық қалады.');
             } catch (err) { showToast('Растау сұрауы сақталмады', err.message || 'Supabase қатесі.', true); }
         }
 
@@ -2001,13 +2201,17 @@
             const goalAmount = Number.isFinite(rawGoal) ? Math.max(0, rawGoal) : DONATION_TARGET_FALLBACK;
             const target = Math.max(1, goalAmount);
             const amountText = total.toLocaleString('en-US') + ' ₸';
+            const compactAmount = total >= 1000000000 ? (total / 1000000000).toLocaleString('en-US',{maximumFractionDigits:2}) + ' млрд ₸'
+                : total >= 1000000 ? (total / 1000000).toLocaleString('en-US',{maximumFractionDigits:2}) + ' млн ₸'
+                : total >= 10000 ? (total / 1000).toLocaleString('en-US',{maximumFractionDigits:1}) + ' мың ₸'
+                : amountText;
             const totalEl = document.getElementById('fund-total-text');
-            if (totalEl) totalEl.textContent = amountText;
+            if (totalEl) { totalEl.textContent = compactAmount; totalEl.title = amountText; totalEl.setAttribute('aria-label', 'Жалпы жиналған қаражат: ' + amountText); }
             const bar = document.getElementById('fund-progress');
             if (bar) bar.style.width = Math.min(100, total / target * 100) + '%';
             const goalText = document.getElementById('fund-goal-note');
             const isOpen = fundraisingGoal.donations_enabled !== false;
-            if (goalText) goalText.textContent = isOpen ? ('Мақсатты сома: ' + goalAmount.toLocaleString('en-US') + ' ₸ (мақсатқа жету деңгейі автоматты жаңартылады). Демо төлем — нақты ақша аудармайды.') : 'Қаражат жинау уақытша жабық. Кейін қайта ашылады.';
+            if (goalText) goalText.textContent = isOpen ? ('Мақсатты сома: ' + goalAmount.toLocaleString('en-US') + ' ₸ ') : 'Қаражат жинау уақытша жабық. Кейін қайта ашылады.';
             const donateForm = document.querySelector('#tab-donations form[onsubmit="handleDonateSubmit(event)"]');
             if (donateForm) donateForm.querySelectorAll('button,input').forEach(el => { el.disabled = !isOpen; el.classList.toggle('opacity-50', !isOpen); el.classList.toggle('cursor-not-allowed', !isOpen); });
             const stat = document.getElementById('stat-donations');
@@ -2366,22 +2570,19 @@
         async function handleCreateGiveawaySubmit(e) {
             e.preventDefault();
             if (!currentUser) { openAuthModal(); return; }
+            if (!supabaseClient || !supabaseConfigReady) { showToast('Дерекқор қосылмаған', 'Тегін зат өтінімін әкімшіге жіберу үшін Supabase қосулы болуы керек.', true); return; }
             const files = Array.from(document.getElementById('give-images').files || []);
             if (files.some(f => !isValidImageFile(f))) { showToast('Сурет жарамсыз', 'Әр сурет 8 МБ-тан аспауы керек.', true); return; }
             try {
                 const images = files.length ? await uploadImageFiles(files, 'public-images') : [];
-                const payload = { owner_id: currentUser.id, title: document.getElementById('give-title').value.trim(), city: document.getElementById('give-city').value, category: document.getElementById('give-cat').value, address: document.getElementById('give-address').value.trim(), phone: normalizeKzPhone(document.getElementById('give-phone').value).trim(), images, description: document.getElementById('give-desc').value.trim(), status: 'open' };
-                if (supabaseClient) {
-                    const { data, error } = await supabaseClient.from('giveaways').insert(payload).select('*').single();
-                    if (error) throw error;
-                    stateGiveaways.unshift(mapGiveawayRow(data));
-                } else {
-                    stateGiveaways.unshift({ id: 'give-' + Date.now(), ...payload, desc: payload.description });
-                }
-                await saveUserEvent('Тегін зат жарияланды', payload.title, 'giveaway');
-                showToast('Сәтті жарияланды', 'Тегін зат каталогқа қосылды!');
-                closeGiveawayModal(); renderGiveaways(); e.target.reset();
-            } catch (err) { showToast('Жариялау қатесі', err.message || 'Деректер сақталмады.', true); }
+                const payload = { owner_id: currentUser.id, title: document.getElementById('give-title').value.trim(), city: document.getElementById('give-city').value, category: document.getElementById('give-cat').value, address: document.getElementById('give-address').value.trim(), phone: normalizeKzPhone(document.getElementById('give-phone').value).trim(), images, description: document.getElementById('give-desc').value.trim(), status: 'pending' };
+                const { error } = await supabaseClient.from('giveaways').insert(payload);
+                if (error) throw error;
+                await saveUserEvent('Тегін зат өтінімі жіберілді', payload.title + ' — әкімші тексеруін күтуде.', 'giveaway');
+                showToast('Өтінім жіберілді', 'Тегін зат әкімші мақұлдағаннан кейін ғана каталогта жарияланады.');
+                closeGiveawayModal(); e.target.reset();
+                await renderAdminView();
+            } catch (err) { showToast('Өтінім жіберу қатесі', err.message || 'Деректер сақталмады.', true); }
         }
 
         // PARTNERS: only an administrator may publish a partner; partnership applications remain public to signed-in users.
@@ -2432,8 +2633,8 @@
                 if (list) list.innerHTML = (data || []).map(x => {
                     const logo = x.logo_url ? `<img src="${escapeHTML(x.logo_url)}" alt="${escapeHTML(x.name)} логотипі" class="h-12 w-12 rounded-xl border border-slate-200 bg-white object-contain p-1">` : '';
                     const images = Array.isArray(x.image_urls) ? x.image_urls : [];
-                    const gallery = images.length ? `<div class="mt-2 flex flex-wrap gap-2">${images.map((url, i) => `<img src="${escapeHTML(url)}" alt="${escapeHTML(x.name)} — сурет ${i + 1}" class="h-12 w-12 rounded-lg border border-slate-200 object-cover">`).join('')}</div>` : '';
-                    return `<div class="rounded-xl border border-slate-200 p-3"><div class="flex items-start gap-3">${logo}<div class="min-w-0 flex-1"><p translate="no" class="notranslate font-semibold text-sm">${escapeHTML(x.name)}</p><p class="text-xs text-slate-500">${escapeHTML(x.description || '')}</p>${x.website ? `<a class="text-xs text-brand-700 underline" href="${escapeHTML(x.website)}" target="_blank" rel="noopener noreferrer">Сайт</a>` : ''}</div><button type="button" onclick="deletePartner('${escapeHTML(x.id)}')" class="shrink-0 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-xs font-bold text-red-700 hover:bg-red-100">Жою</button></div>${gallery}</div>`;
+                    const gallery = images.length ? `<div class="admin-partner-admin-gallery mt-2 flex flex-wrap gap-2">${images.map((url, i) => `<img src="${escapeHTML(url)}" alt="${escapeHTML(x.name)} — сурет ${i + 1}" class="h-9 w-9 rounded-lg border border-slate-200 object-cover">`).join('')}</div>` : '';
+                    return `<div class="admin-published-partner-card rounded-xl border border-slate-200 p-3"><div class="flex items-start gap-3">${logo}<div class="min-w-0 flex-1"><p translate="no" class="notranslate truncate font-semibold text-sm">${escapeHTML(x.name)}</p><p class="line-clamp-2 break-words text-xs text-slate-500">${escapeHTML(x.description || '')}</p>${x.website ? `<a class="text-xs text-brand-700 underline" href="${escapeHTML(x.website)}" target="_blank" rel="noopener noreferrer">Сайт</a>` : ''}</div><button type="button" onclick="deletePartner('${escapeHTML(x.id)}')" class="shrink-0 rounded-lg border border-red-200 bg-red-50 px-3 py-2 text-xs font-bold text-red-700 hover:bg-red-100">Жою</button></div>${gallery}</div>`;
                 }).join('') || '<p class="text-sm text-slate-500">Әзірге серіктес жоқ.</p>';
             } catch(err) { if (list) list.innerHTML = `<p class="text-xs text-red-600">Серіктестер жүктелмеді: ${escapeHTML(err.message)}</p>`; }
             try {
@@ -2488,6 +2689,19 @@
                     <div class="min-w-0"><span class="bg-amber-100 text-amber-800 text-[10px] font-bold px-2 py-1 rounded">Толық тексеру қажет</span><h4 class="font-bold text-slate-900 text-sm mt-2">${escapeHTML(p.name)} · ${escapeHTML(p.city)}</h4><p class="mt-1 line-clamp-2 break-words text-xs text-slate-600">${escapeHTML(p.description || '')}</p><p class="mt-1 text-xs text-slate-500">${escapeHTML(p.category || '')} · ${escapeHTML(p.urgency || '')} · ${(Array.isArray(p.images) ? p.images.length : 0)} сурет</p></div>
                     <button type="button" onclick="openAdminRequestDetails('${escapeHTML(p.id)}')" class="w-full shrink-0 rounded-xl bg-slate-900 px-4 py-3 text-xs font-extrabold text-white hover:bg-slate-700 sm:w-auto">Барлық дерек пен суретті ашу</button>
                 </article>`).join('');
+            const giveawayModerationContainer = document.getElementById('admin-giveaway-moderation-list');
+            if (giveawayModerationContainer && supabaseClient) {
+                try {
+                    const { data: giveawayRows, error: giveawayError } = await supabaseClient.from('giveaways')
+                        .select('id,owner_id,title,city,category,images,description,status,created_at')
+                        .eq('status','pending').order('created_at',{ascending:true});
+                    if (giveawayError) throw giveawayError;
+                    giveawayModerationContainer.innerHTML = !giveawayRows?.length ? '<p class="text-sm text-slate-500">Күтудегі тегін зат өтінімі жоқ.</p>' : giveawayRows.map(g => {
+                        const image = Array.isArray(g.images) && g.images.length ? safeAdminImageUrl(g.images[0]) : '';
+                        return `<article class="rounded-2xl border border-slate-200 bg-white p-4"><div class="flex items-start gap-3">${image ? `<img src="${escapeHTML(image)}" alt="${escapeHTML(g.title)}" loading="lazy" class="h-20 w-20 shrink-0 rounded-xl border border-slate-200 object-cover">` : ''}<div class="min-w-0 flex-1"><span class="rounded-full bg-amber-50 px-2 py-1 text-[10px] font-extrabold text-amber-800">Модерацияда</span><h4 class="mt-2 break-words text-sm font-extrabold text-slate-900">${escapeHTML(g.title || 'Тегін зат')}</h4><p class="mt-1 text-xs text-slate-500">${escapeHTML(g.city || '')} · ${escapeHTML(g.category || '')}</p><p class="mt-2 line-clamp-3 whitespace-pre-line break-words text-xs leading-5 text-slate-600">${escapeHTML(g.description || '')}</p><p class="mt-1 text-[10px] text-slate-500">${g.created_at ? escapeHTML(new Date(g.created_at).toLocaleString()) : ''}</p></div></div><div class="mt-3 flex flex-col gap-2 sm:flex-row"><button type="button" onclick="reviewGiveawaySubmission('${escapeHTML(g.id)}',true)" class="flex-1 rounded-xl bg-brand-700 px-3 py-2.5 text-xs font-extrabold text-white hover:bg-brand-800">Мақұлдау және жариялау</button><button type="button" onclick="reviewGiveawaySubmission('${escapeHTML(g.id)}',false)" class="flex-1 rounded-xl border border-red-200 bg-red-50 px-3 py-2.5 text-xs font-extrabold text-red-700 hover:bg-red-100">Қабылдамау</button></div></article>`;
+                    }).join('');
+                } catch (err) { giveawayModerationContainer.innerHTML = `<p class="text-sm text-red-700">Тегін зат өтінімдері жүктелмеді: ${escapeHTML(err.message)}</p>`; }
+            }
             const reportContainer = document.getElementById('admin-help-reports-list');
             if (reportContainer && supabaseClient) {
                 try {
@@ -2547,6 +2761,22 @@
                 showToast('Қабылданбады', 'Өтініш тарихта сақталды; ол тізімнен жасырылады.'); closeAdminReviewModal(); await loadPersistentData();
             } catch (err) { showToast('Өзгеріс қатесі', err.message || 'Сақталмады.', true); }
         }
+        async function reviewGiveawaySubmission(giveawayId, approve) {
+            if (!currentUser?.isAdmin || !supabaseClient) return;
+            const nextStatus = approve ? 'open' : 'rejected';
+            try {
+                const { data, error } = await supabaseClient.from('giveaways').update({
+                    status:nextStatus, reviewed_by:currentUser.id, reviewed_at:new Date().toISOString()
+                }).eq('id',giveawayId).eq('status','pending').select('id,owner_id,title').maybeSingle();
+                if (error) throw error;
+                if (!data) throw new Error('Өтінім табылмады немесе бұрын тексерілген.');
+                await createNotification(data.owner_id, approve ? 'Тегін зат жарияланды' : 'Тегін зат өтінімі қабылданбады',
+                    approve ? `«${data.title}» тегін заттар каталогына қосылды.` : `«${data.title}» өтінімін әкімші жариялауға мақұлдамады.`, 'giveaway');
+                showToast(approve ? 'Зат жарияланды' : 'Өтінім қабылданбады', approve ? 'Енді затты пайдаланушылар бұрынғыдай тікелей ала алады.' : 'Өтінім жарияланбады.');
+                await Promise.all([loadPublicData(), renderAdminView()]);
+            } catch (err) { showToast('Модерация қатесі', err.message || 'Өзгеріс сақталмады.', true); }
+        }
+
         async function reviewHelpReport(reportId, approve) {
             if (!currentUser?.isAdmin) return;
             const note = approve ? 'Фотоесеп әкімші тарапынан мақұлданды.' : 'Фотоесепті толықтырып, қайта жіберіңіз.';
@@ -2840,10 +3070,12 @@
             titleEl.textContent = title;
             contentEl.innerHTML = content;
             modal.classList.remove('hidden');
+            modal.classList.add('flex');
             if (window.lucide) lucide.createIcons({ root: contentEl });
         }
         function closeAdminReviewModal() {
-            document.getElementById('admin-review-modal')?.classList.add('hidden');
+            const modal = document.getElementById('admin-review-modal');
+            modal?.classList.add('hidden'); modal?.classList.remove('flex');
         }
 
         async function openAdminRequestDetails(requestId) {
@@ -3119,7 +3351,7 @@
             if (!currentUser || !supabaseClient) return;
             const saved = await createNotification(currentUser.id, title, message, type);
             if (!saved) showToast('Әрекет сақталды, бірақ хабарлама жазылмады', 'notifications кестесінің RLS саясатын тексеріңіз.', true);
-            const local = { id:crypto.randomUUID(), user_id:currentUser.id, title, message, type, is_read:false, created_at:new Date().toISOString() };
+            const local = { id:'local-' + crypto.randomUUID(), user_id:currentUser.id, title, message, type, is_read:false, created_at:new Date().toISOString() };
             stateNotifications.unshift(local); stateNotifications = stateNotifications.slice(0,50);
             renderNotifications(); renderProfileActivity();
         }
@@ -3131,7 +3363,7 @@
             const mobileCount = document.getElementById('mobile-menu-notification-count');
             if (mobileCount) { mobileCount.textContent = unread.length > 99 ? '99+' : String(unread.length); mobileCount.classList.toggle('hidden', unread.length===0); }
             if (!container) return;
-            const markup = stateNotifications.length ? stateNotifications.map(n=>`<article class="rounded-2xl border ${n.is_read?'border-slate-100 bg-white':'border-brand-100 bg-brand-50/60'} p-4"><div class="flex items-start gap-3"><span class="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl ${n.is_read?'bg-slate-100 text-slate-500':'bg-brand-100 text-brand-700'}"><i data-lucide="${n.type==='verification'?'badge-check':n.type==='donation'?'coins':n.type==='report'?'clipboard-check':n.type==='eco'?'leaf':'bell'}" class="h-4 w-4"></i></span><div class="min-w-0 flex-1"><p class="break-words text-sm font-extrabold text-slate-900">${escapeHTML(n.title || 'Хабарлама')}</p><p class="mt-1 whitespace-pre-line break-words text-sm leading-6 text-slate-600">${escapeHTML(n.message || '')}</p><p class="mt-2 text-[11px] text-slate-500">${n.created_at ? escapeHTML(new Date(n.created_at).toLocaleString()) : ''}</p></div>${n.is_read?'':'<span class="mt-1 h-2 w-2 shrink-0 rounded-full bg-brand-600" aria-label="Оқылмаған"></span>'}</div></article>`).join('') : '<p class="rounded-xl border border-dashed border-slate-200 p-6 text-center text-sm text-slate-500">Жаңа хабарлама жоқ.</p>';
+            const markup = stateNotifications.length ? stateNotifications.map(n=>`<article role="button" tabindex="0" aria-label="${escapeHTML(n.title || 'Хабарлама')} — оқылған деп белгілеу" onclick="markNotificationRead('${escapeHTML(n.id)}')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();markNotificationRead('${escapeHTML(n.id)}')}" class="cursor-pointer rounded-2xl border ${n.is_read?'border-slate-100 bg-white':'border-brand-100 bg-brand-50/60'} p-4 transition hover:border-brand-200 hover:shadow-sm"><div class="flex items-start gap-3"><span class="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-xl ${n.is_read?'bg-slate-100 text-slate-500':'bg-brand-100 text-brand-700'}"><i data-lucide="${n.type==='verification'?'badge-check':n.type==='donation'?'coins':n.type==='report'?'clipboard-check':n.type==='eco'?'leaf':'bell'}" class="h-4 w-4"></i></span><div class="min-w-0 flex-1"><p class="break-words text-sm font-extrabold text-slate-900">${escapeHTML(n.title || 'Хабарлама')}</p><p class="mt-1 whitespace-pre-line break-words text-sm leading-6 text-slate-600">${escapeHTML(n.message || '')}</p><p class="mt-2 text-[11px] text-slate-500">${n.created_at ? escapeHTML(new Date(n.created_at).toLocaleString()) : ''}</p></div>${n.is_read?'':'<span class="mt-1 h-2 w-2 shrink-0 rounded-full bg-brand-600" aria-label="Оқылмаған"></span>'}</div></article>`).join('') : '<p class="rounded-xl border border-dashed border-slate-200 p-6 text-center text-sm text-slate-500">Жаңа хабарлама жоқ.</p>';
             container.innerHTML = markup;
             const pageContainer = document.getElementById('notifications-page-list');
             if (pageContainer) pageContainer.innerHTML = markup;
@@ -3150,6 +3382,18 @@
             const panel = document.getElementById('notifications-panel');
             if (!panel) return;
             panel.classList.toggle('hidden');
+        }
+        async function markNotificationRead(notificationId) {
+            if (!notificationId) return;
+            const current = stateNotifications.find(n => String(n.id) === String(notificationId));
+            if (!current || current.is_read) return;
+            if (currentUser && supabaseClient && !String(notificationId).startsWith('local-')) {
+                const { error } = await supabaseClient.from('notifications').update({ is_read:true })
+                    .eq('id', notificationId).eq('user_id', currentUser.id);
+                if (error) { showToast('Хабарлама қатесі', error.message, true); return; }
+            }
+            stateNotifications = stateNotifications.map(n => String(n.id) === String(notificationId) ? { ...n, is_read:true } : n);
+            renderNotifications();
         }
         async function markNotificationsRead() {
             if (currentUser && supabaseClient) {
@@ -3192,8 +3436,8 @@
             if (modal) { modal.classList.add('hidden'); modal.classList.remove('flex'); }
         }
         const translationCatalog = {
-          'Басты бет':{ru:'Главная',en:'Home'}, 'Басты бетке қош келдіңіз':{ru:'Добро пожаловать',en:'Welcome'}, 'Қазақстан Республикасы бойынша ашық әлеуметтік бастама':{ru:'Открытая социальная инициатива по Казахстану',en:'Open social initiative across Kazakhstan'}, 'Мұқтаж жандар мен қайырымды жүректерді':{ru:'Объединяем нуждающихся и неравнодушных людей',en:'Connecting people in need with caring people'}, 'біріктіретін ұлттық платформа':{ru:'национальная платформа',en:'a national platform'}, 'Көмекке мұқтаж жандар тізімі':{ru:'Список нуждающихся в помощи',en:'People who need help'}, 'Нақты мекенжайлар тек расталған көмектесушілерге ғана ашылады':{ru:'Точные адреса доступны только подтверждённым помощникам',en:'Exact addresses are shown only to verified helpers'}, 'Барлық қалалар':{ru:'Все города',en:'All cities'}, 'Көмек сұрауын жариялау':{ru:'Опубликовать запрос помощи',en:'Publish a help request'}, 'Тегін заттар (Giveaway)':{ru:'Бесплатные вещи',en:'Free items'}, 'Артық киім-кешек, жиһаз, электрониканы мұқтаждарға тегін беру':{ru:'Бесплатная передача одежды, мебели и электроники нуждающимся',en:'Give unused clothing, furniture and electronics to people in need'}, 'Экология және табиғатты қорғау акциялары':{ru:'Экологические акции и защита природы',en:'Ecology and nature protection events'}, 'Соңғы әрекеттер':{ru:'Последние действия',en:'Recent activity'}, 'Мәртебе мен Қауіпсіздік':{ru:'Статус и безопасность',en:'Status & safety'}, 'Менің белсенділігім':{ru:'Моя активность',en:'My activity'}, 'Қосылған өтініштер':{ru:'Добавленные заявки',en:'Requests created'}, 'Берілген заттар':{ru:'Отданные вещи',en:'Items given'}, 'Толық аты-жөніңіз':{ru:'Полное имя',en:'Full name'}, 'Электронды пошта (Email)':{ru:'Электронная почта (Email)',en:'Email address'}, 'Құпия сөз':{ru:'Пароль',en:'Password'}, 'Жаңа тіркелу':{ru:'Новая регистрация',en:'Create an account'}, 'Жүйеге кіру':{ru:'Вход в систему',en:'Sign in'}, 'Тіркелу':{ru:'Регистрация',en:'Register'}, 'Қала':{ru:'Город',en:'City'}, 'Санат':{ru:'Категория',en:'Category'}, 'Шұғылдық деңгейі':{ru:'Уровень срочности',en:'Urgency level'}, 'Әлеуметтік санат':{ru:'Социальная категория',en:'Vulnerability category'}, 'Мекенжай':{ru:'Адрес',en:'Address'}, 'Телефон нөмірі':{ru:'Номер телефона',en:'Phone number'}, 'Сипаттамасы':{ru:'Описание',en:'Description'}, 'Суреттерді құрылғыдан жүктеу':{ru:'Загрузить изображения с устройства',en:'Upload images from device'}, 'Қауіпсіздік ережелері':{ru:'Правила безопасности',en:'Safety rules'}, 'Бағдарлама':{ru:'Программа',en:'Schedule'}, 'Өзіңізбен бірге':{ru:'Что взять с собой',en:'What to bring'}, 'Көмек сұраулары':{ru:'Запросы о помощи',en:'Help requests'}, 'Тегін заттар':{ru:'Бесплатные вещи',en:'Free items'}, 'Донат & Серіктестік':{ru:'Пожертвования и партнёрство',en:'Donations & partners'}, 'Экология':{ru:'Экология',en:'Ecology'}, 'Басқару панелі':{ru:'Панель управления',en:'Admin panel'}, 'Кіру / Тіркелу':{ru:'Войти / Регистрация',en:'Sign in / Register'},
-          'Көмекке мұқтаж жандар тізімі':{ru:'Список нуждающихся в помощи',en:'People who need help'}, 'Көмек сұрау қосу':{ru:'Добавить запрос помощи',en:'Add a help request'}, 'Зат беру (Жариялау)':{ru:'Отдать вещь',en:'Give an item'}, 'Ұлттық қайырымдылық қоры':{ru:'Национальный благотворительный фонд',en:'National charity fund'}, 'Жалпы жиналған қаражат:':{ru:'Всего собрано:',en:'Total raised:'}, 'Қаражат бөлу (Донат жасау)':{ru:'Пожертвование',en:'Make a donation'}, 'Донатты растау (Kaspi / Card)':{ru:'Добавить демо-пожертвование',en:'Add demo donation'}, 'Менің жасаған донаттарым':{ru:'Мои пожертвования',en:'My donations'}, 'Экология және табиғатты қорғау акциялары':{ru:'Экологические акции и защита природы',en:'Ecology and nature protection events'}, 'Соңғы әрекеттер':{ru:'Последние действия',en:'Recent activity'}, 'Мәртебе мен Қауіпсіздік':{ru:'Статус и безопасность',en:'Status & safety'}, 'Суреттерді құрылғыдан жүктеу':{ru:'Загрузить изображения с устройства',en:'Upload images from device'}, 'Біз туралы':{ru:'О нас',en:'About us'}, 'Байланыс':{ru:'Контакты',en:'Contact'}, 'Банк деректері':{ru:'Банковские данные',en:'Bank details'}, 'Профиль және әрекеттер':{ru:'Профиль и действия',en:'Profile & activity'}, 'Хабарламалар':{ru:'Уведомления',en:'Notifications'}, 'Оқылды деп белгілеу':{ru:'Отметить прочитанными',en:'Mark as read'}, 'Көмек көрсету туралы келісім':{ru:'Согласие на помощь',en:'Help commitment'}, 'Көмекті бастау':{ru:'Начать помогать',en:'Start helping'}, 'Фотоесепті тексеру':{ru:'Проверка фотоотчётов',en:'Review photo reports'}, 'Дәлелді растау және жабу':{ru:'Подтвердить доказательства и закрыть',en:'Verify proof and close'}, 'Қайта тапсыру':{ru:'Отправить на доработку',en:'Request changes'}, 'Мақұлдау':{ru:'Одобрить',en:'Approve'}, 'Қабылдамау':{ru:'Отклонить',en:'Reject'}, 'Басқару және Модерация Орталығы':{ru:'Центр управления и модерации',en:'Management & moderation center'}, 'Жүйеден шығу':{ru:'Выйти',en:'Sign out'}, 'Сіз әлі демо-донат жасаған жоқсыз.':{ru:'Вы ещё не делали демо-пожертвований.',en:'You have not made a demo donation yet.'}, 'Демо донат тіркелді':{ru:'Демо-пожертвование записано',en:'Demo donation recorded'}, 'Қазір демо-донат жасаған жоқсыз.':{ru:'Демо-пожертвований пока нет.',en:'No demo donations yet.'}, 'Уақыты туралы':{ru:'Время',en:'Time'}, 'Қауіпсіздік ережелері':{ru:'Правила безопасности',en:'Safety rules'}, 'Бағдарлама':{ru:'Программа',en:'Schedule'}, 'Өзіңізбен бірге':{ru:'Что взять с собой',en:'What to bring'}, 'Акция туралы':{ru:'Об акции',en:'About the event'}, 'Біздің негізгі мақсатымыз':{ru:'Наша главная цель',en:'Our mission'}, 'Серіктес волонтерлік топтар мен қорлар':{ru:'Волонтёрские группы и фонды-партнёры',en:'Volunteer groups and partner funds'}, 'Жиі қойылатын сұрақтар (FAQ)':{ru:'Часто задаваемые вопросы (FAQ)',en:'Frequently asked questions (FAQ)'}, 'Көмек көрсетуді бастау':{ru:'Начать помогать',en:'Start helping'}, 'Көмек сұрауын жариялау':{ru:'Опубликовать запрос помощи',en:'Publish a help request'}, 'Көмек сұрауы сайтқа жарияланды!':{ru:'Запрос помощи опубликован!',en:'Help request published!'}, 'Тегін зат жариялау':{ru:'Опубликовать бесплатную вещь',en:'List a free item'}, 'Компания атауы':{ru:'Название компании',en:'Company name'}, 'БИН / БСН':{ru:'БИН',en:'Business ID'}, 'Байланыс телефоны мен Email':{ru:'Телефон и Email для связи',en:'Contact phone and email'}, 'Ұсыныс немесе демеушілік көлемі':{ru:'Предложение или объём спонсорства',en:'Proposal or sponsorship amount'}, 'Серіктестік өтінімін жіберу':{ru:'Отправить заявку на партнёрство',en:'Send partnership request'}, 'Тұлғаны растау өтінімдері':{ru:'Заявки на подтверждение личности',en:'Identity verification requests'}, 'Жаңа Эко-акция жариялау':{ru:'Опубликовать экологическую акцию',en:'Publish an eco event'}, 'Көмек беремін':{ru:'Я помогу',en:'I can help'}, 'Мекенжай мен телефонды ашу':{ru:'Открыть адрес и телефон',en:'Reveal address and phone'}, 'Көмек көрсетілді — фотоесеп беру':{ru:'Помощь оказана — отправить фотоотчёт',en:'Help delivered — submit photo report'}, 'Есепті тапсыру және көмекті аяқтау':{ru:'Отправить отчёт',en:'Submit report'}, 'Көмек сұрауын қосу':{ru:'Добавить запрос помощи',en:'Add help request'}, 'Күн':{ru:'Дата',en:'Date'}, 'Уақыты':{ru:'Время',en:'Time'}, 'Сипаттамасы':{ru:'Описание',en:'Description'}, 'Мақсатты сома дерекқордан алынады. Демо-донат нақты ақша аудармайды.':{ru:'Целевая сумма загружается из базы. Демо-пожертвование не переводит реальные деньги.',en:'The fundraising goal is loaded from the database. Demo donations do not transfer real money.'}, 'Демо-донат қосу':{ru:'Добавить демо-пожертвование (без списания денег)',en:'Add demo donation (no real money charged)'}
+          'Басты бет':{ru:'Главная',en:'Home'}, 'Басты бетке қош келдіңіз':{ru:'Добро пожаловать',en:'Welcome'}, 'Қазақстан Республикасы бойынша ашық әлеуметтік бастама':{ru:'Открытая социальная инициатива по Казахстану',en:'Open social initiative across Kazakhstan'}, 'Мұқтаж жандар мен қайырымды жүректерді':{ru:'Объединяем нуждающихся и неравнодушных людей',en:'Connecting people in need with caring people'}, 'біріктіретін ұлттық платформа':{ru:'национальная платформа',en:'a national platform'}, 'Көмекке мұқтаж жандар тізімі':{ru:'Список нуждающихся в помощи',en:'People who need help'}, 'Нақты мекенжайлар тек расталған көмектесушілерге ғана ашылады':{ru:'Точные адреса доступны только подтверждённым помощникам',en:'Exact addresses are shown only to verified helpers'}, 'Барлық қалалар':{ru:'Все города',en:'All cities'}, 'Көмек сұрауын жариялау':{ru:'Опубликовать запрос помощи',en:'Publish a help request'}, 'Тегін заттар (Giveaway)':{ru:'Бесплатные вещи',en:'Free items'}, 'Артық киім-кешек, жиһаз, электрониканы мұқтаждарға тегін беру':{ru:'Бесплатная передача одежды, мебели и электроники нуждающимся',en:'Give unused clothing, furniture and electronics to people in need'}, 'Экология және табиғатты қорғау акциялары':{ru:'Экологические акции и защита природы',en:'Ecology and nature protection events'}, 'Соңғы әрекеттер':{ru:'Последние действия',en:'Recent activity'}, 'Мәртебе мен Қауіпсіздік':{ru:'Статус и безопасность',en:'Status & safety'}, 'Менің белсенділігім':{ru:'Моя активность',en:'My activity'}, 'Қосылған өтініштер':{ru:'Добавленные заявки',en:'Requests created'}, 'Берілген заттар':{ru:'Отданные вещи',en:'Items given'}, 'Толық аты-жөніңіз':{ru:'Полное имя',en:'Full name'}, 'Электронды пошта (Email)':{ru:'Электронная почта (Email)',en:'Email address'}, 'Құпия сөз':{ru:'Пароль',en:'Password'}, 'Жаңа тіркелу':{ru:'Новая регистрация',en:'Create an account'}, 'Жүйеге кіру':{ru:'Вход в систему',en:'Sign in'}, 'Тіркелу':{ru:'Регистрация',en:'Register'}, 'Қала':{ru:'Город',en:'City'}, 'Санат':{ru:'Категория',en:'Category'}, 'Шұғылдық деңгейі':{ru:'Уровень срочности',en:'Urgency level'}, 'Әлеуметтік санат':{ru:'Социальная категория',en:'Vulnerability category'}, 'Мекенжай':{ru:'Адрес',en:'Address'}, 'Телефон нөмірі':{ru:'Номер телефона',en:'Phone number'}, 'Сипаттамасы':{ru:'Описание',en:'Description'}, 'Суреттерді құрылғыдан жүктеу':{ru:'Загрузить изображения с устройства',en:'Upload images from device'}, 'Қауіпсіздік ережелері':{ru:'Правила безопасности',en:'Safety rules'}, 'Бағдарлама':{ru:'Программа',en:'Schedule'}, 'Өзіңізбен бірге':{ru:'Что взять с собой',en:'What to bring'}, 'Көмек сұраулары':{ru:'Запросы о помощи',en:'Help requests'}, 'Тегін заттар':{ru:'Бесплатные вещи',en:'Free items'}, 'Донат & Серіктестік':{ru:'Пожертвования и партнёрство',en:'Donations & partners'}, 'Экология':{ru:'Экология',en:'Ecology'}, 'Басқару панелі':{ru:'Панель управления',en:'Admin panel'}, 'Кіру':{ru:'Войти / Регистрация',en:'Sign in / Register'},
+          'Көмекке мұқтаж жандар тізімі':{ru:'Список нуждающихся в помощи',en:'People who need help'}, 'Көмек сұрау қосу':{ru:'Добавить запрос помощи',en:'Add a help request'}, 'Зат ұсыну':{ru:'Предложить вещь',en:'Offer an item'}, 'Ұлттық қайырымдылық қоры':{ru:'Национальный благотворительный фонд',en:'National charity fund'}, 'Жалпы жиналған қаражат:':{ru:'Всего собрано:',en:'Total raised:'}, 'Қаражат бөлу (Донат жасау)':{ru:'Пожертвование',en:'Make a donation'}, 'Донатты растау (Kaspi / Card)':{ru:'Добавить демо-пожертвование',en:'Add demo donation'}, 'Менің жасаған донаттарым':{ru:'Мои пожертвования',en:'My donations'}, 'Экология және табиғатты қорғау акциялары':{ru:'Экологические акции и защита природы',en:'Ecology and nature protection events'}, 'Соңғы әрекеттер':{ru:'Последние действия',en:'Recent activity'}, 'Мәртебе мен Қауіпсіздік':{ru:'Статус и безопасность',en:'Status & safety'}, 'Суреттерді құрылғыдан жүктеу':{ru:'Загрузить изображения с устройства',en:'Upload images from device'}, 'Біз туралы':{ru:'О нас',en:'About us'}, 'Байланыс':{ru:'Контакты',en:'Contact'}, 'Банк деректері':{ru:'Банковские данные',en:'Bank details'}, 'Профиль және әрекеттер':{ru:'Профиль и действия',en:'Profile & activity'}, 'Хабарламалар':{ru:'Уведомления',en:'Notifications'}, 'Оқылды деп белгілеу':{ru:'Отметить прочитанными',en:'Mark as read'}, 'Көмек көрсету туралы келісім':{ru:'Согласие на помощь',en:'Help commitment'}, 'Көмекті бастау':{ru:'Начать помогать',en:'Start helping'}, 'Фотоесепті тексеру':{ru:'Проверка фотоотчётов',en:'Review photo reports'}, 'Дәлелді растау және жабу':{ru:'Подтвердить доказательства и закрыть',en:'Verify proof and close'}, 'Қайта тапсыру':{ru:'Отправить на доработку',en:'Request changes'}, 'Мақұлдау':{ru:'Одобрить',en:'Approve'}, 'Қабылдамау':{ru:'Отклонить',en:'Reject'}, 'Басқару және Модерация Орталығы':{ru:'Центр управления и модерации',en:'Management & moderation center'}, 'Жүйеден шығу':{ru:'Выйти',en:'Sign out'}, 'Сіз әлі демо-донат жасаған жоқсыз.':{ru:'Вы ещё не делали демо-пожертвований.',en:'You have not made a demo donation yet.'}, 'Демо донат тіркелді':{ru:'Демо-пожертвование записано',en:'Demo donation recorded'}, 'Қазір демо-донат жасаған жоқсыз.':{ru:'Демо-пожертвований пока нет.',en:'No demo donations yet.'}, 'Уақыты туралы':{ru:'Время',en:'Time'}, 'Қауіпсіздік ережелері':{ru:'Правила безопасности',en:'Safety rules'}, 'Бағдарлама':{ru:'Программа',en:'Schedule'}, 'Өзіңізбен бірге':{ru:'Что взять с собой',en:'What to bring'}, 'Акция туралы':{ru:'Об акции',en:'About the event'}, 'Біздің негізгі мақсатымыз':{ru:'Наша главная цель',en:'Our mission'}, 'Серіктес волонтерлік топтар мен қорлар':{ru:'Волонтёрские группы и фонды-партнёры',en:'Volunteer groups and partner funds'}, 'Жиі қойылатын сұрақтар (FAQ)':{ru:'Часто задаваемые вопросы (FAQ)',en:'Frequently asked questions (FAQ)'}, 'Көмек көрсетуді бастау':{ru:'Начать помогать',en:'Start helping'}, 'Көмек сұрауын жариялау':{ru:'Опубликовать запрос помощи',en:'Publish a help request'}, 'Көмек сұрауы сайтқа жарияланды!':{ru:'Запрос помощи опубликован!',en:'Help request published!'}, 'Тегін зат жариялау':{ru:'Опубликовать бесплатную вещь',en:'List a free item'}, 'Компания атауы':{ru:'Название компании',en:'Company name'}, 'БИН / БСН':{ru:'БИН',en:'Business ID'}, 'Байланыс телефоны мен Email':{ru:'Телефон и Email для связи',en:'Contact phone and email'}, 'Ұсыныс немесе демеушілік көлемі':{ru:'Предложение или объём спонсорства',en:'Proposal or sponsorship amount'}, 'Серіктестік өтінімін жіберу':{ru:'Отправить заявку на партнёрство',en:'Send partnership request'}, 'Тұлғаны растау өтінімдері':{ru:'Заявки на подтверждение личности',en:'Identity verification requests'}, 'Жаңа Эко-акция жариялау':{ru:'Опубликовать экологическую акцию',en:'Publish an eco event'}, 'Көмек беремін':{ru:'Я помогу',en:'I can help'}, 'Мекенжай мен телефонды ашу':{ru:'Открыть адрес и телефон',en:'Reveal address and phone'}, 'Көмек көрсетілді — фотоесеп беру':{ru:'Помощь оказана — отправить фотоотчёт',en:'Help delivered — submit photo report'}, 'Есепті тапсыру және көмекті аяқтау':{ru:'Отправить отчёт',en:'Submit report'}, 'Көмек сұрауын қосу':{ru:'Добавить запрос помощи',en:'Add help request'}, 'Күн':{ru:'Дата',en:'Date'}, 'Уақыты':{ru:'Время',en:'Time'}, 'Сипаттамасы':{ru:'Описание',en:'Description'}, 'Мақсатты сома дерекқордан алынады. Демо-донат нақты ақша аудармайды.':{ru:'Целевая сумма загружается из базы. Демо-пожертвование не переводит реальные деньги.',en:'The fundraising goal is loaded from the database. Demo donations do not transfer real money.'}, 'Демо-донат қосу':{ru:'Добавить демо-пожертвование (без списания денег)',en:'Add demo donation (no real money charged)'}
         };
         // Additional UI translations for the account flow and previously untranslated common labels.
         Object.assign(translationCatalog, {
@@ -3223,7 +3467,6 @@
           'Email арқылы кіру / тіркелу':{ru:'Вход / регистрация по email',en:'Sign in / sign up by email'},
           'Email-ді растау':{ru:'Подтверждение email',en:'Verify email'},
           'Google арқылы жалғастыру':{ru:'Продолжить через Google',en:'Continue with Google'},
-          'Apple ID арқылы жалғастыру':{ru:'Продолжить с Apple ID',en:'Continue with Apple ID'},
           'Кодты қайта жіберу':{ru:'Отправить код повторно',en:'Resend code'},
           'Басқа email енгізу':{ru:'Указать другой email',en:'Use another email'},
           'Google және Apple кіруі Supabase-та тиісті провайдерлер қосылғаннан кейін жұмыс істейді.':{ru:'Вход через Google и Apple заработает после настройки провайдеров в Supabase.',en:'Google and Apple sign-in work after the providers are configured in Supabase.'},
@@ -3322,7 +3565,7 @@
           'Көмек беру міндеттемесін бастауды растаңыз. Өтініш фотоесеп әкімші тексергенге дейін тізімде қалады.':{ru:'Подтвердите обязательство помочь. Заявка останется в списке до проверки фотоотчёта администратором.',en:'Confirm your commitment to help. The request will remain listed until the admin reviews the photo report.'},
           'Мен көрсетілген көмек бойынша әрекет етіп, шынайы есеп пен фотодәлел тапсырамын.':{ru:'Я выполню заявленную помощь и предоставлю достоверный отчёт с фотодоказательствами.',en:'I will carry out the promised assistance and submit an honest report with photo evidence.'},
           'Толық аты-жөніңіз (қолтаңба)':{ru:'Полное имя (подпись)',en:'Full name (signature)'}, 'Көмек туралы есеп':{ru:'Отчёт о помощи',en:'Help report'}, 'Көмек көрсетілгеннен кейін есеп пен фотодәлелдерді жіберіңіз.':{ru:'После оказания помощи отправьте отчёт и фотодоказательства.',en:'After helping, submit a report and photo evidence.'}, 'Не істелді?':{ru:'Что было сделано?',en:'What was done?'}, 'Есеп суреттері':{ru:'Фотографии для отчёта',en:'Report photos'}, 'Кемінде бір фотодәлел керек. Есеп тек әкімші тексергеннен кейін жабылады.':{ru:'Нужно хотя бы одно фотодоказательство. Отчёт закрывается только после проверки администратором.',en:'At least one photo is required. The report closes only after admin review.'},
-          'Қолдау қызметі':{ru:'Служба поддержки',en:'Support'}, 'Кіру / Тіркелу':{ru:'Вход / регистрация',en:'Sign in / register'}, 'Тұлға расталған':{ru:'Личность подтверждена',en:'Identity verified'},
+          'Қолдау қызметі':{ru:'Служба поддержки',en:'Support'}, 'Кіру':{ru:'Вход / регистрация',en:'Sign in / register'}, 'Тұлға расталған':{ru:'Личность подтверждена',en:'Identity verified'},
           'Код жіберілді':{ru:'Код отправлен',en:'Code sent'}, 'Растау коды жіберілді':{ru:'Код подтверждения отправлен',en:'Verification code sent'},
           'Email-ге келген 6 таңбалы кодты енгізіңіз.':{ru:'Введите 6-значный код из письма.',en:'Enter the 6-digit code sent to your email.'},
           'Пошта кіріс жәшігін және спам бумасын тексеріңіз.':{ru:'Проверьте входящие и папку «Спам».',en:'Check your inbox and spam folder.'},
