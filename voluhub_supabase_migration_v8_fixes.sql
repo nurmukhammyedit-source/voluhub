@@ -1411,4 +1411,84 @@ revoke all on function public.get_admin_stats_history() from public, anon;
 grant execute on function public.get_admin_stats_history() to authenticated;
 
 commit;
+
+-- -----------------------------------------------------------------------------
+-- VoluHub UI refresh support: additive indexes for review queues and lookups.
+-- This section is deliberately non-destructive: no table, column, row, policy,
+-- trigger, statistic event, or existing function is removed or truncated.
+-- -----------------------------------------------------------------------------
+create index if not exists profiles_pending_verification_idx
+  on public.profiles(verification_requested_at asc)
+  where verification_requested_at is not null and is_verified = false;
+
+create index if not exists partnership_requests_created_idx
+  on public.partnership_requests(created_at desc);
+
+create index if not exists partnership_requests_user_created_idx
+  on public.partnership_requests(user_id, created_at desc);
+
+create index if not exists partners_created_idx
+  on public.partners(created_at desc);
+
+create index if not exists eco_campaigns_published_date_idx
+  on public.eco_campaigns(event_date asc)
+  where status = 'published';
+
+create index if not exists notifications_unread_user_created_idx
+  on public.notifications(user_id, created_at desc)
+  where is_read = false;
+
+-- Admin-only expanded review data. Reads auth.users without granting clients direct table access.
+create or replace function public.admin_get_profile_review_details(p_user_id uuid)
+returns jsonb
+language plpgsql
+security definer
+set search_path = public, pg_temp
+as $$
+declare
+  v_profile jsonb;
+begin
+  if auth.uid() is null or not public.voluhub_current_user_is_admin() then
+    raise exception 'Administrator permission required';
+  end if;
+  if p_user_id is null then
+    raise exception 'User id is required';
+  end if;
+
+  select jsonb_build_object(
+    'id', p.id,
+    'full_name', p.full_name,
+    'first_name', p.first_name,
+    'last_name', p.last_name,
+    'middle_name', p.middle_name,
+    'date_of_birth', p.date_of_birth,
+    'social_status', p.social_status,
+    'phone', p.phone,
+    'city', p.city,
+    'is_verified', p.is_verified,
+    'role', p.role,
+    'avatar_url', p.avatar_url,
+    'profile_consent_at', p.profile_consent_at,
+    'verification_requested_at', p.verification_requested_at,
+    'created_at', p.created_at,
+    'updated_at', p.updated_at,
+    'email', u.email,
+    'email_confirmed_at', u.email_confirmed_at,
+    'last_sign_in_at', u.last_sign_in_at,
+    'user_created_at', u.created_at
+  )
+  into v_profile
+  from public.profiles p
+  left join auth.users u on u.id = p.id
+  where p.id = p_user_id;
+
+  return v_profile;
+end;
+$$;
+revoke all on function public.admin_get_profile_review_details(uuid) from public, anon;
+grant execute on function public.admin_get_profile_review_details(uuid) to authenticated;
+
+-- Existing help_requests/help_reports/donations/giveaways indexes are retained.
+-- Run this full migration in Supabase SQL Editor after reviewing the project backup.
+
 notify pgrst, 'reload schema';
