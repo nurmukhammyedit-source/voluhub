@@ -79,6 +79,74 @@
         @media(max-width:640px){.data-row{grid-template-columns:1fr;gap:.25rem}}
         @media(min-width:641px){#mobile-menu-panel{display:none !important}}
         @media(max-width:640px){header>div{gap:.5rem}header .text-2xl{font-size:1.15rem}header .text-\[10px\]{font-size:9px}#toast{top:.75rem;right:.75rem;width:calc(100vw - 1.5rem)}#notification-button,#menu-button{width:2.25rem;height:2.25rem}#user-profile-widget{max-width:100%}#user-name-display{max-width:34vw}}
+
+        /* Hide the temporary admin statistics panel only; its markup, functions and history remain stored. */
+        #admin-statistics-section { display:none !important; }
+        /* VoluHub responsive refinement — presentation-only; existing content/data are retained. */
+        #profile-page-avatar { display:block; width:clamp(5.75rem, 22vw, 7rem); height:clamp(5.75rem, 22vw, 7rem); object-fit:cover; object-position:center; flex:0 0 auto; }
+        #tab-profile > div:first-child { padding:clamp(1rem, 4vw, 2rem); }
+        #tab-profile .profile-heading-row { display:flex; align-items:center; gap:clamp(.85rem, 3vw, 1.5rem); min-width:0; }
+        #tab-profile .profile-heading-copy { min-width:0; overflow-wrap:anywhere; }
+        #profile-activity-list { max-height:28rem; overflow-y:auto; overscroll-behavior:contain; padding-right:.35rem; scrollbar-gutter:stable; }
+        #notifications-page-list { max-height:calc(100dvh - 13rem); overflow-y:auto; overscroll-behavior:contain; padding-right:.35rem; scrollbar-gutter:stable; }
+        #notifications-list { max-height:min(64dvh, 30rem); overflow-y:auto; overscroll-behavior:contain; padding-right:.25rem; }
+        #fund-total-text { display:block; max-width:62%; min-width:0; text-align:right; font-size:clamp(1.05rem, 4.3vw, 1.875rem); line-height:1.15; overflow-wrap:anywhere; word-break:break-word; font-variant-numeric:tabular-nums; }
+        #tab-donations .fund-summary-row { display:flex; align-items:flex-start; justify-content:space-between; gap:.75rem; min-width:0; }
+        #page-back-control { z-index:55; pointer-events:none; }
+        #page-back-control button { pointer-events:auto; position:relative; z-index:56; color:#0f172a !important; background:#fff !important; border-color:#cbd5e1 !important; opacity:1 !important; isolation:isolate; }
+        #page-back-control button span, #page-back-control button i { color:#0f172a !important; opacity:1 !important; }
+        .admin-queue-scroll { max-height:34rem; overflow-y:auto; overscroll-behavior:contain; padding-right:.35rem; scrollbar-gutter:stable; }
+        .admin-review-dialog { width:min(100%, 62rem); max-height:min(94dvh, 58rem); display:flex; flex-direction:column; overflow:hidden; border-radius:1.5rem; background:#fff; box-shadow:0 24px 80px rgba(2,6,23,.32); }
+        .admin-review-content { min-height:0; overflow-y:auto; overscroll-behavior:contain; padding:1.25rem; }
+        .admin-detail-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.65rem; }
+        .admin-detail-field { min-width:0; border:1px solid #e2e8f0; border-radius:.9rem; background:#f8fafc; padding:.75rem; }
+        .admin-detail-field dt { margin-bottom:.25rem; color:#64748b; font-size:.68rem; font-weight:800; letter-spacing:.04em; text-transform:uppercase; }
+        .admin-detail-field dd { color:#0f172a; font-size:.875rem; line-height:1.5; overflow-wrap:anywhere; white-space:pre-wrap; }
+        .admin-detail-image { display:block; width:100%; max-height:25rem; object-fit:contain; border:1px solid #e2e8f0; border-radius:1rem; background:#f1f5f9; }
+        .partner-strip { display:grid; grid-auto-flow:column; grid-auto-columns:calc((100% - 3rem) / 4); gap:1rem; overflow-x:auto; overflow-y:hidden; padding:.25rem .1rem .9rem; scroll-snap-type:x mandatory; overscroll-behavior-x:contain; scrollbar-gutter:stable; }
+        .partner-card.partner-card-home { min-width:0; scroll-snap-align:start; overflow:hidden; padding:.75rem; }
+        .partner-brand-frame { display:grid; grid-template-columns:4.25rem minmax(0,1fr); align-items:center; gap:.75rem; min-height:6rem; padding:.75rem; border:1px solid #cbd5e1; border-radius:1rem; background:linear-gradient(145deg,#fff,#f8fafc); }
+        .partner-logo-slot { display:flex; width:4.25rem; height:4.25rem; align-items:center; justify-content:center; overflow:hidden; border:1px solid #e2e8f0; border-radius:.85rem; background:#fff; }
+        .partner-logo-slot img { width:100%; height:100%; object-fit:contain; padding:.3rem; }
+        .partner-cover { grid-column:1 / -1; width:100%; height:5.25rem; object-fit:cover; border:1px solid #e2e8f0; border-radius:.75rem; background:#f1f5f9; }
+        .partner-card-gallery { display:flex; gap:.4rem; overflow-x:auto; padding:.35rem 0 .1rem; }
+        .partner-card-gallery img { width:3.25rem; height:3.25rem; flex:0 0 3.25rem; object-fit:cover; border:1px solid #e2e8f0; border-radius:.65rem; }
+        .social-category-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:.55rem; }
+        .social-category-chip { display:flex; min-height:3.25rem; align-items:center; gap:.6rem; border:1px solid #dbe3ea; border-radius:1rem; background:#fff; padding:.65rem .75rem; color:#334155; text-align:left; font-size:.78rem; font-weight:700; line-height:1.35; transition:background .16s ease,border-color .16s ease,box-shadow .16s ease; }
+        .social-category-chip:hover { border-color:#86efac; background:#f7fff8; }
+        .social-category-chip[aria-pressed="true"] { border-color:#16a34a; background:#ecfdf3; color:#166534; box-shadow:inset 0 0 0 1px #16a34a; }
+        .social-category-chip .social-chip-icon { display:flex; width:2rem; height:2rem; flex:0 0 2rem; align-items:center; justify-content:center; border-radius:.7rem; background:#f1f5f9; color:#475569; }
+        .social-category-chip[aria-pressed="true"] .social-chip-icon { background:#dcfce7; color:#15803d; }
+        .file-picker { display:flex; flex-wrap:wrap; align-items:center; gap:.65rem; min-width:0; border:1px solid #dbe3ea; border-radius:1rem; background:linear-gradient(145deg,#fff,#f8fafc); padding:.65rem; }
+        .file-picker-native { position:absolute !important; width:1px !important; height:1px !important; padding:0 !important; margin:-1px !important; overflow:hidden !important; clip:rect(0,0,0,0) !important; white-space:nowrap !important; border:0 !important; }
+        .file-picker-button { display:inline-flex; min-height:2.5rem; align-items:center; justify-content:center; gap:.5rem; border:1px solid #bbf7d0; border-radius:.75rem; background:#f0fdf4; padding:.65rem .9rem; color:#166534; cursor:pointer; font-size:.78rem; font-weight:800; transition:background .15s ease,border-color .15s ease; }
+        .file-picker-button:hover, .file-picker-button:focus-visible { border-color:#4ade80; background:#dcfce7; outline:2px solid #86efac; outline-offset:2px; }
+        .file-picker-native:focus-visible + .file-picker-button { outline:2px solid #16a34a; outline-offset:2px; }
+        .file-picker-name { min-width:0; flex:1 1 10rem; color:#64748b; font-size:.72rem; line-height:1.4; overflow-wrap:anywhere; }
+        select:not([multiple]) { appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='18' height='18' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right .85rem center; padding-right:2.6rem !important; }
+        select, input:not([type="checkbox"]):not([type="radio"]), textarea { transition:border-color .15s ease,box-shadow .15s ease; }
+        input[type="checkbox"], input[type="radio"] { accent-color:#16a34a; }
+        #mobile-menu-panel { max-height:min(80dvh, 42rem); overflow-y:auto; overscroll-behavior:contain; }
+        @media(max-width:900px) { .partner-strip { grid-auto-columns:minmax(15rem, 42%); } }
+        @media(max-width:640px) {
+            /* Keep the compact account strip out of the phone header; profile stays in the menu. */
+            #user-profile-widget { display:none !important; }
+            #notifications-panel { position:fixed !important; top:4.45rem !important; left:.75rem !important; right:.75rem !important; width:auto !important; max-width:none !important; max-height:calc(100dvh - 5.5rem) !important; overflow:hidden !important; }
+            #notifications-list { max-height:calc(100dvh - 12rem) !important; }
+            #profile-page-avatar { width:5.75rem; height:5.75rem; }
+            #tab-profile .profile-heading-row { align-items:flex-start; flex-wrap:wrap; }
+            #tab-profile .profile-heading-copy { flex:1 1 10rem; }
+            #fund-total-text { max-width:58%; font-size:clamp(1rem, 5vw, 1.45rem); }
+            .admin-queue-scroll { max-height:30rem; }
+            .admin-review-content { padding:1rem; }
+            .admin-detail-grid { grid-template-columns:1fr; }
+            .partner-strip { grid-auto-columns:minmax(15rem, 82%); }
+            .social-category-grid { grid-template-columns:1fr; }
+        }
+        @media(prefers-reduced-motion:reduce) {
+            *, *::before, *::after { scroll-behavior:auto !important; animation-duration:.01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; }
+        }
+
     </style>
 </head>
 <body class="h-full flex flex-col text-slate-800 antialiased selection:bg-brand-500 selection:text-white">
@@ -134,7 +202,7 @@
                     </div>
                 </div>
                 <div id="menu-control" class="relative hidden">
-                    <button id="menu-button" type="button" onclick="toggleAuthenticatedMenu()" aria-label="Мәзірді ашу" aria-expanded="false" class="flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-700 shadow-sm transition hover:border-brand-200 hover:bg-brand-50 hover:text-brand-700">
+                    <button id="menu-button" type="button" onclick="toggleAuthenticatedMenu(event)" aria-label="Мәзірді ашу" aria-expanded="false" class="flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white text-slate-700 shadow-sm transition hover:border-brand-200 hover:bg-brand-50 hover:text-brand-700">
                         <i data-lucide="menu" class="h-5 w-5"></i>
                     </button>
                     <!-- Phone-only compact menu. Selecting an item navigates to its own page. -->
@@ -421,8 +489,8 @@
                         </div>
 
                         <div class="bg-slate-50 p-6 rounded-2xl border border-slate-200 mb-6">
-                            <div class="flex justify-between items-center mb-2">
-                                <span class="text-xs font-bold text-slate-600 uppercase">Жалпы жиналған қаражат:</span>
+                            <div class="fund-summary-row mb-2">
+                                <span class="min-w-0 text-xs font-bold text-slate-600 uppercase">Жалпы жиналған қаражат:</span>
                                 <span id="fund-total-text" class="text-2xl font-extrabold text-brand-600">0 ₸</span>
                             </div>
                             <div class="w-full bg-slate-200 rounded-full h-3 mb-2">
@@ -580,21 +648,21 @@
 
         <!-- ================= FULL NOTIFICATIONS PAGE ================= -->
         <div id="tab-notifications" class="tab-content hidden max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
-            <section class="page-shell"><div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"><div class="flex items-center gap-3"><span class="menu-tile-icon"><i data-lucide="bell-ring" class="h-5 w-5"></i></span><div><h2 class="text-2xl font-extrabold text-slate-900" data-i18n="Хабарламалар">Хабарламалар</h2><p class="mt-1 text-sm text-slate-500" data-i18n="Барлық жүйелік хабарламаны толық көру">Барлық жүйелік хабарламаны толық көру</p></div></div><button type="button" onclick="markNotificationsRead()" class="rounded-xl bg-brand-50 px-4 py-2.5 text-sm font-bold text-brand-800 transition hover:bg-brand-100" data-i18n="Барлығын оқылды деп белгілеу">Барлығын оқылды деп белгілеу</button></div><div id="notifications-page-list" class="space-y-3"><p class="text-sm text-slate-500" data-i18n="Жаңа хабарлама жоқ.">Жаңа хабарлама жоқ.</p></div></section>
+            <section class="page-shell"><div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between"><div class="flex items-center gap-3"><span class="menu-tile-icon"><i data-lucide="bell-ring" class="h-5 w-5"></i></span><div><h2 class="text-2xl font-extrabold text-slate-900" data-i18n="Хабарламалар">Хабарламалар</h2><p class="mt-1 text-sm text-slate-500" data-i18n="Барлық жүйелік хабарламаны толық көру">Барлық жүйелік хабарламаны толық көру</p></div></div><button type="button" onclick="markNotificationsRead()" class="rounded-xl bg-brand-50 px-4 py-2.5 text-sm font-bold text-brand-800 transition hover:bg-brand-100" data-i18n="Барлығын оқылды деп белгілеу">Барлығын оқылды деп белгілеу</button></div><div id="notifications-page-list" class="custom-scrollbar space-y-3"><p class="text-sm text-slate-500" data-i18n="Жаңа хабарлама жоқ.">Жаңа хабарлама жоқ.</p></div></section>
         </div>
 
         <!-- ================= 6. USER PROFILE TAB ================= -->
         <div id="tab-profile" class="tab-content hidden max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
             <div class="bg-white rounded-3xl border border-slate-200 p-8 shadow-sm">
-                <div class="flex items-center space-x-6 pb-6 border-b border-slate-100">
-                    <div class="relative">
+                <div class="profile-heading-row pb-6 border-b border-slate-100">
+                    <div class="relative shrink-0">
                         <img id="profile-page-avatar" src="https://ui-avatars.com/api/?name=V&background=e2e8f0&color=334155" class="w-20 h-20 rounded-full object-cover border-2 border-brand-500 shadow" alt="User">
                         <button type="button" onclick="updateProfileAvatar()" class="absolute bottom-0 right-0 bg-brand-600 text-white p-1 rounded-full shadow hover:bg-brand-700" title="Суретті өзгерту" aria-label="Суретті өзгерту">
                             <i data-lucide="camera" class="w-3.5 h-3.5"></i>
                         </button>
                         <input id="profile-avatar-file" type="file" accept="image/jpeg,image/png,image/webp,image/gif" class="hidden" onchange="handleProfileAvatarUpload(event)">
                     </div>
-                    <div>
+                    <div class="profile-heading-copy">
                         <h2 id="profile-page-name" translate="no" class="notranslate text-2xl font-bold text-slate-900">Пайдаланушы</h2>
                         <p id="profile-page-email" translate="no" class="notranslate text-sm text-slate-500">email@example.com</p>
                         <div class="flex items-center space-x-2 mt-2">
@@ -634,7 +702,7 @@
 
                     <div class="pt-4 border-t border-slate-100">
                         <h3 class="font-bold text-slate-900 mb-3">Соңғы әрекеттер</h3>
-                        <div id="profile-activity-list" class="space-y-3"><p class="text-sm text-slate-500">Әрекеттеріңіз осы жерде сақталады.</p></div>
+                        <div id="profile-activity-list" class="custom-scrollbar space-y-3"><p class="text-sm text-slate-500">Әрекеттеріңіз осы жерде сақталады.</p></div>
                     </div>
                     <div class="pt-4">
                         <button onclick="handleLogout()" class="w-full bg-red-50 hover:bg-red-100 text-red-600 font-bold py-3 rounded-xl transition flex items-center justify-center space-x-2">
@@ -665,11 +733,11 @@
                 <div class="grid grid-cols-1 gap-5 lg:grid-cols-2">
                     <section class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm lg:col-span-2">
                         <div class="mb-4 flex flex-wrap items-center justify-between gap-3"><div><h3 class="font-extrabold text-lg text-slate-900">Модерацияны күтіп тұрған көмек өтініштері</h3><p class="mt-1 text-xs text-slate-500">Өтінішті тексеріп, жариялаңыз немесе түзетуге қайтарыңыз.</p></div><span class="rounded-full bg-amber-50 px-3 py-1 text-xs font-bold text-amber-800">Модерация</span></div>
-                        <div id="admin-pending-list" class="space-y-4"><!-- Populated --></div>
+                        <div id="admin-pending-list" class="space-y-4 admin-queue-scroll"><!-- Populated --></div>
                     </section>
                     <section class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
                         <h3 class="mb-3 font-extrabold text-lg text-slate-900">Фотоесепті тексеру</h3><p class="mb-4 text-xs text-slate-500">Көмек аяқталғанын фотоесеп негізінде растаңыз.</p>
-                        <div id="admin-help-reports-list" class="space-y-4"><p class="text-sm text-slate-500">Тексеруді күткен есеп жоқ.</p></div>
+                        <div id="admin-help-reports-list" class="space-y-4 admin-queue-scroll"><p class="text-sm text-slate-500">Тексеруді күткен есеп жоқ.</p></div>
                     </section>
                     <section class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
                         <h3 class="mb-4 font-extrabold text-lg text-slate-900">Барлық түскен демо-донаттар</h3>
@@ -692,10 +760,10 @@
                     </section>
 
                     <section class="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
-                        <div class="border-b border-slate-100 px-5 py-4"><h4 class="font-extrabold text-slate-900">Серіктестік өтінімдері</h4><p class="mt-1 text-xs text-slate-500">Ұйымдар жіберген өтінімдер</p></div><div id="admin-partnership-requests" class="space-y-3 p-5"></div>
+                        <div class="border-b border-slate-100 px-5 py-4"><h4 class="font-extrabold text-slate-900">Серіктестік өтінімдері</h4><p class="mt-1 text-xs text-slate-500">Ұйымдар жіберген өтінімдер</p></div><div id="admin-partnership-requests" class="space-y-3 p-5 admin-queue-scroll"></div>
                     </section>
                     <section class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm">
-                        <h4 class="mb-3 font-extrabold text-slate-900">Тұлғаны растау өтінімдері</h4><p class="mb-3 text-xs text-slate-500">Қолмен тексеру кезегі; бұл нақты eGov интеграциясы емес.</p><div id="admin-profile-verification-list" class="space-y-3"><p class="text-sm text-slate-500">Өтінім жүктелмеді.</p></div>
+                        <h4 class="mb-3 font-extrabold text-slate-900">Тұлғаны растау өтінімдері</h4><p class="mb-3 text-xs text-slate-500">Қолмен тексеру кезегі; бұл нақты eGov интеграциясы емес.</p><div id="admin-profile-verification-list" class="space-y-3 admin-queue-scroll"><p class="text-sm text-slate-500">Өтінім жүктелмеді.</p></div>
                     </section>
                     <section class="overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
                         <div class="border-b border-slate-100 px-5 py-4"><h4 class="font-extrabold text-slate-900">Қор және донат баптаулары</h4><p class="mt-1 text-xs text-slate-500">Мақсатты өзгерту, қабылдауды жабу/ашу, басты беттегі соманы нөлдеу</p></div>
@@ -713,7 +781,7 @@
                     </section>
                 </div>
 
-                <section id="admin-statistics-section" class="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-7">
+                <section id="admin-statistics-section" class="hidden rounded-3xl border border-slate-200 bg-white p-5 shadow-sm sm:p-7">
                     <div class="mb-5 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between"><div><p class="text-xs font-bold uppercase tracking-wider text-emerald-700">Тарихи көрсеткіштер</p><h3 class="text-xl font-extrabold text-slate-900">VoluHub статистикасы</h3><p class="mt-1 text-sm text-slate-500">Сайт деректеріндегі бұрынғы жазбалардан есептелетін графиктер.</p></div><button type="button" onclick="loadAdminStatistics()" class="rounded-xl border border-slate-200 px-4 py-2 text-sm font-bold text-slate-700 hover:bg-slate-50">Жаңарту</button></div>
                     <div id="admin-stats-content"><p class="text-sm text-slate-500">Статистика жүктеледі…</p></div>
                 </section>
@@ -960,7 +1028,7 @@
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Әлеуметтік санат</label>
-                        <select id="req-vulnerability" multiple class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-sm min-h-[88px]">
+                        <select id="req-vulnerability" multiple aria-label="Әлеуметтік санаттар" class="social-category-native sr-only">
                             <option value="disability">Мүгедектігі бар адам</option>
                             <option value="elderly">Қарт / жалғызбасты зейнеткер</option>
                             <option value="large_family">Көпбалалы отбасы</option>
@@ -968,7 +1036,15 @@
                             <option value="single_parent">Жалғызбасты ата-ана</option>
                             <option value="low_income">Табысы төмен отбасы</option>
                         </select>
-                        <p class="field-hint">Бірнеше санатты Ctrl пернесімен таңдауға болады.</p>
+                        <div id="req-vulnerability-options" class="social-category-grid" role="group" aria-label="Әлеуметтік санаттарды таңдаңыз">
+                            <button type="button" class="social-category-chip" aria-pressed="false" onclick="toggleSocialCategory(this,'disability')"><span class="social-chip-icon"><i data-lucide="accessibility" class="h-4 w-4"></i></span><span>Мүгедектігі бар адам</span></button>
+                            <button type="button" class="social-category-chip" aria-pressed="false" onclick="toggleSocialCategory(this,'elderly')"><span class="social-chip-icon"><i data-lucide="heart-handshake" class="h-4 w-4"></i></span><span>Қарт / жалғызбасты зейнеткер</span></button>
+                            <button type="button" class="social-category-chip" aria-pressed="false" onclick="toggleSocialCategory(this,'large_family')"><span class="social-chip-icon"><i data-lucide="users" class="h-4 w-4"></i></span><span>Көпбалалы отбасы</span></button>
+                            <button type="button" class="social-category-chip" aria-pressed="false" onclick="toggleSocialCategory(this,'child')"><span class="social-chip-icon"><i data-lucide="baby" class="h-4 w-4"></i></span><span>Бала / балалар</span></button>
+                            <button type="button" class="social-category-chip" aria-pressed="false" onclick="toggleSocialCategory(this,'single_parent')"><span class="social-chip-icon"><i data-lucide="user-round" class="h-4 w-4"></i></span><span>Жалғызбасты ата-ана</span></button>
+                            <button type="button" class="social-category-chip" aria-pressed="false" onclick="toggleSocialCategory(this,'low_income')"><span class="social-chip-icon"><i data-lucide="wallet" class="h-4 w-4"></i></span><span>Табысы төмен отбасы</span></button>
+                        </div>
+                        <p class="field-hint">Бір немесе бірнеше санатты таңдау үшін карточкаларды басыңыз.</p>
                     </div>
                 </div>
                 <div>
@@ -1103,8 +1179,9 @@
             <div class="custom-scrollbar overflow-y-auto p-5 sm:p-8">
                 <div class="mb-6 grid grid-cols-1 gap-3 sm:grid-cols-3">
                     <div class="rounded-2xl border border-emerald-100 bg-emerald-50 p-4">
-                        <div class="mb-1 flex items-center gap-2 text-emerald-800"><i data-lucide="map-pin" class="h-4 w-4"></i><span class="text-xs font-bold uppercase tracking-wide">Қала / орын</span></div>
-                        <p id="eco-modal-location" class="text-sm font-semibold text-slate-800">—</p>
+                        <div class="mb-1 flex items-center gap-2 text-emerald-800"><i data-lucide="map-pin" class="h-4 w-4"></i><span class="text-xs font-bold uppercase tracking-wide">Қала</span></div>
+                        <p id="eco-modal-city" class="text-sm font-semibold text-slate-800">—</p>
+                        <p class="mt-2 text-xs font-bold uppercase tracking-wide text-slate-500">Өтетін орны</p><p id="eco-modal-location" class="text-sm font-semibold text-slate-800">—</p>
                     </div>
                     <div class="rounded-2xl border border-blue-100 bg-blue-50 p-4">
                         <div class="mb-1 flex items-center gap-2 text-blue-800"><i data-lucide="calendar-days" class="h-4 w-4"></i><span class="text-xs font-bold uppercase tracking-wide">Күні</span></div>
@@ -1176,6 +1253,17 @@
           <button class="w-full bg-brand-600 text-white font-bold py-3 rounded-xl">Есепті тапсыру және көмекті аяқтау</button>
         </form>
       </div>
+    </div>
+
+    <!-- Full-detail review modal for administrators; read-only preview before decision. -->
+    <div id="admin-review-modal" class="fixed inset-0 z-[100] hidden items-center justify-center bg-slate-950/75 p-3 backdrop-blur-sm sm:p-6" role="dialog" aria-modal="true" aria-labelledby="admin-review-title" onclick="if(event.target===this)closeAdminReviewModal()">
+        <section class="admin-review-dialog">
+            <header class="flex items-center justify-between gap-3 border-b border-slate-200 px-5 py-4 sm:px-7">
+                <div class="min-w-0"><p class="text-[10px] font-extrabold uppercase tracking-[.18em] text-emerald-700">Әкімші тексеруі</p><h2 id="admin-review-title" class="mt-1 break-words text-lg font-extrabold text-slate-900 sm:text-xl">Өтінім мәліметтері</h2></div>
+                <button type="button" onclick="closeAdminReviewModal()" aria-label="Жабу" class="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-slate-100 text-slate-700 hover:bg-slate-200"><i data-lucide="x" class="h-5 w-5"></i></button>
+            </header>
+            <div id="admin-review-content" class="admin-review-content custom-scrollbar"><p class="text-sm text-slate-500">Деректер жүктелуде…</p></div>
+        </section>
     </div>
 
     <!-- Application Core Script -->
@@ -1253,6 +1341,7 @@
         // UI Initialization & Supabase hydration
         window.addEventListener('DOMContentLoaded', async () => {
             setupKzPhoneInputs();
+            enhanceFileInputs();
             lucide.createIcons();
             const langSelect = document.getElementById('language-select');
             if (langSelect) langSelect.value = currentLanguage;
@@ -1617,8 +1706,10 @@
             const src = currentUser.avatar || avatarFallbackUrl(currentUser.name);
             const headerAvatar = document.getElementById('user-avatar-img');
             const profileAvatar = document.getElementById('profile-page-avatar');
-            if (headerAvatar) headerAvatar.src = src;
-            if (profileAvatar) profileAvatar.src = src;
+            [headerAvatar, profileAvatar].filter(Boolean).forEach(img => {
+                img.onerror = () => { img.onerror = null; img.src = avatarFallbackUrl(currentUser.name); };
+                img.src = src;
+            });
         }
         function updateProfileAvatar() {
             if (!currentUser) { openAuthModal(); return; }
@@ -2026,7 +2117,8 @@
             imageEl.src = campaign.image || '';
             imageEl.alt = campaign.title || 'Эко-акция';
             setText('eco-modal-title', campaign.title);
-            setText('eco-modal-location', campaign.location || campaign.city);
+            setText('eco-modal-city', campaign.city);
+            setText('eco-modal-location', campaign.location, 'Нақты орын көрсетілмеген');
             setText('eco-modal-date', campaign.date);
             setText('eco-modal-time', campaign.time, 'Ұйымдастырушы хабарлайды');
             setText('eco-modal-description', campaign.desc);
@@ -2346,14 +2438,21 @@
             } catch(err) { if (list) list.innerHTML = `<p class="text-xs text-red-600">Серіктестер жүктелмеді: ${escapeHTML(err.message)}</p>`; }
             try {
                 const { data, error } = await supabaseClient.from('partnership_requests')
-                    .select('id,company_name,bin,contact,contact_email,message,created_at').order('created_at', { ascending: false });
+                    .select('id,user_id,company_name,bin,contact,contact_email,message,status,created_at').order('created_at', { ascending: false });
                 if (error) throw error;
-                if (apps) apps.innerHTML = (data || []).map(x => `<article class="rounded-xl border border-slate-200 p-3"><p class="font-semibold text-sm">${escapeHTML(x.company_name)} · ${escapeHTML(x.bin || '')}</p><p class="text-xs text-slate-600">${escapeHTML(x.contact || '')}${x.contact_email ? ' · ' + escapeHTML(x.contact_email) : ''}</p><p class="text-xs text-slate-500 mt-1">${escapeHTML(x.message || '')}</p></article>`).join('') || '<p class="text-sm text-slate-500">Жаңа өтінім жоқ.</p>';
+                if (apps) apps.innerHTML = (data || []).map(x => `<article class="rounded-xl border border-slate-200 bg-white p-3"><div class="flex min-w-0 flex-wrap items-center justify-between gap-2"><div class="min-w-0"><p class="truncate font-semibold text-sm text-slate-900">${escapeHTML(x.company_name)} · ${escapeHTML(x.bin || '')}</p><p class="truncate text-xs text-slate-600">${escapeHTML(x.contact || '')}${x.contact_email ? ' · ' + escapeHTML(x.contact_email) : ''}</p></div><details class="min-w-0"><summary class="cursor-pointer rounded-lg bg-slate-100 px-3 py-2 text-xs font-bold text-slate-700">Толық өтінім</summary><div class="mt-3 space-y-2 rounded-xl bg-slate-50 p-3 text-xs"><p><b>Компания:</b> ${escapeHTML(x.company_name)}</p><p><b>БСН:</b> ${escapeHTML(x.bin || '')}</p><p><b>Байланыс:</b> ${escapeHTML(x.contact || '')}</p><p><b>Email:</b> ${escapeHTML(x.contact_email || 'Көрсетілмеген')}</p><p class="whitespace-pre-wrap break-words"><b>Ұсыныс:</b> ${escapeHTML(x.message || '')}</p><p><b>Жіберілген уақыты:</b> ${x.created_at ? escapeHTML(new Date(x.created_at).toLocaleString()) : '—'}</p><p><b>Пайдаланушы ID:</b> ${escapeHTML(x.user_id || '')}</p></div></details></div></article>`).join('') || '<p class="text-sm text-slate-500">Жаңа өтінім жоқ.</p>';
             } catch(err) { if (apps) apps.innerHTML = `<p class="text-xs text-red-600">Өтінімдер жүктелмеді: ${escapeHTML(err.message)}</p>`; }
         }
 
         // ADMIN FUNCTIONS: server-side role/RLS is authoritative; client role is only for presentation.
+        let adminViewRenderPromise = null;
         async function renderAdminView() {
+            if (adminViewRenderPromise) return adminViewRenderPromise;
+            adminViewRenderPromise = renderAdminViewInternal();
+            try { return await adminViewRenderPromise; }
+            finally { adminViewRenderPromise = null; }
+        }
+        async function renderAdminViewInternal() {
             const container = document.getElementById('admin-pending-list');
             const allDonationsContainer = document.getElementById('admin-all-donations-list');
             if (!container) return;
@@ -2364,7 +2463,7 @@
             }
             renderPartnersAdmin();
             renderAdminEcoCampaigns();
-            loadAdminStatistics();
+            // Historical statistics are intentionally hidden for now; data and SQL history remain untouched.
             const goalInput = document.getElementById('admin-fundraising-target');
             if (goalInput) goalInput.value = String(Number(fundraisingGoal.target_amount ?? DONATION_TARGET_FALLBACK));
             const goalOpen = document.getElementById('admin-fundraising-enabled');
@@ -2373,7 +2472,7 @@
             if (supabaseClient) {
                 try {
                     const { data: pendingRows, error: pendingError } = await supabaseClient.from('help_requests')
-                        .select('id,requester_id,name,city,category,description,urgency,status,created_at')
+                        .select('id,requester_id,name,city,category,description,images,urgency,status,created_at')
                         .eq('status', 'pending').order('created_at', { ascending: true });
                     if (pendingError) throw pendingError;
                     statePendingAdminRequests = pendingRows || [];
@@ -2385,24 +2484,20 @@
                 }
             }
             container.innerHTML = !pending.length ? '<div class="p-6 bg-white rounded-2xl border border-slate-200 text-sm text-slate-500">Тексеруді күтіп тұрған жаңа өтініштер жоқ.</div>' : pending.map(p => `
-                <article class="bg-white p-5 rounded-2xl border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                    <div><span class="bg-amber-100 text-amber-800 text-[10px] font-bold px-2 py-1 rounded">Модерация</span><h4 class="font-bold text-slate-900 text-sm mt-2">${escapeHTML(p.name)} (${escapeHTML(p.city)})</h4><p class="text-xs text-slate-600 mt-1">${escapeHTML(p.desc || p.description || '')}</p><p class="mt-1 text-xs text-slate-500">${escapeHTML(p.category || '')} · ${escapeHTML(p.urgency || '')}</p></div>
-                    <div class="flex gap-2 w-full sm:w-auto"><button onclick="approveAdminReq('${escapeHTML(p.id)}')" class="flex-1 bg-brand-600 text-white text-xs font-bold px-4 py-2.5 rounded-xl">Мақұлдау</button><button onclick="rejectAdminReq('${escapeHTML(p.id)}')" class="flex-1 bg-red-100 text-red-700 text-xs font-bold px-4 py-2.5 rounded-xl">Қабылдамау</button></div>
+                <article class="bg-white p-4 rounded-2xl border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div class="min-w-0"><span class="bg-amber-100 text-amber-800 text-[10px] font-bold px-2 py-1 rounded">Толық тексеру қажет</span><h4 class="font-bold text-slate-900 text-sm mt-2">${escapeHTML(p.name)} · ${escapeHTML(p.city)}</h4><p class="mt-1 line-clamp-2 break-words text-xs text-slate-600">${escapeHTML(p.description || '')}</p><p class="mt-1 text-xs text-slate-500">${escapeHTML(p.category || '')} · ${escapeHTML(p.urgency || '')} · ${(Array.isArray(p.images) ? p.images.length : 0)} сурет</p></div>
+                    <button type="button" onclick="openAdminRequestDetails('${escapeHTML(p.id)}')" class="w-full shrink-0 rounded-xl bg-slate-900 px-4 py-3 text-xs font-extrabold text-white hover:bg-slate-700 sm:w-auto">Барлық дерек пен суретті ашу</button>
                 </article>`).join('');
             const reportContainer = document.getElementById('admin-help-reports-list');
             if (reportContainer && supabaseClient) {
                 try {
                     const { data: reports, error } = await supabaseClient.from('help_reports').select('id,request_id,helper_id,description,images,status,created_at,help_requests(name,city)').eq('status','pending').order('created_at',{ascending:false});
                     if (error) throw error;
-                    reportContainer.innerHTML = !reports?.length ? '<p class="text-sm text-slate-500">Тексеруді күткен фотоесеп жоқ.</p>' : await Promise.all(reports.map(async report => {
+                    reportContainer.innerHTML = !reports?.length ? '<p class="text-sm text-slate-500">Тексеруді күткен фотоесеп жоқ.</p>' : reports.map(report => {
                         const images = Array.isArray(report.images) ? report.images : [];
-                        const previews = await Promise.all(images.map(async path => {
-                            const { data } = await supabaseClient.storage.from('case-photos').createSignedUrl(path, 900);
-                            return data?.signedUrl ? `<a href="${escapeHTML(data.signedUrl)}" target="_blank" rel="noopener"><img src="${escapeHTML(data.signedUrl)}" alt="Фотоесеп дәлелі" class="h-20 w-20 rounded-xl object-cover border border-slate-200"></a>` : '';
-                        }));
                         const reqInfo = Array.isArray(report.help_requests) ? report.help_requests[0] : report.help_requests;
-                        return `<article class="rounded-2xl border border-slate-200 p-4"><h4 class="font-bold text-sm text-slate-900">${escapeHTML(reqInfo?.name || 'Көмек сұрауы')} · ${escapeHTML(reqInfo?.city || '')}</h4><p class="my-2 whitespace-pre-line text-sm text-slate-600">${escapeHTML(report.description)}</p><div class="mb-3 flex flex-wrap gap-2">${previews.filter(Boolean).join('') || '<span class="text-xs text-amber-700">Фото сілтемесін ашу мүмкін болмады</span>'}</div><p class="mb-3 text-xs text-slate-500">Фотоесеп жіберілді: ${new Date(report.created_at).toLocaleString()}</p><div class="flex gap-2"><button onclick="reviewHelpReport('${escapeHTML(report.id)}',true)" class="flex-1 rounded-xl bg-brand-600 px-3 py-2 text-xs font-bold text-white">Дәлелді растау және жабу</button><button onclick="reviewHelpReport('${escapeHTML(report.id)}',false)" class="flex-1 rounded-xl bg-amber-100 px-3 py-2 text-xs font-bold text-amber-900">Қайта тапсыру</button></div></article>`;
-                    })).then(parts => parts.join(''));
+                        return `<article class="rounded-2xl border border-slate-200 bg-white p-4"><h4 class="font-bold text-sm text-slate-900">${escapeHTML(reqInfo?.name || 'Көмек сұрауы')} · ${escapeHTML(reqInfo?.city || '')}</h4><p class="my-2 line-clamp-2 whitespace-pre-line text-sm text-slate-600">${escapeHTML(report.description)}</p><p class="mb-3 text-xs text-slate-500">${images.length} фото · ${report.created_at ? new Date(report.created_at).toLocaleString() : ''}</p><button type="button" onclick="openAdminReportDetails('${escapeHTML(report.id)}')" class="w-full rounded-xl bg-slate-900 px-3 py-3 text-xs font-extrabold text-white hover:bg-slate-700">Есепті және барлық суретті толық ашу</button></article>`;
+                    }).join('');
                 } catch (err) { reportContainer.innerHTML = `<p class="text-sm text-red-700">Фотоесептер жүктелмеді: ${escapeHTML(err.message)}</p>`; }
             }
             if (allDonationsContainer) {
@@ -2415,9 +2510,9 @@
             const verificationContainer = document.getElementById('admin-profile-verification-list');
             if (verificationContainer && supabaseClient) {
                 try {
-                    const { data: profiles, error: profileError } = await supabaseClient.from('profiles').select('id,full_name,phone,city,verification_requested_at').not('verification_requested_at','is',null).eq('is_verified',false).order('verification_requested_at',{ascending:true});
+                    const { data: profiles, error: profileError } = await supabaseClient.from('profiles').select('id,full_name,first_name,last_name,middle_name,date_of_birth,social_status,phone,city,is_verified,avatar_url,profile_consent_at,verification_requested_at,created_at,updated_at').not('verification_requested_at','is',null).eq('is_verified',false).order('verification_requested_at',{ascending:true});
                     if (profileError) throw profileError;
-                    verificationContainer.innerHTML = !profiles?.length ? '<p class="text-sm text-slate-500">Күтудегі растау өтінімі жоқ.</p>' : profiles.map(p=>`<article class="rounded-xl border border-slate-200 p-3"><p class="text-sm font-bold text-slate-900">${escapeHTML(p.full_name || 'Аты көрсетілмеген')}</p><p class="mt-1 text-xs text-slate-600">${escapeHTML(p.city || '')} · ${escapeHTML(p.phone || '')}</p><button onclick="approveProfileVerification('${escapeHTML(p.id)}')" class="mt-3 w-full rounded-lg bg-gov-600 px-3 py-2 text-xs font-bold text-white">Әкімші растады деп белгілеу</button></article>`).join('');
+                    verificationContainer.innerHTML = !profiles?.length ? '<p class="text-sm text-slate-500">Күтудегі растау өтінімі жоқ.</p>' : profiles.map(p=>`<article class="rounded-xl border border-slate-200 bg-white p-3"><p class="text-sm font-bold text-slate-900">${escapeHTML(p.full_name || [p.first_name,p.middle_name,p.last_name].filter(Boolean).join(' ') || 'Аты көрсетілмеген')}</p><p class="mt-1 text-xs text-slate-600">${escapeHTML(p.city || '')} · ${escapeHTML(p.phone || '')}</p><p class="mt-1 text-[11px] text-slate-500">${p.date_of_birth ? 'Туған күні: ' + escapeHTML(p.date_of_birth) + ' · ' : ''}Өтінім: ${p.verification_requested_at ? escapeHTML(new Date(p.verification_requested_at).toLocaleString()) : '—'}</p><button type="button" onclick="openAdminVerificationDetails('${escapeHTML(p.id)}')" class="mt-3 w-full rounded-lg bg-gov-600 px-3 py-2.5 text-xs font-bold text-white">Толық профильді ашып, тексеру</button></article>`).join('');
                 } catch(err) { verificationContainer.innerHTML = `<p class="text-sm text-red-700">Өтінімдер ашылмады: ${escapeHTML(err.message)}</p>`; }
             }
             lucide.createIcons(); applyLanguage();
@@ -2430,7 +2525,7 @@
                 if (error) throw error;
                 await createNotification(userId, 'Профиль расталды', 'Әкімші растау мәртебесін өзгертті.', 'verification');
                 showToast('Мәртебе өзгертілді', 'Профиль растауы сақталды.');
-                await renderAdminView();
+                closeAdminReviewModal(); await renderAdminView();
             } catch(err) { showToast('Растау қатесі', err.message || 'Өзгеріс сақталмады.', true); }
         }
 
@@ -2440,7 +2535,7 @@
                 if (supabaseClient) { const { error } = await supabaseClient.from('help_requests').update({ status:'approved', reviewed_by:currentUser.id, reviewed_at:new Date().toISOString() }).eq('id',id).eq('status','pending'); if (error) throw error; }
                 const req = stateRequests.find(r => r.id === id) || statePendingAdminRequests?.find(r => r.id === id); if (req) req.status = 'approved';
                 await createNotification(req?.requesterId || req?.requester_id || req?.authorId, 'Көмек сұрауы мақұлданды', `«${req?.name || 'Өтініш'}» сұрауы жарияланды.`, 'request');
-                showToast('Мақұлданды', 'Көмек сұрауы сайтқа жарияланды!'); await loadPersistentData();
+                showToast('Мақұлданды', 'Көмек сұрауы сайтқа жарияланды!'); closeAdminReviewModal(); await loadPersistentData();
             } catch (err) { showToast('Мақұлдау қатесі', err.message || 'Өзгеріс сақталмады.', true); }
         }
         async function rejectAdminReq(id) {
@@ -2449,7 +2544,7 @@
                 if (supabaseClient) { const { error } = await supabaseClient.from('help_requests').update({ status:'rejected', reviewed_by:currentUser.id, reviewed_at:new Date().toISOString() }).eq('id',id).eq('status','pending'); if (error) throw error; }
                 const req = stateRequests.find(r => r.id === id) || statePendingAdminRequests?.find(r => r.id === id); if (req) req.status = 'rejected';
                 await createNotification(req?.requesterId || req?.requester_id || req?.authorId, 'Көмек сұрауы қабылданбады', `«${req?.name || 'Өтініш'}» сұрауына әкімші өзгеріс енгізді.`, 'request');
-                showToast('Қабылданбады', 'Өтініш тарихта сақталды; ол тізімнен жасырылады.'); await loadPersistentData();
+                showToast('Қабылданбады', 'Өтініш тарихта сақталды; ол тізімнен жасырылады.'); closeAdminReviewModal(); await loadPersistentData();
             } catch (err) { showToast('Өзгеріс қатесі', err.message || 'Сақталмады.', true); }
         }
         async function reviewHelpReport(reportId, approve) {
@@ -2460,7 +2555,7 @@
                 if (error) throw error;
                 await saveUserEvent(approve ? 'Фотоесеп мақұлданды' : 'Фотоесепті қайта тапсыру сұралды', reportId, 'admin');
                 showToast(approve ? 'Көмек аяқталды' : 'Өтініш қайта ашылды', approve ? 'Дәлел тексерілді; өтініш жабылды.' : 'Көмек жеткізілмегені расталды: өтініш қайтадан барлығына қолжетімді болады.');
-                await loadPersistentData(); renderAdminView();
+                closeAdminReviewModal(); await loadPersistentData(); renderAdminView();
             } catch (err) { showToast('Фотоесепті тексеру қатесі', err.message || 'Өзгеріс сақталмады.', true); }
         }
 
@@ -2582,7 +2677,7 @@
                 if (row) fundraisingGoal = { target_amount:Number(row.target_amount), raised_amount:Number(row.raised_amount), donations_enabled:row.donations_enabled !== false };
                 await loadFundraisingGoal(); updateFundraisingUI();
                 showToast(targetChanged ? 'Мақсат жаңартылды' : 'Қор баптауы сақталды', targetChanged ? 'Басты беттегі ағымдағы сома 0 ₸ болды; тарихи донаттар сақталды.' : (enabled ? 'Қаражат жинау ашық.' : 'Қаражат жинау уақытша жабық.'));
-                await loadAdminStatistics();
+                // Admin statistics view is intentionally not loaded; history/functions remain available.
             } catch (err) { showToast('Қорды жаңарту қатесі', err.message || 'Әкімші SQL функциясын тексеріңіз.', true); }
         }
         async function resetAdminFundraisingTotal() {
@@ -2647,6 +2742,223 @@
         }
         function mapGiveawayRow(g) { return { id:g.id, title:g.title, city:g.city, category:g.category, address:g.address || '', phone:g.phone || '', images:Array.isArray(g.images) ? g.images : [], desc:g.description || g.desc || '', ownerId:g.owner_id, status:g.status || 'open', claimedByMe:!!g.claimedByMe }; }
         function mapEcoRow(e) { return { id:e.id, title:e.title, city:e.city, date:e.event_date || e.date || '', desc:e.description || e.desc || '', location:e.location || e.city, time:e.time_text || e.time || '', agenda:Array.isArray(e.agenda) ? e.agenda : [], bring:e.bring || '', rules:e.rules || '', image:e.image_url || e.image || '', participants:Number(e.participant_count || e.participants || 0), status:e.status || 'published', createdBy:e.created_by || null }; }
+        function toggleSocialCategory(button, value) {
+            const select = document.getElementById('req-vulnerability');
+            if (!select || !button) return;
+            const option = Array.from(select.options).find(item => item.value === value);
+            if (!option) return;
+            option.selected = !option.selected;
+            button.setAttribute('aria-pressed', String(option.selected));
+            button.classList.toggle('is-selected', option.selected);
+        }
+
+        function enhanceFileInputs() {
+            document.querySelectorAll('input[type="file"]:not(.hidden):not([data-file-picker-ready="1"])').forEach((input, index) => {
+                if (!input.id) input.id = `voluhub-file-${index + 1}`;
+                input.dataset.filePickerReady = '1';
+                input.classList.add('file-picker-native');
+                const wrapper = document.createElement('div');
+                wrapper.className = 'file-picker';
+                input.parentNode.insertBefore(wrapper, input);
+                wrapper.appendChild(input);
+                const button = document.createElement('button');
+                button.type = 'button';
+                button.className = 'file-picker-button';
+                button.innerHTML = '<i data-lucide="upload-cloud" class="h-4 w-4"></i><span>Файл таңдау</span>';
+                button.addEventListener('click', (event) => { event.preventDefault(); event.stopPropagation(); input.click(); });
+                wrapper.appendChild(button);
+                const name = document.createElement('span');
+                name.className = 'file-picker-name';
+                name.textContent = input.multiple ? 'Бір немесе бірнеше сурет таңдаңыз' : 'Файл таңдалмаған';
+                wrapper.appendChild(name);
+                input.addEventListener('change', () => {
+                    const files = Array.from(input.files || []);
+                    name.textContent = files.length
+                        ? (files.length === 1 ? files[0].name : `${files.length} файл таңдалды: ${files.slice(0, 3).map(file => file.name).join(', ')}${files.length > 3 ? '…' : ''}`)
+                        : (input.multiple ? 'Бір немесе бірнеше сурет таңдаңыз' : 'Файл таңдалмаған');
+                });
+                const form = input.closest('form');
+                if (form && form.dataset.fileResetReady !== '1') {
+                    form.dataset.fileResetReady = '1';
+                    form.addEventListener('reset', () => {
+                        requestAnimationFrame(() => form.querySelectorAll('input[type="file"]').forEach(fileInput => {
+                            const label = fileInput.parentElement?.querySelector('.file-picker-name');
+                            if (label) label.textContent = fileInput.multiple ? 'Бір немесе бірнеше сурет таңдаңыз' : 'Файл таңдалмаған';
+                        }));
+                    });
+                }
+                if (window.lucide) lucide.createIcons({ root: wrapper });
+            });
+        }
+
+        function safeAdminImageUrl(value) {
+            try {
+                const url = new URL(String(value || ''), window.location.href);
+                return ['https:', 'http:'].includes(url.protocol) ? url.href : '';
+            } catch (_) { return ''; }
+        }
+        function adminDetailField(label, value) {
+            let display = value;
+            if (Array.isArray(value)) display = value.length ? value.join(', ') : 'Көрсетілмеген';
+            if (value === null || value === undefined || value === '') display = 'Көрсетілмеген';
+            return `<div class="admin-detail-field"><dt>${escapeHTML(label)}</dt><dd>${escapeHTML(display)}</dd></div>`;
+        }
+        async function getAdminReviewProfile(userId) {
+            if (!userId || !supabaseClient || !currentUser?.isAdmin) return null;
+            const { data, error } = await supabaseClient.rpc('admin_get_profile_review_details', { p_user_id: userId });
+            if (error) throw error;
+            return data || null;
+        }
+        function adminProfileFields(profile) {
+            if (!profile) return '<p class="text-sm text-amber-700">Қолданушы профилінің қосымша деректері табылмады.</p>';
+            return `<div class="admin-detail-grid">
+                ${adminDetailField('Email', profile.email)}
+                ${adminDetailField('Email расталған уақыт', profile.email_confirmed_at ? new Date(profile.email_confirmed_at).toLocaleString() : '')}
+                ${adminDetailField('Аккаунттағы соңғы кіру', profile.last_sign_in_at ? new Date(profile.last_sign_in_at).toLocaleString() : '')}
+                ${adminDetailField('Auth аккаунт құрылған уақыт', profile.user_created_at ? new Date(profile.user_created_at).toLocaleString() : '')}
+                ${adminDetailField('Рөл', profile.role)}
+                ${adminDetailField('Толық аты-жөні', profile.full_name)}
+                ${adminDetailField('Аты', profile.first_name)}
+                ${adminDetailField('Тегі', profile.last_name)}
+                ${adminDetailField('Әкесінің аты', profile.middle_name)}
+                ${adminDetailField('Туған күні', profile.date_of_birth)}
+                ${adminDetailField('Әлеуметтік мәртебе', profile.social_status)}
+                ${adminDetailField('Телефон', profile.phone)}
+                ${adminDetailField('Қала', profile.city)}
+                ${adminDetailField('Растау статусы', profile.is_verified ? 'Расталған' : 'Расталмаған')}
+                ${adminDetailField('Профиль келісімі', profile.profile_consent_at ? new Date(profile.profile_consent_at).toLocaleString() : '')}
+                ${adminDetailField('Профиль құрылған уақыт', profile.created_at ? new Date(profile.created_at).toLocaleString() : '')}
+                ${adminDetailField('Растау сұралған уақыт', profile.verification_requested_at ? new Date(profile.verification_requested_at).toLocaleString() : '')}
+                ${adminDetailField('Пайдаланушы ID', profile.id)}
+            </div>`;
+        }
+        function openAdminReviewModal(title, content) {
+            const modal = document.getElementById('admin-review-modal');
+            const titleEl = document.getElementById('admin-review-title');
+            const contentEl = document.getElementById('admin-review-content');
+            if (!modal || !titleEl || !contentEl) return;
+            titleEl.textContent = title;
+            contentEl.innerHTML = content;
+            modal.classList.remove('hidden');
+            if (window.lucide) lucide.createIcons({ root: contentEl });
+        }
+        function closeAdminReviewModal() {
+            document.getElementById('admin-review-modal')?.classList.add('hidden');
+        }
+
+        async function openAdminRequestDetails(requestId) {
+            if (!currentUser?.isAdmin || !supabaseClient) return;
+            openAdminReviewModal('Көмек сұрауы — толық тексеру', '<p class="text-sm text-slate-500">Өтінім мен суреттер жүктелуде…</p>');
+            try {
+                const { data: request, error } = await supabaseClient.from('help_requests')
+                    .select('id,requester_id,name,city,category,address,phone,images,description,urgency,vulnerability,status,helper_id,helper_signature,helper_assigned_at,reviewed_by,reviewed_at,created_at,updated_at')
+                    .eq('id', requestId).maybeSingle();
+                if (error) throw error;
+                if (!request) throw new Error('Өтінім табылмады.');
+                let profile = null;
+                if (request.requester_id) profile = await getAdminReviewProfile(request.requester_id);
+                const images = Array.isArray(request.images) ? request.images : [];
+                const photos = images.map((value, index) => {
+                    const url = safeAdminImageUrl(value);
+                    return url ? `<a href="${escapeHTML(url)}" target="_blank" rel="noopener noreferrer" class="block"><img src="${escapeHTML(url)}" alt="Көмек өтінімінің суреті ${index + 1}" loading="lazy" class="admin-detail-image"><span class="mt-1 block text-xs font-semibold text-brand-700">Суретті толық ашу ${index + 1}</span></a>` : '';
+                }).filter(Boolean).join('');
+                const avatar = safeAdminImageUrl(profile?.avatar_url);
+                const body = `<div class="space-y-6">
+                    <section><div class="mb-3 flex flex-wrap items-center justify-between gap-2"><h3 class="font-extrabold text-slate-900">Өтінім мәліметтері</h3><span class="rounded-full bg-amber-50 px-3 py-1 text-xs font-bold text-amber-800">${escapeHTML(request.status)}</span></div>
+                        <div class="admin-detail-grid">
+                            ${adminDetailField('Көмек қажет адамның / отбасының аты', request.name)}
+                            ${adminDetailField('Қала', request.city)}
+                            ${adminDetailField('Санат', request.category)}
+                            ${adminDetailField('Шұғылдық деңгейі', request.urgency)}
+                            ${adminDetailField('Мекенжайы', request.address)}
+                            ${adminDetailField('Телефон нөмірі', request.phone)}
+                            ${adminDetailField('Әлеуметтік санаттар', request.vulnerability)}
+                            ${adminDetailField('Жіберілген уақыты', request.created_at ? new Date(request.created_at).toLocaleString() : '')}
+                            ${adminDetailField('Жаңартылған уақыты', request.updated_at ? new Date(request.updated_at).toLocaleString() : '')}
+                            ${adminDetailField('Өтінім ID', request.id)}
+                            ${adminDetailField('Өтінім иесінің ID', request.requester_id)}
+                            ${adminDetailField('Көмекші ID', request.helper_id)}
+                            ${adminDetailField('Көмекші бекітілген уақыт', request.helper_assigned_at ? new Date(request.helper_assigned_at).toLocaleString() : '')}
+                            ${adminDetailField('Көмекші қолтаңбасы', request.helper_signature)}
+                            ${adminDetailField('Тексерген әкімші ID', request.reviewed_by)}
+                            ${adminDetailField('Әкімші тексерген уақыт', request.reviewed_at ? new Date(request.reviewed_at).toLocaleString() : '')}
+                        </div>
+                        <div class="mt-3 rounded-xl border border-slate-200 bg-white p-4"><p class="mb-1 text-xs font-extrabold uppercase tracking-wide text-slate-500">Толық сипаттама</p><p class="whitespace-pre-wrap break-words text-sm leading-7 text-slate-700">${escapeHTML(request.description || 'Сипаттама енгізілмеген')}</p></div>
+                    </section>
+                    <section><h3 class="mb-3 font-extrabold text-slate-900">Қоса тіркелген суреттер (${images.length})</h3>${photos ? `<div class="grid grid-cols-1 gap-3 sm:grid-cols-2">${photos}</div>` : '<p class="rounded-xl border border-dashed border-slate-300 p-4 text-sm text-slate-500">Өтінімде сурет тіркелмеген.</p>'}</section>
+                    <section><div class="mb-3 flex items-center gap-3">${avatar ? `<img src="${escapeHTML(avatar)}" alt="Профиль суреті" class="h-14 w-14 rounded-full border border-slate-200 object-cover">` : ''}<h3 class="font-extrabold text-slate-900">Өтінім иесінің профилі</h3></div>${adminProfileFields(profile)}</section>
+                    <div class="flex flex-col gap-2 border-t border-slate-200 pt-4 sm:flex-row"><button type="button" onclick="approveAdminReq('${escapeHTML(request.id)}')" class="flex-1 rounded-xl bg-brand-600 px-4 py-3 text-sm font-extrabold text-white">Тексерілді — мақұлдау</button><button type="button" onclick="rejectAdminReq('${escapeHTML(request.id)}')" class="flex-1 rounded-xl bg-red-50 px-4 py-3 text-sm font-extrabold text-red-700">Қабылдамау</button></div>
+                </div>`;
+                openAdminReviewModal('Көмек сұрауы — толық тексеру', body);
+            } catch (err) {
+                openAdminReviewModal('Өтінім деректері', `<p class="text-sm text-red-700">Толық деректер жүктелмеді: ${escapeHTML(err.message || 'Қате')}</p>`);
+            }
+        }
+
+        async function openAdminReportDetails(reportId) {
+            if (!currentUser?.isAdmin || !supabaseClient) return;
+            openAdminReviewModal('Фотоесеп — толық тексеру', '<p class="text-sm text-slate-500">Есеп, өтінім және фотосуреттер жүктелуде…</p>');
+            try {
+                const { data: report, error } = await supabaseClient.from('help_reports')
+                    .select('id,request_id,helper_id,description,images,status,review_note,reviewed_by,reviewed_at,created_at')
+                    .eq('id', reportId).maybeSingle();
+                if (error) throw error;
+                if (!report) throw new Error('Фотоесеп табылмады.');
+                const [requestResult, helper] = await Promise.all([
+                    supabaseClient.from('help_requests').select('id,requester_id,name,city,category,address,phone,images,description,urgency,vulnerability,status,created_at').eq('id', report.request_id).maybeSingle(),
+                    getAdminReviewProfile(report.helper_id)
+                ]);
+                if (requestResult.error) console.warn('Report linked request:', requestResult.error.message);
+                const request = requestResult.data;
+                const linkedRequestImages = Array.isArray(request?.images) ? request.images : [];
+                const linkedRequestPhotos = linkedRequestImages.map((value, index) => {
+                    const url = safeAdminImageUrl(value);
+                    return url ? `<a href="${escapeHTML(url)}" target="_blank" rel="noopener noreferrer" class="block"><img src="${escapeHTML(url)}" alt="Бастапқы өтінім суреті ${index + 1}" loading="lazy" class="admin-detail-image"><span class="mt-1 block text-xs font-semibold text-brand-700">Суретті толық ашу ${index + 1}</span></a>` : '';
+                }).filter(Boolean).join('');
+                const paths = Array.isArray(report.images) ? report.images : [];
+                const images = await Promise.all(paths.map(async (path, index) => {
+                    try {
+                        const { data, error: urlError } = await supabaseClient.storage.from('case-photos').createSignedUrl(path, 900);
+                        if (urlError || !data?.signedUrl) return '';
+                        const url = safeAdminImageUrl(data.signedUrl);
+                        return url ? `<a href="${escapeHTML(url)}" target="_blank" rel="noopener noreferrer" class="block"><img src="${escapeHTML(url)}" alt="Фотоесеп дәлелі ${index + 1}" loading="lazy" class="admin-detail-image"><span class="mt-1 block text-xs font-semibold text-brand-700">Суретті толық ашу ${index + 1}</span></a>` : '';
+                    } catch (_) { return ''; }
+                }));
+                const visibleImages = images.filter(Boolean);
+                const canApproveReport = visibleImages.length > 0 && visibleImages.length === paths.length && !!request && !!helper;
+                const body = `<div class="space-y-6">
+                    <section><h3 class="mb-3 font-extrabold text-slate-900">Фотоесеп мәліметтері</h3><div class="admin-detail-grid">
+                        ${adminDetailField('Есеп жіберілген уақыт', report.created_at ? new Date(report.created_at).toLocaleString() : '')}
+                        ${adminDetailField('Есеп мәртебесі', report.status)}
+                        ${adminDetailField('Фотоесеп ID', report.id)}
+                        ${adminDetailField('Көмек сұрауы ID', report.request_id)}
+                        ${adminDetailField('Көмекші ID', report.helper_id)}
+                    </div><div class="mt-3 rounded-xl border border-slate-200 bg-white p-4"><p class="mb-1 text-xs font-extrabold uppercase text-slate-500">Көмек көрсетілгені туралы есеп</p><p class="whitespace-pre-wrap break-words text-sm leading-7 text-slate-700">${escapeHTML(report.description || 'Сипаттама жоқ')}</p></div></section>
+                    <section><h3 class="mb-3 font-extrabold text-slate-900">Фото-дәлелдер (${paths.length})</h3>${visibleImages.length ? `<div class="grid grid-cols-1 gap-3 sm:grid-cols-2">${visibleImages.join('')}</div>` : '<p class="rounded-xl border border-dashed border-amber-300 bg-amber-50 p-4 text-sm text-amber-800">Фото-дәлелдер ашылмады. Қоймаға кіру рұқсатын және файл жолдарын тексеріңіз; бұл есепті осы күйде мақұлдамаңыз.</p>'}</section>
+                    <section><h3 class="mb-3 font-extrabold text-slate-900">Байланысты көмек өтінімі</h3>${request ? `<div class="admin-detail-grid">${adminDetailField('Отбасы / адам', request.name)}${adminDetailField('Қала', request.city)}${adminDetailField('Санат', request.category)}${adminDetailField('Шұғылдық', request.urgency)}${adminDetailField('Мекенжай', request.address)}${adminDetailField('Телефон', request.phone)}${adminDetailField('Әлеуметтік санат', request.vulnerability)}${adminDetailField('Мәртебе', request.status)}${adminDetailField('Өтінім иесінің ID', request.requester_id)}${adminDetailField('Жіберілген уақыт', request.created_at ? new Date(request.created_at).toLocaleString() : '')}</div><div class="mt-3 rounded-xl border border-slate-200 bg-white p-4"><p class="mb-1 text-xs font-extrabold uppercase text-slate-500">Бастапқы өтінім сипаттамасы</p><p class="whitespace-pre-wrap text-sm leading-7 text-slate-700">${escapeHTML(request.description || '')}</p></div><div class="mt-3"><h4 class="mb-2 text-xs font-extrabold uppercase text-slate-500">Бастапқы өтінім суреттері (${linkedRequestImages.length})</h4>${linkedRequestPhotos ? `<div class="grid grid-cols-1 gap-3 sm:grid-cols-2">${linkedRequestPhotos}</div>` : '<p class="text-xs text-slate-500">Бастапқы өтінімде ашылатын сурет жоқ.</p>'}</div>` : '<p class="text-sm text-amber-700">Байланысты өтінім табылмады.</p>'}</section>
+                    <section><div class="mb-3 flex items-center gap-3">${helper?.avatar_url && safeAdminImageUrl(helper.avatar_url) ? `<img src="${escapeHTML(safeAdminImageUrl(helper.avatar_url))}" alt="Көмекші профилінің суреті" class="h-14 w-14 rounded-full border border-slate-200 object-cover">` : ''}<h3 class="font-extrabold text-slate-900">Көмек көрсеткен адамның профилі</h3></div>${adminProfileFields(helper)}</section>
+                    <div class="flex flex-col gap-2 border-t border-slate-200 pt-4 sm:flex-row">${canApproveReport ? `<button type="button" onclick="reviewHelpReport('${escapeHTML(report.id)}',true)" class="flex-1 rounded-xl bg-brand-600 px-4 py-3 text-sm font-extrabold text-white">Фотоесепті растау және жабу</button>` : '<p class="flex-1 rounded-xl bg-amber-50 px-4 py-3 text-xs font-semibold text-amber-900">Барлық фото, бастапқы өтінім және көмекші профилі толық ашылмайынша мақұлдау қолжетімсіз.</p>'}<button type="button" onclick="reviewHelpReport('${escapeHTML(report.id)}',false)" class="flex-1 rounded-xl bg-amber-50 px-4 py-3 text-sm font-extrabold text-amber-900">Қайта тапсыруды сұрау</button></div>
+                </div>`;
+                openAdminReviewModal('Фотоесеп — толық тексеру', body);
+            } catch (err) {
+                openAdminReviewModal('Фотоесеп деректері', `<p class="text-sm text-red-700">Фотоесептің толық деректері жүктелмеді: ${escapeHTML(err.message || 'Қате')}</p>`);
+            }
+        }
+
+        async function openAdminVerificationDetails(userId) {
+            if (!currentUser?.isAdmin || !supabaseClient) return;
+            openAdminReviewModal('Тұлғаны растау — толық тексеру', '<p class="text-sm text-slate-500">Профиль деректері жүктелуде…</p>');
+            try {
+                const profile = await getAdminReviewProfile(userId);
+                if (!profile) throw new Error('Профиль табылмады.');
+                const avatar = safeAdminImageUrl(profile.avatar_url);
+                const body = `<div class="space-y-5"><section class="flex flex-wrap items-center gap-4">${avatar ? `<img src="${escapeHTML(avatar)}" alt="Пайдаланушы профилінің суреті" class="h-24 w-24 rounded-2xl border border-slate-200 bg-slate-50 object-cover">` : '<div class="flex h-24 w-24 items-center justify-center rounded-2xl bg-slate-100 text-slate-500"><i data-lucide="user-round" class="h-8 w-8"></i></div>'}<div><h3 class="text-lg font-extrabold text-slate-900">${escapeHTML(profile.full_name || [profile.first_name,profile.middle_name,profile.last_name].filter(Boolean).join(' ') || 'Аты көрсетілмеген')}</h3><p class="mt-1 text-sm text-slate-500">${escapeHTML(profile.city || 'Қала көрсетілмеген')}</p><p class="mt-1 text-xs text-slate-500">Email және аккаунт белсенділігі әкімшіге арналған қорғалған дереккөзден алынды.</p></div></section>${adminProfileFields(profile)}<div class="border-t border-slate-200 pt-4"><button type="button" onclick="approveProfileVerification('${escapeHTML(profile.id)}')" class="w-full rounded-xl bg-gov-600 px-4 py-3 text-sm font-extrabold text-white">Барлық деректі тексердім — растау</button></div></div>`;
+                openAdminReviewModal('Тұлғаны растау — толық тексеру', body);
+            } catch (err) {
+                openAdminReviewModal('Растау деректері', `<p class="text-sm text-red-700">Профиль мәліметтері жүктелмеді: ${escapeHTML(err.message || 'Қате')}</p>`);
+            }
+        }
+
         function isValidImageFile(file) { return !!file && ['image/jpeg','image/png','image/webp','image/gif'].includes(file.type) && file.size <= 8 * 1024 * 1024; }
         async function uploadImageFiles(files, bucket='public-images', privateFiles=false) {
             if (!supabaseClient || !currentUser) throw new Error('Сурет жүктеу үшін аккаунт пен Supabase қажет.');
@@ -2668,7 +2980,15 @@
             if (!error && data) fundraisingGoal = { target_amount:Number(data.target_amount), raised_amount:Number(data.raised_amount), donations_enabled:data.donations_enabled !== false };
             updateFundraisingUI();
         }
+        let publicDataLoadPromise = null;
         async function loadPublicData() {
+            if (!supabaseClient) return;
+            if (!publicDataLoadPromise) {
+                publicDataLoadPromise = loadPublicDataInternal().finally(() => { publicDataLoadPromise = null; });
+            }
+            return publicDataLoadPromise;
+        }
+        async function loadPublicDataInternal() {
             if (!supabaseClient) return;
             try {
                 // Start timeout cleanup in parallel with page queries so it does not add
@@ -2698,16 +3018,27 @@
                 const partnersBox = document.getElementById('partners-empty-state');
                 if (partnersBox && !partnersRes.error) {
                     const partners = partnersRes.data || [];
-                    partnersBox.innerHTML = partners.length ? partners.map(p => {
-                        const logo = p.logo_url
-                            ? `<img src="${escapeHTML(p.logo_url)}" alt="${escapeHTML(p.name)} логотипі" loading="lazy" class="h-16 w-16 shrink-0 rounded-2xl border border-slate-200 bg-white object-contain p-2">`
-                            : `<div class="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-brand-50 text-brand-700"><i data-lucide="building-2" class="h-7 w-7"></i></div>`;
-                        const imageUrls = Array.isArray(p.image_urls) ? p.image_urls : [];
-                        const gallery = imageUrls.length ? `<div class="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-3">${imageUrls.map((url, i) => `<img src="${escapeHTML(url)}" alt="${escapeHTML(p.name)} — қосымша сурет ${i + 1}" loading="lazy" class="h-28 w-full rounded-xl border border-slate-100 object-cover">`).join('')}</div>` : '';
-                        const website = p.website ? `<a class="mt-3 inline-block text-sm font-semibold text-brand-700 underline" href="${escapeHTML(p.website)}" target="_blank" rel="noopener noreferrer">Ұйым сайты</a>` : '';
-                        return `<article class="partner-card p-5 text-left"><div class="mb-3 h-1 w-14 rounded-full bg-gradient-to-r from-emerald-500 to-teal-400"></div><div class="flex items-center gap-4">${logo}<h3 translate="no" class="notranslate break-words font-bold text-slate-900">${escapeHTML(p.name)}</h3></div><p class="mt-3 text-sm leading-6 text-slate-600">${escapeHTML(p.description || '')}</p>${gallery}${website}</article>`;
-                    }).join('') : '<div class="rounded-2xl border border-slate-200 bg-white p-8 text-center shadow-sm"><p class="font-semibold text-slate-800">Әзірге серіктес ұйымдар қосылмаған.</p><p class="mt-1 text-sm text-slate-500">Серіктес ұйымдар бұл жерде көрсетіледі.</p></div>';
-                    if (window.lucide) lucide.createIcons();
+                    const hasPartners = partners.length > 0;
+                    partnersBox.className = hasPartners ? 'partner-strip custom-scrollbar' : 'rounded-2xl border border-slate-200 bg-white p-8 text-center shadow-sm';
+                    if (hasPartners) {
+                        partnersBox.setAttribute('tabindex', '0');
+                        partnersBox.setAttribute('aria-label', 'Серіктес ұйымдар. Көлденең жылжытып көруге болады.');
+                        partnersBox.innerHTML = partners.map(p => {
+                            const logo = p.logo_url
+                                ? `<img src="${escapeHTML(p.logo_url)}" alt="${escapeHTML(p.name)} логотипі" loading="lazy">`
+                                : `<i data-lucide="building-2" class="h-7 w-7"></i>`;
+                            const imageUrls = Array.isArray(p.image_urls) ? p.image_urls : [];
+                            const coverUrl = imageUrls.length ? safeAdminImageUrl(imageUrls[0]) : '';
+                            const cover = coverUrl ? `<img src="${escapeHTML(coverUrl)}" alt="${escapeHTML(p.name)} — компания суреті" loading="lazy" class="partner-cover">` : '';
+                            const galleryUrls = imageUrls.slice(1);
+                            const gallery = galleryUrls.length ? `<div class="partner-card-gallery custom-scrollbar" aria-label="${escapeHTML(p.name)} қосымша суреттері">${galleryUrls.map((url, i) => { const safeUrl = safeAdminImageUrl(url); return safeUrl ? `<a href="${escapeHTML(safeUrl)}" target="_blank" rel="noopener noreferrer"><img src="${escapeHTML(safeUrl)}" alt="${escapeHTML(p.name)} — қосымша сурет ${i + 2}" loading="lazy"></a>` : ''; }).join('')}</div>` : '';
+                            const website = p.website ? `<a class="mt-2 inline-block text-xs font-bold text-brand-700 underline" href="${escapeHTML(p.website)}" target="_blank" rel="noopener noreferrer">Ұйым сайты</a>` : '';
+                            return `<article class="partner-card partner-card-home text-left"><div class="partner-brand-frame"><div class="partner-logo-slot">${logo}</div><div class="min-w-0"><h3 translate="no" class="notranslate break-words text-sm font-extrabold leading-snug text-slate-900">${escapeHTML(p.name)}</h3><p class="mt-1 text-[10px] font-semibold uppercase tracking-wide text-slate-500">VoluHub серіктесі</p></div>${cover}</div><p class="mt-2 line-clamp-2 text-xs leading-5 text-slate-600">${escapeHTML(p.description || '')}</p>${gallery}${website}</article>`;
+                        }).join('');
+                    } else {
+                        partnersBox.innerHTML = '<p class="font-semibold text-slate-800">Әзірге серіктес ұйымдар қосылмаған.</p><p class="mt-1 text-sm text-slate-500">Серіктес ұйымдар бұл жерде көрсетіледі.</p>';
+                    }
+                    if (window.lucide) lucide.createIcons({ root: partnersBox });
                 }
                 const mergedRequestRows = [...(requestsRes.data || []), ...(!ownRequestsRes.error ? (ownRequestsRes.data || []) : [])];
                 const uniqueRequestRows = Array.from(new Map(mergedRequestRows.map(row => [row.id, row])).values());
@@ -2743,15 +3074,29 @@
                 }).catch(error => console.warn('Background help refresh:', error?.message || error));
             } catch (err) { console.error('Public data load failed:', err); showToast('Деректерді жүктеу қатесі', err.message || 'Supabase кестелері/саясаттары тексерілуі керек.', true); }
         }
+        let persistentDataLoadPromise = null;
         async function loadPersistentData() {
             if (!supabaseClient || !currentUser) return;
-            await loadPublicData();
+            if (!persistentDataLoadPromise) {
+                persistentDataLoadPromise = loadPersistentDataInternal().finally(() => { persistentDataLoadPromise = null; });
+            }
+            return persistentDataLoadPromise;
+        }
+        async function loadPersistentDataInternal() {
+            if (!supabaseClient || !currentUser) return;
+            const userIdAtStart = currentUser.id;
+            const publicDataPromise = loadPublicData();
+            let donationsQuery = supabaseClient.from('donations')
+                .select('id,user_id,amount,payment_mode,donor_name,donor_email,created_at')
+                .order('created_at',{ascending:false});
+            if (!currentUser.isAdmin) donationsQuery = donationsQuery.eq('user_id', currentUser.id);
             const myQueries = [
                 supabaseClient.from('eco_participants').select('campaign_id').eq('user_id',currentUser.id),
                 supabaseClient.from('notifications').select('*').eq('user_id',currentUser.id).order('created_at',{ascending:false}).limit(50),
-                supabaseClient.from('donations').select('*').order('created_at',{ascending:false})
+                donationsQuery
             ];
-            const [participantsRes, notificationsRes, donationsRes] = await Promise.all(myQueries);
+            const [participantsRes, notificationsRes, donationsRes] = await Promise.all([...myQueries, publicDataPromise]);
+            if (currentUser?.id !== userIdAtStart) return;
             if (!participantsRes.error) ecoJoined = new Set((participantsRes.data || []).map(x=>x.campaign_id));
             if (!notificationsRes.error) stateNotifications = notificationsRes.data || [];
             else console.warn('Could not load notifications:', notificationsRes.error.message);
@@ -2796,7 +3141,7 @@
         function renderProfileActivity() {
             const container = document.getElementById('profile-activity-list');
             if (!container) return;
-            const items = stateNotifications.slice(0,10);
+            const items = stateNotifications.slice(0,50);
             container.innerHTML = items.length ? items.map(n=>`<div class="flex gap-3 border-b border-slate-100 pb-3"><span class="mt-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-brand-50 text-brand-700"><i data-lucide="${n.type==='donation'?'coins':n.type==='report'?'clipboard-check':n.type==='eco'?'leaf':n.type==='request'?'heart':'activity'}" class="h-4 w-4"></i></span><div class="min-w-0"><p class="text-sm font-semibold text-slate-800">${escapeHTML(n.title || '')}</p><p class="text-xs text-slate-600">${escapeHTML(n.message || '')}</p><p class="mt-1 text-[10px] text-slate-500">${n.created_at ? escapeHTML(new Date(n.created_at).toLocaleString()) : ''}</p></div></div>`).join('') : '<p class="text-sm text-slate-500">Әзірге әрекет жоқ. Жасалған әрекеттер осы жерде көрінеді.</p>';
             lucide.createIcons(); applyLanguage();
         }
@@ -2814,7 +3159,8 @@
             stateNotifications = stateNotifications.map(n=>({...n,is_read:true})); renderNotifications();
         }
         function toggleMainMenu() { toggleAuthenticatedMenu(); }
-        function toggleAuthenticatedMenu() {
+        function toggleAuthenticatedMenu(event) {
+            event?.stopPropagation();
             if (!currentUser || !currentUser.onboarded || !isEGovVerified) { openAuthModal(); return; }
             const panel = document.getElementById('mobile-menu-panel');
             const button = document.getElementById('menu-button');
@@ -2822,7 +3168,6 @@
                 const willOpen = panel.classList.contains('hidden');
                 panel.classList.toggle('hidden', !willOpen);
                 if (button) button.setAttribute('aria-expanded', String(willOpen));
-                if (willOpen && window.lucide) lucide.createIcons();
             } else {
                 closeMainMenu();
                 openMainMenuPage();
@@ -3078,7 +3423,8 @@
                 'help-start-modal': () => closeHelpStartModal(),
                 'giveaway-claim-modal': () => closeGiveawayClaimModal(),
                 'admin-eco-editor': () => closeAdminEcoEditor(),
-                'eco-details-modal': () => closeEcoDetails()
+                'eco-details-modal': () => closeEcoDetails(),
+                'admin-review-modal': () => closeAdminReviewModal()
             };
             Object.entries(safeDismiss).forEach(([id, callback]) => {
                 const overlay = document.getElementById(id);
@@ -3090,6 +3436,7 @@
             if (event.key === 'Escape') {
                 document.getElementById('notifications-panel')?.classList.add('hidden');
                 closeMainMenu();
+                closeAdminReviewModal();
             }
         });
     </script>
