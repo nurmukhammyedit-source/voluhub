@@ -1492,3 +1492,59 @@ grant execute on function public.admin_get_profile_review_details(uuid) to authe
 -- Run this full migration in Supabase SQL Editor after reviewing the project backup.
 
 notify pgrst, 'reload schema';
+
+-- -----------------------------------------------------------------------------
+-- VoluHub requested update: admin moderation for free-item (giveaway) submissions
+-- New user submissions enter as pending; the existing claim/exchange RPCs continue
+-- to operate only on published (open) rows and remain admin-free.
+-- -----------------------------------------------------------------------------
+alter table public.giveaways add column if not exists reviewed_by uuid references auth.users(id) on delete set null;
+alter table public.giveaways add column if not exists reviewed_at timestamptz;
+alter table public.giveaways alter column status set default 'pending';
+
+do $$
+declare c record;
+begin
+  for c in
+    select conname from pg_constraint
+    where conrelid = 'public.giveaways'::regclass
+      and contype = 'c'
+      and pg_get_constraintdef(oid) ilike '%status%'
+  loop
+    execute format('alter table public.giveaways drop constraint %I', c.conname);
+  end loop;
+  if not exists (select 1 from pg_constraint where conrelid='public.giveaways'::regclass and conname='voluhub_giveaways_status_check') then
+    alter table public.giveaways add constraint voluhub_giveaways_status_check check (status in ('pending','open','reserved','closed','rejected'));
+  end if;
+end $$;
+
+-- Recreate restrictive policies. Users may submit only pending rows; they cannot
+-- publish or alter status themselves. Admin decisions publish to 'open' or reject.
+drop policy if exists "giveaways_insert_own" on public.giveaways;
+drop policy if exists "giveaways_insert_own_pending" on public.giveaways;
+create policy "giveaways_insert_own_pending" on public.giveaways
+for insert to authenticated
+with check (
+  owner_id = auth.uid()
+  and public.voluhub_current_user_is_verified()
+  and status = 'pending'
+  and claimed_by is null
+);
+
+drop policy if exists "giveaways_update_owner_or_admin" on public.giveaways;
+drop policy if exists "giveaways_admin_moderation_update" on public.giveaways;
+create policy "giveaways_admin_moderation_update" on public.giveaways
+for update to authenticated
+using (public.voluhub_current_user_is_admin())
+with check (public.voluhub_current_user_is_admin());
+
+-- The public feed continues to expose only published, still-available items.
+create or replace view public.giveaways_public_feed as
+select id, owner_id, title, city, category, images, description, status, created_at
+from public.giveaways
+where status = 'open';
+grant select on public.giveaways_public_feed to anon, authenticated;
+
+create index if not exists giveaways_status_created_idx on public.giveaways(status, created_at desc);
+
+notify pgrst, 'reload schema';
